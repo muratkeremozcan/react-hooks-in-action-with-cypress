@@ -1,5 +1,7 @@
-name: Build
-on: push
+name: Build, Lint, e2e & ct test
+on:
+  push:
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.head_ref || github.ref }}

@@ -1,5 +1,10 @@
 # React Hooks in Action Book, with Cypress e2e & component tests
 
+![react version](https://img.shields.io/badge/react-17.0.2-brightgreen) ![react-scripts version](https://img.shields.io/badge/react--scripts-4.0.3-brightgreen) ![cypress version](https://img.shields.io/badge/cypress-9.3.1-brightgreen) ![@cypress/react version](https://img.shields.io/badge/@cypress/react-5.12.1-brightgreen) ![@cypress/webpack-dev-server version](https://img.shields.io/badge/@cypress/webpack--dev--server-1.8.0-brightgreen) [![renovate-app badge][renovate-badge]][renovate-app]
+
+[renovate-badge]: https://img.shields.io/badge/renovate-app-blue.svg
+[renovate-app]: https://renovateapp.com/
+
 ```bash
 yarn install --registry https://registry.yarnpkg.com # specify the registry in case you are using a proprietary registry
 
