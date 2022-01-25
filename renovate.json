@@ -9,7 +9,7 @@
   "labels": ["type: dependencies", "renovate"],
   "packageRules": [
     {
-      "packageNames": ["faker", "react-scripts"],
+      "packageNames": ["react-scripts"],
       "enabled": false
     }
   ]

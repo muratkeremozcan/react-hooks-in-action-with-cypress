@@ -69,7 +69,7 @@ Launch component test runner with `yarn cy:open-ct`.
 
 ```yml
 component-test:
-    needs: [install-dependencies]]
+    needs: [install-dependencies]
     runs-on: ubuntu-latest
     container: cypress/included:9.3.1 # save time on not having to install cypress
     steps:
