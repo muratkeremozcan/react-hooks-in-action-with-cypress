@@ -1,0 +1,87 @@
+name: Build
+on: push
+
+concurrency:
+  group: ${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  install-dependencies:
+    name: Install Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          cache: 'yarn'
+      - uses: bahmutov/npm-install@v1
+        with: { useRollingCache: true } # recommended for large projects
+        env:
+          CYPRESS_INSTALL_BINARY: 0 # no need to install the Cypress binary, we are already using the docker image in the e2e job
+
+  lint:
+    needs: install-dependencies
+    name: Run Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: bahmutov/npm-install@v1
+        with: { useRollingCache: true }
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+      - name: lint
+        run: yarn lint
+
+  cypress-e2e-tests:
+    needs: [install-dependencies]
+    runs-on: ubuntu-latest
+    container: cypress/included:9.3.1 # save time on not having to install cypress
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: bahmutov/npm-install@v1 # save time on dependencies
+        with: { useRollingCache: true }
+
+      - name: Cypress e2e tests 🧪
+        uses: cypress-io/github-action@v2.11.7
+        with:
+          install: false # no need to install because of the above 2
+          start: yarn start
+          wait-on: 'http://localhost:3000'
+          browser: chrome
+          record: false # no need to record for now
+          group: e2e-tests
+          tag: e2e-tests
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
+  cypress-component-tests:
+    # strategy: # ran out of parallelization, turning it off
+    #   matrix:
+    #     machines: [1, 2, 3] # uses 2 CI machines to run tests in parallel
+    needs: [install-dependencies]
+    runs-on: ubuntu-latest
+    container: cypress/included:9.3.1 # save time on not having to install cypress
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: bahmutov/npm-install@v1 # save time on dependencies
+        with: { useRollingCache: true }
+
+      - name: Cypress component tests 🧪
+        uses: cypress-io/github-action@v2.11.7
+        with:
+          # we have already installed everything
+          install: false
+          # to run component tests we need to use "cypress run-ct"
+          # with component tests since we have a custom command, we pass these parameters in the command instead
+          # command: yarn cypress run-ct --record --key=${{ secrets.CYPRESS_RECORD_KEY }} --browser chrome --group component-tests --tag component-tests --parallel
+          # ran out of parallelization, turning it off
+          command: yarn cypress run-ct --browser chrome
+          # browser: chrome
+          # record: true
+          # parallel: true # parallelizes tests
+          # group: component-tests
+          # tag: component-test
+        # env:
+        # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

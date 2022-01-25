@@ -1,0 +1,8 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "component": {
+    "testFiles": "**/**/*.ct-spec.{js,ts,jsx,tsx}",
+    "componentFolder": "src"
+  },
+  "experimentalPolyfill": true
+}

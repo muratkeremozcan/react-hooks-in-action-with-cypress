@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# React Hooks in Action Book, with Cypress e2e & component tests
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```bash
+yarn install --registry https://registry.yarnpkg.com # specify the registry in case you are using a proprietary registry
 
-## Available Scripts
+yarn start # start the server
+yarn cy:open # for cypress e2e test runner
+yarn cy:run # headless version
 
-In the project directory, you can run:
+# no need to have server running for these:
+yarn cy:open-ct # for cypress component test runner
+yarn cy:run-ct # headless version
 
-### `npm start`
+yarn test # run unit tests with jest
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# use server-test to start the app and run e2e (the app should not already be running)
+yarn server:test
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## CI
 
-### `npm test`
+```
+build  -->  Cypress e2e test
+       -->  Cypress component test
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Component Testing
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Followed the instructions at [Getting Started with Cypress Component Testing (React)](https://www.cypress.io/blog/2021/04/06/cypress-component-testing-react/).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Minimal instructions:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. `yarn add -D @cypress/react @cypress/webpack-dev-server`, add `cy:open-ct` and `cy:run-ct` scripts to `package.json`.
 
-### `npm run eject`
+2. Modify the cypress.json for - distinct from other unit tests hence the naming `comp-test`:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```json
+   {
+   "baseUrl": "http://localhost:3000",
+   "component": {
+       "testFiles": "**/*.ct-spec.{js,ts,jsx,tsx}",
+       "componentFolder": "src"
+   }
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Enhance the plugins/index file with the component test configuration. The dev server depends on your react setup.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```json
+const injectDevServer = require("@cypress/react/plugins/react-scripts")
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+module.exports = (on, config) => {
+  injectDevServer(on, config)
+  return config
+}
+```
 
-## Learn More
+Launch component test runner with `yarn cy:open-ct`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. The component test CI setup can be isolated, or can be steps after the e2e steps
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```yml
+component-test:
+    needs: [install-dependencies]]
+    runs-on: ubuntu-latest
+    container: cypress/included:9.3.1 # save time on not having to install cypress
+    steps:
+    - uses: actions/checkout@v2
 
-### Code Splitting
+    - uses: bahmutov/npm-install@v1 # save time on dependencies
+        with: { useRollingCache: true }
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    # the docs advise to run component tests after the e2e tests, this part could also be right after e2e tests
+    - name: Cypress component tests 🧪
+        uses: cypress-io/github-action@v2.11.7
+        with:
+        # we have already installed everything
+        install: false
+        # to run component tests we need to use "cypress run-ct"
+        command: yarn cypress run-ct
+```
