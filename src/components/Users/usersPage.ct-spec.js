@@ -1,7 +1,7 @@
 import { mount } from '@cypress/react'
 import UsersPage from './UsersPage'
 
-it('works', () => {
+it('UsersPage renders', () => {
   mount(<UsersPage />)
   cy.contains('Users!')
 })

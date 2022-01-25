@@ -22,6 +22,7 @@ yarn server:test
 ```
 build  -->  Cypress e2e test
        -->  Cypress component test
+       -->  lint
 ```
 
 ---
