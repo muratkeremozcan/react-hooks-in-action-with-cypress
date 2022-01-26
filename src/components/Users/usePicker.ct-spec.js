@@ -2,7 +2,7 @@ import React from 'react'
 import { mount } from '@cypress/react'
 import UserPicker from './UserPicker'
 
-it('UserPicker renders', () => {
+it('renders UserPicker', () => {
   mount(<UserPicker />)
-  cy.get('select').select('Users2')
+  cy.get('select').select('User2')
 })

@@ -1,8 +1,8 @@
 export default function UserPicker() {
   return (
     <select>
-      <option>Users</option>
-      <option>Users2</option>
+      <option>User1</option>
+      <option>User2</option>
     </select>
   )
 }

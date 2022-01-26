@@ -1,7 +1,7 @@
 import { mount } from '@cypress/react'
 import BookablesPage from './BookablesPage'
 
-it('BookablesPage renders', () => {
+it('renders BookablesPage', () => {
   mount(<BookablesPage />)
   cy.contains('Bookables!')
 })
