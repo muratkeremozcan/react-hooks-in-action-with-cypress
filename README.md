@@ -41,7 +41,7 @@ Minimal instructions:
 
 1. `yarn add -D @cypress/react @cypress/webpack-dev-server`, add `cy:open-ct` and `cy:run-ct` scripts to `package.json`.
 
-2. Modify the cypress.json for - distinct from other unit tests hence the naming `comp-test`:
+2. Modify the cypress.json for test file naming. Cypress recommends ComponentName.cy.js for Cypress component tests so folks can stick with ComponentName.spec.js for their jest tests `cy.js`:
 
    ```json
    {

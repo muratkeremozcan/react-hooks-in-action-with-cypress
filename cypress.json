@@ -3,7 +3,7 @@
   "$schema": "https://on.cypress.io/cypress.schema.json",
   "baseUrl": "http://localhost:3000",
   "component": {
-    "testFiles": "**/**/*.ct-spec.{js,ts,jsx,tsx}",
+    "testFiles": "**/**/*.cy.{js,ts,jsx,tsx}",
     "componentFolder": "src/components"
   },
   "retries": {

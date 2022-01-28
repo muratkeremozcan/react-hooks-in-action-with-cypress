@@ -13,7 +13,7 @@ export default function BookablesList() {
   const bookablesInGroup = bookables.filter((b) => b.group === group)
   // [2.1] calling useState returns a value and its updater function in an array of 2, the names are arbitrary
   // if you want an initial value for the variable, pass it as an argument to the useState
-  const [bookableIndex, setBookableIndex] = useState(1)
+  const [bookableIndex, setBookableIndex] = useState(0)
   /* could do this too... but no
     const bookableIndexArray = useState();
     const bookableIndex = bookableIndexArray[0];
