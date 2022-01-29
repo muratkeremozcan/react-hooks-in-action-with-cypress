@@ -9,7 +9,7 @@ export default function UsersList() {
       {users.map((u, i) => (
         <li key={u.id} className={i === userIndex ? 'selected' : null}>
           <button className="btn" onClick={() => setUserIndex(i)}>
-            {u.name}
+            {!u.name}
           </button>
         </li>
       ))}
