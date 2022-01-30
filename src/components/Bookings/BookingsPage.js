@@ -1,6 +1,6 @@
 export default function BookablesPage() {
   return (
-    <main classname="bookings-page">
+    <main className="bookings-page">
       <p>Bookings!</p>
     </main>
   )

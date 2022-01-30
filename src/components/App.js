@@ -39,9 +39,9 @@ export default function App() {
         </header>
 
         <Routes>
-          <Route path="/bookings" element={BookingsPage} />
-          <Route path="/bookables" element={BookablesPage} />
-          <Route path="/users" element={UsersPage} />
+          <Route path="/bookings" element={<BookingsPage />} />
+          <Route path="/bookables" element={<BookablesPage />} />
+          <Route path="/users" element={<UsersPage />} />
         </Routes>
       </div>
     </Router>
