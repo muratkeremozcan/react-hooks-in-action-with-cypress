@@ -52,6 +52,7 @@ jobs:
           wait-on: 'http://localhost:3000'
           browser: chrome
           record: true
+          parallel: true
           group: e2e-tests
           tag: e2e-tests
         env:
@@ -77,7 +78,7 @@ jobs:
           install: false
           # to run component tests we need to use "cypress run-ct"
           # with component tests since we have a custom command, we pass these parameters in the command instead
-          command: yarn cypress run-ct --record --key=${{ secrets.CYPRESS_RECORD_KEY }} --browser chrome --group component-tests --tag component-tests --parallel
+          command: yarn cypress run-ct --record --key=${{ secrets.CYPRESS_RECORD_KEY }} --browser chrome --group component-tests --tag component-tests --parallel 2
           # if you run out of parallelization, turn it off
           # command: yarn cypress run-ct --browser chrome
         # env:
