@@ -1,17 +1,11 @@
-before(() => cy.visit('/'))
-it('Bookings', () => {
-  cy.contains('Bookings').click()
-  cy.url().should('contain', '/bookings')
-  cy.get('.bookings-page').should('be.visible')
-})
-it('Bookables', () => {
+before(() => {
+  cy.visit('/')
   cy.contains('Bookables').click()
   cy.url().should('contain', '/bookables')
   cy.get('.bookables-page')
 })
-
-it('Users', () => {
-  cy.contains('Users').click()
-  cy.url().should('contain', '/users')
-  cy.get('.users-page')
+it('Should keep showing details between a high index and low index when switching groups', () => {
+  cy.getByCy('prev-btn').click()
+  cy.get('.bookables-page > > select').select('Kit')
+  cy.get('.item').should('be.visible')
 })

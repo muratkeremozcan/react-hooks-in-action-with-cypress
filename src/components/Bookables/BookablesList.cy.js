@@ -41,18 +41,14 @@ describe('BookablesList', { viewportWidth: 700, viewportHeight: 700 }, () => {
   })
 
   it('should toggle the details with show details', () => {
-    cy.get('.item').should('be.visible')
+    cy.getByCy('show-details').click()
     cy.get('.item-details').should('not.exist')
 
     cy.getByCy('show-details').click()
     cy.get('.item-details').should('be.visible')
-
-    cy.getByCy('show-details').click()
-    cy.get('.item-details').should('not.exist')
   })
 
   it('should retain the details between bookables', () => {
-    cy.getByCy('show-details').click()
     cy.get('.bookable-availability > >').should('have.length.gt', 0)
 
     cy.getByCy('next-btn').click()
