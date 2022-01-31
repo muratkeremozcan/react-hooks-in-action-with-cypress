@@ -2,6 +2,8 @@ import { bookables, sessions, days } from '../../static.json'
 import { useState } from 'react'
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
 
+// CH2 complete
+
 /* [2.0] Why useState?
  We want to alert React that a value used within a component has changed
  so it can rerun the component and update the UI.
