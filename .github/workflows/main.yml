@@ -35,6 +35,9 @@ jobs:
         run: yarn lint
 
   cypress-e2e-tests:
+    strategy:
+      matrix:
+        machines: [1, 2]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     container: cypress/included:9.3.1 # save time on not having to install cypress
@@ -61,7 +64,7 @@ jobs:
   cypress-component-tests:
     strategy:
       matrix:
-        machines: [1] # increase to 2 later: [1, 2]
+        machines: [1, 2] # increase to 2 later: [1, 2]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     container: cypress/included:9.3.1 # save time on not having to install cypress
@@ -78,7 +81,7 @@ jobs:
           install: false
           # to run component tests we need to use "cypress run-ct"
           # with component tests since we have a custom command, we pass these parameters in the command instead
-          command: yarn cypress run-ct --record --key=${{ secrets.CYPRESS_RECORD_KEY }} --browser chrome --group component-tests --tag component-tests --parallel 2
+          command: yarn cypress run-ct --record --key=${{ secrets.CYPRESS_RECORD_KEY }} --parallel --browser chrome --group component-tests --tag component-tests --parallel 2
           # if you run out of parallelization, turn it off
           # command: yarn cypress run-ct --browser chrome
         # env:
