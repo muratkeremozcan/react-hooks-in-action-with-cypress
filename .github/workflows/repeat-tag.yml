@@ -1,14 +1,18 @@
 # https://github.com/bahmutov/test-todomvc-using-app-actions/blob/master/.github/workflows/repeat-test.yml
 
-name: repeat-spec
+name: repeat-tag
 on:
   workflow_dispatch:
     description: Lets the user run a spec file N times in a row
     inputs:
-      title:
-        description: any string in a describe or it block title
+      tag:
+        description: Tag to run
         required: true
-        type: string
+        type: choice
+        options:
+          - '@routes'
+          - '@appJs'
+          - '@smoke'
       n:
         description: Number of times to repeat the test
         required: false
@@ -16,12 +20,12 @@ on:
         type: integer
 
 jobs:
-  repeat-spec:
+  repeat-tag:
     runs-on: ubuntu-20.04
     steps:
       - name: Print workflow inputs
         run: |
-          echo Running tests with title: ${{ github.event.inputs.title }}
+          echo Running tests with tag: ${{ github.event.inputs.tag }}
           echo for ${{ github.event.inputs.n }} times
 
       - name: Checkout 🛎
@@ -34,7 +38,7 @@ jobs:
           start: yarn start
           wait-on: 'http://localhost:3000'
           browser: chrome
-          env: 'grep="${{ github.event.inputs.title }}",burn=${{ github.event.inputs.n }},grepFilterSpecs=true'
+          env: 'grepTags=${{ github.event.inputs.tag }},burn=${{ github.event.inputs.n }},grepFilterSpecs=true'
           record: true
           parallel: false
           group: burn
