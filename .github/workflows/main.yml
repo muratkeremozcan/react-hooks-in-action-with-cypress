@@ -2,17 +2,6 @@ name: Build, Lint, e2e & ct test
 on:
   push:
   workflow_dispatch:
-    description: Lets the user run a spec file N times in a row
-    inputs:
-      spec:
-        description: Part or full path to the spec file like "editing-spec.js"
-        required: true
-        type: string
-      n:
-        description: Number of times to repeat the test
-        required: false
-        default: 1
-        type: integer
 
 concurrency:
   group: ${{ github.head_ref || github.ref }}
@@ -97,22 +86,3 @@ jobs:
           # command: yarn cypress run-ct --browser chrome
         # env:
         # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-
-  # repeat-spec:
-  #   runs-on: ubuntu-20.04
-  #   needs: [install-dependencies]
-  #   steps:
-  #     - name: Print workflow inputs
-  #       run: |
-  #         echo Running the spec file "${{ github.event.inputs.spec }}"
-  #         echo for ${{ github.event.inputs.n }} times
-  #     - name: Checkout 🛎
-  #       uses: actions/checkout@v2
-
-  #     # https://github.com/bahmutov/test-todomvc-using-app-actions/blob/master/.github/workflows/repeat-spec.yml
-  #     - name: Run the spec N times
-  #       uses: cypress-io/github-action@v2
-  #       with:
-  #         start: npm run start-quiet
-  #         # use https://github.com/bahmutov/cypress-repeat to repeat the spec
-  #         command: npx cypress-repeat -n ${{ github.event.inputs.n }} --spec '**/${{ github.event.inputs.spec }}'
