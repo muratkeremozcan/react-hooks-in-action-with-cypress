@@ -1,4 +1,5 @@
-# https://github.com/bahmutov/test-todomvc-using-app-actions/blob/master/.github/workflows/repeat-spec.yml
+# https://github.com/bahmutov/test-todomvc-using-app-actions/blob/master/.github/workflows/repeat-test.yml
+
 name: repeat-spec
 on:
   workflow_dispatch:
@@ -28,8 +29,15 @@ jobs:
 
       # https://github.com/cypress-io/github-action
       - name: Run the spec N times
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v3
         with:
-          start: npm run start-quiet
-          # use https://github.com/bahmutov/cypress-repeat to repeat the spec
-          command: npx cypress-repeat -n ${{ github.event.inputs.n }} --spec '**/${{ github.event.inputs.spec }}'
+          start: yarn start
+          wait-on: 'http://localhost:3000'
+          browser: chrome
+          env: 'grep=${{ github.event.inputs.title }},burn=${{ github.event.inputs.n }}'
+        #   record: true
+        #   parallel: true
+        #   group: e2e-tests
+        #   tag: e2e-tests
+        # env:
+        #   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
