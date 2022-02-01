@@ -12,7 +12,11 @@ on:
       tag:
         description: Tag to run
         required: false
-        type: string
+        type: choice
+        options:
+          - '@routes'
+          - '@appJs'
+          - '@smoke'
       n:
         description: Number of times to repeat the test
         required: false
@@ -25,8 +29,8 @@ jobs:
     steps:
       - name: Print workflow inputs
         run: |
-          echo Running tests with title "${{ github.event.inputs.title }}"
-          echo Running tests with tag "${{ github.event.inputs.tag }}"
+          echo Running tests with title: ${{ github.event.inputs.title }}
+          echo Running tests with tag: ${{ github.event.inputs.tag }}
           echo for ${{ github.event.inputs.n }} times
 
       - name: Checkout 🛎
@@ -39,7 +43,7 @@ jobs:
           start: yarn start
           wait-on: 'http://localhost:3000'
           browser: chrome
-          env: 'grep="${{ github.event.inputs.title }}",grepTags="${{ github.event.inputs.tag }}",burn=${{ github.event.inputs.n }},grepFilterSpecs=true'
+          env: 'grep="${{ github.event.inputs.title }}",grepTags=${{ github.event.inputs.tag }},burn=${{ github.event.inputs.n }},grepFilterSpecs=true'
         #   record: true
         #   parallel: false
         #   group: burn
