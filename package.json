@@ -19,6 +19,7 @@
     "@cypress/webpack-dev-server": "1.8.0",
     "cross-env": "7.0.3",
     "cypress": "9.4.1",
+    "cypress-grep": "^2.13.1",
     "cypress-real-events": "1.6.0",
     "dayjs": "^1.10.7",
     "eslint-plugin-cypress": "2.12.1",
@@ -46,7 +47,8 @@
     ],
     "rules": {
       "no-unused-expressions": "off",
-      "no-undef": "off"
+      "no-undef": "off",
+      "jest/valid-describe": "off"
     }
   },
   "browserslist": {

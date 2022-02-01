@@ -87,3 +87,44 @@ component-test:
         # to run component tests we need to use "cypress run-ct"
         command: yarn cypress run-ct
 ```
+
+## cypress-grep cheat sheet
+
+```bash
+# note: can use run or open
+
+# strings
+yarn cy:run --env grep=sanity # run by a string in the spec file
+yarn cy:run --env grep="sanity abcs" # multiple words
+
+# solo spec; no skipped tests in results
+yarn cy:run --env grep="sanity abcs" --spec 'cypress/integration/sanity.spec.js'
+yarn cy:run --env grep="sanity abcs",grepFilterSpecs=true # newer way
+yarn cy:open --env grep="sanity abcs",grepFilterSpecs=true,grepOmitFiltered=true # omits greyed out tests, good for open mode
+
+# tags
+yarn cy:run --env grepTags=@smoke # run by a tag in the spec file
+yarn cy:run --env grepTags="@routes, @appJs" # multiple tags in the spec file (arr of strings)
+
+# reversion
+yarn cy:run --env grep=-sanity # runs the tests without sanity string in the spec
+yarn cy:run --env grep="- abcs" # string variant
+yarn cy:run --env grepTags="-@routes" # tags, can drop quotes if single tag
+
+# logic combos
+yarn cy:run --env grepTags="@smoke @routes" # OR
+yarn cy:run --env grepTags="@appJs+@routes" # AND
+
+# mix string and tag, AND logic
+yarn cy:run --env grep="routes",grepTags="@appJs"
+
+# burn; run it x times
+yarn cy:run --env grepTags=@smoke,burn=10
+
+# run untagged tests
+yarn cy:run --env grepUntagged=true
+
+# run a component test
+yarn cy:run-ct --env grep="BookingsPage",grepFilterSpecs=true
+
+```
