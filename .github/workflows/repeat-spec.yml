@@ -6,19 +6,13 @@ on:
     description: Lets the user run a spec file N times in a row
     inputs:
       title:
-        description: Part or full path to the spec file like "editing-spec.js"
-        required: true
+        description: any string in a describe or it block title
+        required: false
         type: string
       tag:
         description: Tag to run
         required: false
         type: string
-        # you can make it required and specify buttons instead of a tag string
-        # type: choice
-        # options:
-        #   - '@adding'
-        #   - '@complete'
-        #   - '@editing'
       n:
         description: Number of times to repeat the test
         required: false
