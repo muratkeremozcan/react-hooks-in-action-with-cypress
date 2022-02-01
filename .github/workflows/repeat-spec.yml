@@ -9,6 +9,16 @@ on:
         description: Part or full path to the spec file like "editing-spec.js"
         required: true
         type: string
+      tag:
+        description: Tag to run
+        required: false
+        type: string
+        # you can make it required and specify buttons instead of a tag string
+        # type: choice
+        # options:
+        #   - '@adding'
+        #   - '@complete'
+        #   - '@editing'
       n:
         description: Number of times to repeat the test
         required: false
@@ -34,7 +44,7 @@ jobs:
           start: yarn start
           wait-on: 'http://localhost:3000'
           browser: chrome
-          env: 'grep="${{ github.event.inputs.title }}",burn=${{ github.event.inputs.n }}'
+          env: 'grep="${{ github.event.inputs.title }}",grepTags=${{ github.event.inputs.tag}},burn=${{ github.event.inputs.n }}'
         #   record: true
         #   parallel: true
         #   group: e2e-tests
