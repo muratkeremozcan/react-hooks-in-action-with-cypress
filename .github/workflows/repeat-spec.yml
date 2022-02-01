@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     description: Lets the user run a spec file N times in a row
     inputs:
-      spec:
+      title:
         description: Part or full path to the spec file like "editing-spec.js"
         required: true
         type: string
@@ -34,7 +34,7 @@ jobs:
           start: yarn start
           wait-on: 'http://localhost:3000'
           browser: chrome
-          env: 'grep=${{ github.event.inputs.title }},burn=${{ github.event.inputs.n }}'
+          env: 'grep="${{ github.event.inputs.title }}",burn=${{ github.event.inputs.n }}'
         #   record: true
         #   parallel: true
         #   group: e2e-tests
