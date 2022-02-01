@@ -25,7 +25,8 @@ jobs:
     steps:
       - name: Print workflow inputs
         run: |
-          echo Running the spec file "${{ github.event.inputs.spec }}"
+          echo Running tests with title "${{ github.event.inputs.title }}"
+          echo Running tests with tag "${{ github.event.inputs.tag }}"
           echo for ${{ github.event.inputs.n }} times
 
       - name: Checkout 🛎
