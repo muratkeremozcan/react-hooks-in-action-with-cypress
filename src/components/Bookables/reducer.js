@@ -12,7 +12,9 @@
 
   A reducer is a function that accepts a state value and an action value.
   It generates a new state value based on the two values passed in, then returns the new state value.
-*/
+
+  const [state, dispatch] = useReducer(reducer, initialState)
+  */
 
 // the component has 4 pieces of state: group, bookableIndex, hasDetails, and bookables (from json)
 
@@ -23,6 +25,9 @@ export default function reducer(state, action) {
   /** need real modulus for negative numbers */
   const mod = (n, m) => ((n % m) + m) % m
 
+  // [3.4] In the reducer, use if or switch statements to check for the type of action dispatched
+  // In the default case, either return the unchanged state (if the reducer will be combined with other reducers)
+  // or throw an error (if the reducer should never receive an unknown action type).
   switch (action.type) {
     case 'SET_GROUP':
       return {

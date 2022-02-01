@@ -1,7 +1,8 @@
 import { mount } from '@cypress/react'
 import BookingsPage from './BookingsPage'
+import '../../App.css'
 
 it('renders BookingsPage', () => {
   mount(<BookingsPage />)
-  cy.contains('Bookings!')
+  cy.getByCy('date-picker').should('be.visible')
 })
