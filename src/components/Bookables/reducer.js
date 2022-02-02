@@ -1,7 +1,7 @@
 /* [3.0] Why useReducer?
   When state values are related, affecting each other or being changed together
   it can help to move the state update logic into a single place
-  rather than spreading the code that performs changes across event handler functions
+  rather than spreading the code that performs changes across event handler functions like this:
 
   const changeGroup = (event) => {
     setGroup(event.target.value)
