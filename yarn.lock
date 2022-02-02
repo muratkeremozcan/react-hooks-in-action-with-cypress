@@ -4125,7 +4125,7 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-cypress-grep@^2.13.1:
+cypress-grep@2.13.1:
   version "2.13.1"
   resolved "https://registry.yarnpkg.com/cypress-grep/-/cypress-grep-2.13.1.tgz#f9c17ba05884d61a3a1a63d4f9a66f111668abba"
   integrity sha512-NMKqc0+Jd3AosNH2OVFN+iChC+/HnzWFukp9Bqk9hGP9TIYBHDw/chglg3jR3Gu/r05sfPzNzqzluNUVWti1QA==
@@ -4216,7 +4216,7 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
-dayjs@^1.10.4, dayjs@^1.10.7:
+dayjs@1.10.7, dayjs@^1.10.4:
   version "1.10.7"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.7.tgz#2cf5f91add28116748440866a0a1d26f3a6ce468"
   integrity sha512-P6twpd70BcPK34K26uJ1KT3wlhpuOAPoMwJzpsIWUxHZ7wpmbdZL/hQqBDfz7hGurYSa5PhzdhDHtt319hL3ig==
