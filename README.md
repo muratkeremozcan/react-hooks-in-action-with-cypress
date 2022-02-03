@@ -104,16 +104,15 @@ yarn cy:open --env grep="sanity abcs",grepFilterSpecs=true,grepOmitFiltered=true
 
 # tags
 yarn cy:run --env grepTags=@smoke # run by a tag in the spec file
-yarn cy:run --env grepTags="@routes, @appJs" # multiple tags in the spec file (arr of strings)
+# logic combos
+yarn cy:run --env grepTags="@smoke @routes" # OR
+yarn cy:run --env grepTags="@appJs+@routes" # AND
 
 # reversion
 yarn cy:run --env grep=-sanity # runs the tests without sanity string in the spec
 yarn cy:run --env grep="- abcs" # string variant
 yarn cy:run --env grepTags="-@routes" # tags, can drop quotes if single tag
 
-# logic combos
-yarn cy:run --env grepTags="@smoke @routes" # OR
-yarn cy:run --env grepTags="@appJs+@routes" # AND
 
 # mix string and tag, AND logic
 yarn cy:run --env grep="routes",grepTags="@appJs"
