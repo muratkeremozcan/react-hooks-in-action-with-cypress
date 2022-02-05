@@ -12,7 +12,7 @@ export default function SayHello() {
   useEffect(() => (document.title = greetings[index]))
   // here the document.title is bound to the greetings[index]
   // [index] changes with every setIndex on button click
-  // therefore we want useEffect firing every time
+  // therefore we want useEffect firing every render
 
   const updateGreeting = () =>
     setIndex(Math.floor(Math.random() * greetings.length))

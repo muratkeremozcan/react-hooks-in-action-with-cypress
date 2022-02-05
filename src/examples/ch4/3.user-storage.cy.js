@@ -2,12 +2,6 @@ import { mount } from '@cypress/react'
 import UserStorage from './3.user-storage'
 
 describe('UserStorage', () => {
-  it('should have a default local storage in the beginning', () => {
-    mount(<UserStorage />)
-
-    cy.then(() => expect(localStorage.getItem('user')).to.eq('undefined'))
-  })
-
   it('should select each item in the list', () => {
     mount(<UserStorage />)
 
@@ -20,7 +14,13 @@ describe('UserStorage', () => {
     )
   })
 
-  it('should preserve localstorage on reload/remount ifr', () => {
+  it('should have no local storage in the beginning', () => {
+    mount(<UserStorage />)
+
+    cy.then(() => expect(localStorage.getItem('user')).to.eq('undefined'))
+  })
+
+  it('should preserve localstorage on reload/remount', () => {
     cy.window()
       .its('localStorage')
       .then((localStorage) => {

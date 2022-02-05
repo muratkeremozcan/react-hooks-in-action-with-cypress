@@ -15,7 +15,7 @@ export default function UserStorage() {
   const [user, setUser] = useState()
 
   useEffect(() => {
-    // In the beginning, if there is nothing in localStorage, but after a setItem, we keep getting it
+    // In the beginning there is nothing in localStorage, but after a setItem, we keep getting it
     const storedUser = window.localStorage.getItem('user')
 
     if (storedUser) setUser(storedUser)

@@ -15,8 +15,6 @@ export default function WindowSize() {
   // React determines whether to run an effect by checking if the values in the list have changed since the last time the component called the effect.
   // By setting the list to an empty array, the list will never change, and we cause the effect to run only once, when the component first mounts.
   // TL, DR; if it's an empty array, the effect function runs only once
-  // TL, DR; This is how the 2nd arg to useEffect can be used for memoization
-  /// if a change happens to the 2nd arg then we will run our useEffect function, otherwise we won't
   useEffect(() => {
     const handleResize = () => setSize(getSize)
 
@@ -26,7 +24,6 @@ export default function WindowSize() {
     // Just return a function from the effect. React runs the returned function when it’s time to tidy up.
     return () => window.removeEventListener('resize', handleResize)
   }, [])
-  // empty array because we want the effect to to run only once; add event listener, setSize and remove it
 
   return (
     <p>
