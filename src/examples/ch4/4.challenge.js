@@ -1,17 +1,20 @@
 import { useState, useEffect } from 'react'
 
 export default function Challenge() {
+  // https://usehooks.com/useWindowSize/
   const getSize = () => ({
     width: window.innerWidth,
     height: window.innerHeight
   })
 
+  // Initialize state
+  const [size, setSize] = useState(getSize)
+
   const getMeasure = (width) => {
     let measurement
-
     if (width < 400) {
       measurement = 'small'
-    } else if (width >= 400 && width < 800) {
+    } else if (width >= 400 && width <= 800) {
       measurement = 'medium'
     } else {
       measurement = 'large'
@@ -19,28 +22,26 @@ export default function Challenge() {
     return measurement
   }
 
-  const [size, setSize] = useState(getSize)
-  const [measure, setMeasure] = useState(getMeasure(size.width))
-
   useEffect(() => {
+    // Handler to call on window resize
     const handleResize = () => setSize(getSize)
-    const handleReMeasure = () => setMeasure(getMeasure())
-    console.log(getSize)
 
+    // Add event listener
     window.addEventListener('resize', handleResize)
-    window.addEventListener('resize', handleReMeasure)
+    // window.addEventListener('resize', handleReMeasure)
 
-    document.title = measure
+    // Call handler right away so state gets updated with initial window size
+    handleResize()
 
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      window.removeEventListener('resize', handleReMeasure)
-    }
-  }, [size, measure])
+    document.title = getMeasure(size.width)
+
+    return () => window.removeEventListener('resize', handleResize)
+  })
+  // try making this empty array, it will not re-render when cy.viewport changes
 
   return (
     <p>
-      {size.width} {measure}
+      {getMeasure(size.width)} {size.width}
     </p>
   )
 }

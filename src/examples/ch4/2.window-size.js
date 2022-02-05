@@ -20,6 +20,9 @@ export default function WindowSize() {
 
     window.addEventListener('resize', handleResize)
 
+    // Call handler right away so state gets updated with initial window size
+    handleResize()
+
     // [4.2] the useEffect hook incorporates a simple mechanism for cleaning up our effects.
     // Just return a function from the effect. React runs the returned function when it’s time to tidy up.
     return () => window.removeEventListener('resize', handleResize)
