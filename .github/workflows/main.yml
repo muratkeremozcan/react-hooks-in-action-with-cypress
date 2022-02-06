@@ -35,9 +35,10 @@ jobs:
         run: yarn lint
 
   cypress-e2e-tests:
-    strategy:
-      matrix:
-        machines: [1, 2]
+    # ran out od parallelization
+    # strategy:
+    #   matrix:
+    #     machines: [1, 2]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     container: cypress/included:9.4.1 # save time on not having to install cypress
@@ -63,9 +64,10 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
   cypress-component-tests:
-    strategy:
-      matrix:
-        machines: [1, 2] # increase to 2 later: [1, 2]
+    # ran out od parallelization
+    # strategy:
+    #   matrix:
+    #     machines: [1, 2] # increase to 2 later: [1, 2]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     container: cypress/included:9.4.1 # save time on not having to install cypress
