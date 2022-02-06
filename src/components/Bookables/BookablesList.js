@@ -1,7 +1,9 @@
-import { bookables, sessions, days } from '../../static.json'
-import { useReducer } from 'react'
+import { useReducer, useEffect } from 'react'
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
+import Spinner from '../UI/Spinner'
 import reducer from './reducer'
+import getData from '../../utils/api'
+import { sessions, days } from '../../static.json'
 
 /* [2.0] Why useState?
  we want to alert React that a value used within a component has changed
@@ -27,7 +29,9 @@ const initialState = {
   group: 'Rooms',
   bookableIndex: 0,
   hasDetails: true,
-  bookables
+  bookables: [],
+  isLoading: false,
+  error: false
 }
 
 export default function BookablesList() {
@@ -73,8 +77,10 @@ export default function BookablesList() {
   // the component has 4 pieces of state: group, bookableIndex, hasDetails, and bookables (from json)
   // assign state values to local variables
   // const [state, dispatch] = useReducer(reducer, initialState)
-  const [{ group, bookableIndex, bookables, hasDetails }, dispatch] =
-    useReducer(reducer, initialState)
+  const [
+    { group, bookableIndex, bookables, hasDetails, isLoading, error },
+    dispatch
+  ] = useReducer(reducer, initialState)
 
   /** filter by group, Rooms or Kit */
   const bookablesInGroup = bookables.filter((b) => b.group === group)
@@ -84,6 +90,26 @@ export default function BookablesList() {
 
   /** uses a set to ignore the duplicates, converts to an array with [... ] */
   const groups = [...new Set(bookables.map((b) => b.group))]
+
+  // [4.6] useEffect with fetch & useReducer instead of useState
+  useEffect(() => {
+    // dispatch an action for the start of the data fetching
+    dispatch({ type: 'FETCH_BOOKABLES_REQUEST' })
+
+    getData('http://localhost:3001/bookables')
+      .then((data) =>
+        dispatch({
+          type: 'FETCH_BOOKABLES_SUCCESS',
+          payload: data
+        })
+      )
+      .catch((err) =>
+        dispatch({
+          type: 'FETCH_BOOKABLES_ERROR',
+          payload: err
+        })
+      )
+  }, [])
 
   // [3.2] create dispatch functions for for the reducer
   // Use the dispatch function to dispatch an action. React will pass the current state and the action to the reducer.
@@ -112,6 +138,19 @@ export default function BookablesList() {
 
   /** event handler for the previous button */
   const previousBookable = () => dispatch({ type: 'PREVIOUS_BOOKABLE' })
+
+  // conditional rendering
+  if (error) {
+    return <p data-cy="error">{error.message}</p>
+  }
+
+  if (isLoading) {
+    return (
+      <p>
+        <Spinner /> Loading bookables...
+      </p>
+    )
+  }
 
   return (
     <>
