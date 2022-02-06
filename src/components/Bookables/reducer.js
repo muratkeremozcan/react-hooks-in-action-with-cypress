@@ -16,8 +16,6 @@
   const [state, dispatch] = useReducer(reducer, initialState)
   */
 
-// the component has 4 pieces of state: group, bookableIndex, hasDetails, and bookables (from json)
-
 export default function reducer(state, action) {
   /** count of bookables */
   const count = state.bookables.filter((b) => b.group === state.group).length
@@ -58,6 +56,28 @@ export default function reducer(state, action) {
       return {
         ...state,
         bookableIndex: mod(state.bookableIndex - 1, count)
+      }
+
+    case 'FETCH_BOOKABLES_REQUEST':
+      return {
+        ...state,
+        isLoading: true,
+        error: false,
+        bookables: []
+      }
+
+    case 'FETCH_BOOKABLES_SUCCESS':
+      return {
+        ...state,
+        isLoading: false,
+        bookables: action.payload
+      }
+
+    case 'FETCH_BOOKABLES_ERROR':
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload
       }
 
     default:

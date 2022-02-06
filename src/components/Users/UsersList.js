@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
 import Spinner from '../UI/Spinner'
+import getData from '../../utils/api'
 
 export default function UsersList() {
   // [4.4] useEffect with fetch (example 2)
@@ -23,13 +24,19 @@ export default function UsersList() {
   // useEffect callbacks are synchronous to prevent race conditions.
   // if you want to use async await, it has to be wrapped inside and invoked
   // personally I think it is horrible...
-  useEffect(() => {
-    ;(async () => {
-      const resp = await fetch('http://localhost:3001/users')
-      const data = await resp.json()
-      return setUsers(data)
-    })()
-  }, [])
+  // useEffect(() => {
+  //   ;(async () => {
+  //     const resp = await fetch('http://localhost:3001/users')
+  //     const data = await resp.json()
+  //     return setUsers(data)
+  //   })()
+  // }, [])
+
+  // challenge ch 4 ending: use the getData helper function
+  useEffect(
+    () => getData('http://localhost:3001/users').then((data) => setUsers(data)),
+    []
+  )
 
   const selectNext = () => setIndex((i) => (i + 1) % users.length)
 
