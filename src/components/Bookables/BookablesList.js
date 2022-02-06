@@ -37,6 +37,7 @@ export default function BookablesList() {
   /*
   note: the useState hook also accepts a function as its argument, a lazy initial state
   Use the lazy initial state if you need to undertake expensive work to generate an initial value
+  Example at [4.1] , or search for (2.1) reference
   const [value, setValue] = useState(() => {
     return initialState
   })

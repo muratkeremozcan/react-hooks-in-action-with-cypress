@@ -344,7 +344,7 @@ header .icon-loading {
 
 .status {
   transition: opacity 300ms;
-  transition-delay: 100ms;
+  transition-delay: 1000ms;
   opacity: 1;
 }
 

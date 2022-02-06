@@ -1,12 +1,35 @@
-import { users } from '../../static.json'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
+import Spinner from '../UI/Spinner'
 
 export default function UsersList() {
+  // [4.4] useEffect with fetch (example 2)
+  // [4.4.1] when initializing state, use null for conditional rendering
+  const [users, setUsers] = useState(null)
   const [userIndex, setIndex] = useState(0)
+  const user = users?.[userIndex]
 
-  // data starts at 1
-  const user = users[userIndex + 1]
+  // [4.4.2] useEffect to fetch data, once with [],
+  // if not once, it will keep fetching data forever
+  // useEffect(
+  //   () =>
+  //     fetch('http://localhost:3001/users')
+  //       .then((resp) => resp.json())
+  //       .then((data) => setUsers(data)),
+  //   []
+  // )
+
+  // [4.5] using async await
+  // useEffect callbacks are synchronous to prevent race conditions.
+  // if you want to use async await, it has to be wrapped inside and invoked
+  // personally I think it is horrible...
+  useEffect(() => {
+    ;(async () => {
+      const resp = await fetch('http://localhost:3001/users')
+      const data = await resp.json()
+      return setUsers(data)
+    })()
+  }, [])
 
   const selectNext = () => setIndex((i) => (i + 1) % users.length)
 
@@ -15,7 +38,11 @@ export default function UsersList() {
 
   const selectPrevious = () => setIndex((i) => mod(i - 1, users.length))
 
-  return (
+  return users === null ? (
+    <p>
+      <Spinner /> Loading users...
+    </p>
+  ) : (
     <>
       <ul className="users items-list-nav" data-cy="users-list">
         {users.map((u, i) => (

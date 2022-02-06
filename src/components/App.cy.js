@@ -10,6 +10,10 @@ const testRoute = (route) =>
 
 describe('App component', () => {
   it('should verify routes', { viewportWidth: 700 }, () => {
+    cy.intercept('GET', 'http://localhost:3001/users', {
+      fixture: 'users'
+    }).as('userStub')
+
     mount(<App />)
 
     cy.get('nav').should('be.visible')
