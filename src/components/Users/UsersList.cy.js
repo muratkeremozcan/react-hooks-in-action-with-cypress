@@ -54,7 +54,7 @@ describe('UsersList', { viewportWidth: 700, viewportHeight: 700 }, () => {
           url: 'http://localhost:3001/users'
         },
         {
-          delay: 10,
+          delay: 100,
           fixture: 'users'
         }
       ).as('userStubDelayed')

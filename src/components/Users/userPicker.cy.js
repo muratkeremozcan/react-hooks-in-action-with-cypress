@@ -20,7 +20,7 @@ describe('UserPicker component', { tags: '@user' }, () => {
       },
       {
         fixture: 'users',
-        delay: 10
+        delay: 100
       }
     ).as('userStubDelayed')
 
