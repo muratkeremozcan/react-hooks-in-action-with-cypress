@@ -15,6 +15,7 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+import 'cypress-react-app-actions'
 require('cypress-grep')()
 
 // Alternatively you can use CommonJS syntax:

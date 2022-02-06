@@ -115,7 +115,7 @@ export default function BookablesList() {
 
   return (
     <>
-      <div>
+      <div data-cy="BookablesList">
         <select value={group} onChange={setGroup}>
           {groups.map((g) => (
             <option value={g} key={g}>
