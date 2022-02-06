@@ -123,7 +123,8 @@ yarn cy:run --env grepTags=@smoke,burn=10
 # run untagged tests
 yarn cy:run --env grepUntagged=true
 
-# run a component test
-yarn cy:run-ct --env grep="BookingsPage",grepFilterSpecs=true
+# run a component test (filtering does not work with component tests yet)
+# wait for Cypress 10
+yarn cy:run-ct --env grep="BookingsPage",grepFilterSpecs=true,grepOmitFiltered=true
 
 ```
