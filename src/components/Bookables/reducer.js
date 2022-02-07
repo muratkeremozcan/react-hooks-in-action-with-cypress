@@ -31,6 +31,7 @@ export default function reducer(state, action) {
       return {
         ...state,
         group: action.payload,
+        // when changing the group, reset the index to 0 so that you have something selected instead of limbo
         bookableIndex: 0
       }
 
@@ -63,6 +64,7 @@ export default function reducer(state, action) {
         ...state,
         isLoading: true,
         error: false,
+        // during the fetch, there is nothing to be displayed
         bookables: []
       }
 

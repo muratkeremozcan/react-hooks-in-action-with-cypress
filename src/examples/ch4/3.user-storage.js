@@ -2,13 +2,10 @@ import { useState, useEffect } from 'react'
 
 // [4.3] controlling when useEffect runs
 /*
-  useEffect(/.../, [a, b, c]) = run the effect when a, or b, or c change
-
-  useEffect(/.../, [a]) = run the effect when a changes
-
-  useEffect(/.../, []) = run the effect when... nothing changes, that's why it runs just once
-
-  useEffect(/.../) = run the effect at every render
+  useEffect(cb, [a, b, c]) = run the effect when a, or b, or c change
+  useEffect(cb, [a]) = run the effect when a changes
+  useEffect(cb, []) = run the effect when... nothing changes, that's why it runs just once
+  useEffect(cb) = run the effect at every render
   */
 
 export default function UserStorage() {

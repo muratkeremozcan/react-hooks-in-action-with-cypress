@@ -23,7 +23,6 @@ export default function UsersList() {
   // [4.5] using async await
   // useEffect callbacks are synchronous to prevent race conditions.
   // if you want to use async await, it has to be wrapped inside and invoked
-  // personally I think it is horrible...
   // useEffect(() => {
   //   ;(async () => {
   //     const resp = await fetch('http://localhost:3001/users')
