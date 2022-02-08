@@ -8,11 +8,10 @@ import { mount } from '@cypress/react'
 function Counter() {
   const [count, setCount] = useState(1)
   // [5.1] useRef returns an object with a current property
-  // the first time React invokes the component code,
-  // it assigns the initial value you pass the useRef function to the ref object’s current property
-  // You can persist state values by assigning them to the current properties of the refs:
-  // Assigning new values to the current properties of the ref objects doesn’t trigger a re-render.
-  // But as React always returns the same ref objects, the new values are available when the component runs again.
+  // initially the arg passed to useRef is assigned to ref.current
+  // you can persist state values by assigning values to ref.current
+  // [5.2] assigning new values to the current properties of the ref objects doesn’t trigger a re-render.
+  // but as React always returns the same ref objects, the new values are available when the component runs again
   const ref = useRef(1)
 
   const incCount = () => setCount((c) => c + 1)
