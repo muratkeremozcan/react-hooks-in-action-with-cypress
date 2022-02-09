@@ -1,7 +1,7 @@
 # React Hooks in Action Book, with Cypress e2e & component tests
 
 [![react-hooks-in-action](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/nr3y7v/main&style=flat-square&logo=cypress)](https://dashboard.cypress.io/projects/nr3y7v/runs) [![Build, Lint, e2e & ct test](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/actions/workflows/main.yml/badge.svg?branch=main&event=push)](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/actions/workflows/main.yml)
-![react version](https://img.shields.io/badge/react-17.0.2-brightgreen) ![react-scripts version](https://img.shields.io/badge/react--scripts-4.0.3-brightgreen) ![cypress version](https://img.shields.io/badge/cypress-9.4.1-brightgreen) ![@cypress/react version](https://img.shields.io/badge/@cypress/react-5.12.1-brightgreen) ![@cypress/webpack-dev-server version](https://img.shields.io/badge/@cypress/webpack--dev--server-1.8.0-brightgreen) [![renovate-app badge][renovate-badge]][renovate-app]
+![react version](https://img.shields.io/badge/react-17.0.2-brightgreen) ![react-scripts version](https://img.shields.io/badge/react--scripts-4.0.3-brightgreen) ![cypress version](https://img.shields.io/badge/cypress-9.4.1-brightgreen) ![@cypress/react version](https://img.shields.io/badge/@cypress/react-5.12.2-brightgreen) ![@cypress/webpack-dev-server version](https://img.shields.io/badge/@cypress/webpack--dev--server-1.8.0-brightgreen) [![renovate-app badge][renovate-badge]][renovate-app]
 
 [renovate-badge]: https://img.shields.io/badge/renovate-app-blue.svg
 [renovate-app]: https://renovateapp.com/
