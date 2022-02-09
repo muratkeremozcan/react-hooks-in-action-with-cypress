@@ -18,10 +18,11 @@ describe('BookablesList', { viewportWidth: 700, viewportHeight: 700 }, () => {
       cy.wait('@bookablesStub')
     })
 
-    it('should click and highlight the list item', () => {
+    it('should click and highlight the list item and ch[5.4] the focus should be on Next button', () => {
       cy.get('.btn').eq(1).click()
       checkBtnColor(1, 'rgb(23, 63, 95)')
       checkBtnColor(0, 'rgb(255, 255, 255)')
+      cy.getByCy('next-btn').should('be.focused')
     })
 
     it('should switch to the next bookable and keep cycling with next button', () => {
