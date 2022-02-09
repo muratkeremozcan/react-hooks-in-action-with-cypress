@@ -114,16 +114,18 @@ export default function BookablesList() {
   // [5.0] useState vs useRef
   // useState: calling the updater function triggers a re-render
   // useRef: can update a value without a corresponding change to the UI
-  // [5.1] useRef returns an object with a .current property
+  // [5.1] create a variable to hold the reference
+  // useRef returns an object with a .current property
   // initially the arg passed to useRef is assigned to ref.current
   // passing null because there is no timer initially
   const timerRef = useRef(null)
 
-  // clears the setInterval timer
+  // [5.2] use the ref in a handler function
+  /** clears the setInterval timer */
   const stopPresentation = () => clearInterval(timerRef.current)
 
   useEffect(() => {
-    // [5.2] assigning new values to the current properties of the ref objects doesn’t trigger a re-render.
+    // [5.2.2] assigning new values to the current properties of the ref objects doesn’t trigger a re-render.
     // you can persist state values by assigning them to ref.current
     timerRef.current = setInterval(() => nextBookable(), 3000)
 
@@ -154,7 +156,7 @@ export default function BookablesList() {
       type: 'SET_BOOKABLE',
       payload: selectedIndex
     })
-    // [5.3]
+    // (5.2) use the ref in a handler function
     // Once React has created the button element for the DOM, it assigns a reference to the element to nextButtonRef.current
     // We use that reference in the changeBookable function to focus the button by calling the element’s focus method
     // this way, whenever changeBookable is called, the focus is on Next button
@@ -215,7 +217,7 @@ export default function BookablesList() {
           <button
             className="btn"
             onClick={nextBookable}
-            // [5.4] assign the reference to a ref attribute
+            // [5.3] assign the reference to a ref attribute
             // We need to focus on the Next button when the user invokes changeBookable above
             // rather than reaching out into the DOM ourselves,
             // we assign our ref to the special ref attribute of the button
