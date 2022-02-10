@@ -20,11 +20,12 @@ export default function WeekPicker({ date }) {
 
   const today = () => dayjs().format('YYYY-MM-DD')
 
-  // While the WeekPicker example demonstrates how to use a ref with a form field,
-  // the approach doesn’t really fit with the philosophy of managing state with useState and useReducer
-  // and then displaying that state in the UI.
-  // React recommends using controlled components that make the most of React’s help managing the state.
-  // With controlled components, the data flow is from the component to the DOM, in line with the standard React approach.
+  // ch[5] note: controlled vs uncontrolled components
+  // * uncontrolled components: component <- DOM . They read their state from the DOM.
+  // ** reference variable is used to update the state (via dispatch or other handler functions), the ref attribute is used to access the state
+  // * controlled components: component -> DOM
+  // React recommends you use controlled components. Use the useState hook or the useReducer hook to manage the state
+
   const [dateText, setDateText] = useState(today())
   // (5.1) create a variable to hold the reference; reference to the text box
   // const textboxRef = useRef()
@@ -61,9 +62,11 @@ export default function WeekPicker({ date }) {
         <span>
           <input
             type="text"
-            // (5.3) assign the reference to a ref attribute
+            // (5.3) assign the reference variable to a ref attribute
+            // the reference variable gets set by a dispatch; goToDate
+            // after that, the component reads the state from the DOM using the ref attribute
             // ref={textboxRef}
-            // manage state with useState instead, for a controlled component approach
+            // manage state with useState instead, for a controlled component approach; component -> DOM
             onChange={(e) => setDateText(e.target.value)}
             placeholder={`e.g. ${dateText}`}
             defaultValue={dateText}
@@ -84,10 +87,10 @@ export default function WeekPicker({ date }) {
           <FaChevronRight />
         </button>
       </p>
-      <p data-cy="date">
+      <p data-cy="week-interval">
         {week.start.toDateString()} - {week.end.toDateString()}
       </p>
-      <p>The date is {week.date.toDateString()}</p>
+      <p data-cy="todays-date">The date is {week.date.toDateString()}</p>
     </div>
   )
 }

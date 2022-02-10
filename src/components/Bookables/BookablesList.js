@@ -114,9 +114,10 @@ export default function BookablesList() {
   // [5.0] useState vs useRef
   // useState: calling the updater function triggers a re-render
   // useRef: can update a value without a corresponding change to the UI
+  // use the useRef hook when you want React to manage a state value but don’t want changes to the value to trigger a re-render
   // [5.1] create a variable to hold the reference
   // useRef returns an object with a .current property
-  // initially the arg passed to useRef is assigned to ref.current
+  // initially the arg passed to useRef is assigned to variable.current
   // passing null because there is no timer initially
   const timerRef = useRef(null)
 
@@ -126,7 +127,7 @@ export default function BookablesList() {
 
   useEffect(() => {
     // [5.2.2] assigning new values to the current properties of the ref objects doesn’t trigger a re-render.
-    // you can persist state values by assigning them to ref.current
+    // you can persist state values by assigning them to variable.current
     timerRef.current = setInterval(() => nextBookable(), 3000)
 
     // clean up function is called onClick, or when the component unmounts (user navigates away)
@@ -217,10 +218,9 @@ export default function BookablesList() {
           <button
             className="btn"
             onClick={nextBookable}
-            // [5.3] assign the reference to a ref attribute
-            // We need to focus on the Next button when the user invokes changeBookable above
-            // rather than reaching out into the DOM ourselves,
-            // we assign our ref to the special ref attribute of the button
+            // [5.3] assign the reference variable to a ref attribute
+            // the reference variable gets set by a dispatch; changeBookable
+            // after that, the component reads the state from the DOM using the ref attribute
             ref={nextButtonRef}
             autoFocus
             data-cy="next-btn"
@@ -248,7 +248,7 @@ export default function BookablesList() {
                 <button
                   className="btn"
                   data-cy="stop"
-                  // onClick={stopPresentation}
+                  onClick={stopPresentation}
                 >
                   Stop
                 </button>
