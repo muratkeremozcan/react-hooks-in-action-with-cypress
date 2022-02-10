@@ -1,6 +1,7 @@
 import { getWeek } from '../../utils/date-wrangler'
 
 // [3.4] In the reducer, use if or switch statements to check for the type of action dispatched
+// the reducer takes a state and action as args, and switches the action.type
 // In the default case, either return the unchanged state (if the reducer will be combined with other reducers)
 // or throw an error (if the reducer should never receive an unknown action type).
 

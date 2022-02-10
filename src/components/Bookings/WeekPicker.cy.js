@@ -34,6 +34,5 @@ describe('WeekPicker', { viewportWidth: 700 }, () => {
     cy.getByCy('date-input').clear().type('2020-09-02')
     cy.getByCyLike('go').click()
     cy.getByCy('week-interval').contains('Sun Aug 30 2020 - Sat Sep 05 2020')
-    cy.getByCy('todays-date').contains('The date is Tue Sep 01 2020')
   })
 })
