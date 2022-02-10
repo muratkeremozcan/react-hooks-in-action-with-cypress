@@ -18,10 +18,11 @@ describe('BookablesList', { viewportWidth: 700, viewportHeight: 700 }, () => {
       cy.wait('@bookablesStub')
     })
 
-    it('should click and highlight the list item', () => {
+    it('should click and highlight the list item and ch[5.4] the focus should be on Next button', () => {
       cy.get('.btn').eq(1).click()
       checkBtnColor(1, 'rgb(23, 63, 95)')
       checkBtnColor(0, 'rgb(255, 255, 255)')
+      cy.getByCy('next-btn').should('be.focused')
     })
 
     it('should switch to the next bookable and keep cycling with next button', () => {
@@ -82,6 +83,7 @@ describe('BookablesList', { viewportWidth: 700, viewportHeight: 700 }, () => {
       cy.getByCy('spinner').should('not.exist')
     })
   })
+
   context('with error', () => {
     it('should render error', () => {
       cy.intercept(
@@ -97,6 +99,25 @@ describe('BookablesList', { viewportWidth: 700, viewportHeight: 700 }, () => {
       mount(<BookablesList />)
       cy.wait('@bookablesStubError')
       cy.getByCy('error').should('be.visible')
+    })
+  })
+
+  context('useRef', () => {
+    it('should go through a presentation changing the bookable every 3 seconds', () => {
+      cy.clock()
+
+      cy.intercept('GET', 'http://localhost:3001/bookables', {
+        fixture: 'bookables'
+      }).as('bookablesStub')
+
+      mount(<BookablesList />)
+      cy.wait('@bookablesStub')
+
+      for (let i = 0; i <= 3; i++) {
+        checkBtnColor(i, 'rgb(23, 63, 95)')
+        cy.tick(3000)
+      }
+      checkBtnColor(0, 'rgb(23, 63, 95)')
     })
   })
 })
