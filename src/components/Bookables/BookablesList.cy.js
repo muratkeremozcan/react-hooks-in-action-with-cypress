@@ -48,14 +48,6 @@ describe('BookablesList', { viewportWidth: 700, viewportHeight: 700 }, () => {
       cy.get('.btn').first().contains('Projector')
     })
 
-    it('should toggle the details with show details', () => {
-      cy.getByCy('show-details').click()
-      cy.get('.item-details').should('not.exist')
-
-      cy.getByCy('show-details').click()
-      cy.get('.item-details').should('be.visible')
-    })
-
     it('should retain the details between bookables', () => {
       cy.get('.bookable-availability > >').should('have.length.gt', 0)
 
