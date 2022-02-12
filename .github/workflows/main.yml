@@ -49,7 +49,7 @@ jobs:
         with: { useRollingCache: true }
 
       - name: Cypress e2e tests 🧪
-        uses: cypress-io/github-action@v3.0.0
+        uses: cypress-io/github-action@v3.0.1
         with:
           install: false # no need to install because of the above 2
           start: yarn dev # concurrently starts ui and api servers
@@ -78,7 +78,7 @@ jobs:
         with: { useRollingCache: true }
 
       - name: Cypress component tests 🧪
-        uses: cypress-io/github-action@v3.0.0
+        uses: cypress-io/github-action@v3.0.1
         with:
           # we have already installed everything
           install: false
