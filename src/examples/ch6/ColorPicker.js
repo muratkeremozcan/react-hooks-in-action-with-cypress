@@ -1,4 +1,4 @@
-// [5.0.1] child components destructure and use the props
+// [6.0.1] child components destructure and use the props
 export default function ColorPicker({ colors = [], color, setColor }) {
   return (
     <ul>

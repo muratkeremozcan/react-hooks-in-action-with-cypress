@@ -5,7 +5,7 @@ import ColorChoiceText from './ColorChoiceText'
 import ColorSample from './ColorSample'
 
 export default function Colors() {
-  // [5.0] when components use the same data to build their UI,
+  // [6.0] when components use the same data to build their UI,
   // share that data by passing it as a prop from parent to children
   /// (here the parent passes 2 props to the children)
   const availableColors = ['skyblue', 'goldenrod', 'teal', 'coral']
