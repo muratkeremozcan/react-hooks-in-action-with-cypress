@@ -23,7 +23,7 @@
     "cypress": "9.4.1",
     "cypress-grep": "2.13.1",
     "cypress-react-app-actions": "1.0.2",
-    "cypress-real-events": "1.6.0",
+    "cypress-real-events": "1.7.0",
     "dayjs": "1.10.7",
     "eslint-plugin-cypress": "2.12.1",
     "eslint-plugin-prettier": "4.0.0",
