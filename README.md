@@ -9,13 +9,17 @@
 ```bash
 yarn install --registry https://registry.yarnpkg.com # specify the registry in case you are using a proprietary registry
 
-yarn dev # start the ui and api server
-yarn cy:open # for cypress e2e test runner
-yarn cy:run # headless version
-
 # no need to have server running for these:
 yarn cy:open-ct # for cypress component test runner
 yarn cy:run-ct # headless version
+
+# runs the ui and api servers, then opens e2e runner
+yarn cy:open-e2e #
+
+# a la carte
+yarn dev # start the ui and api server
+yarn cy:open # for cypress e2e test runner
+yarn cy:run # headless version
 
 yarn test # run unit tests with jest
 

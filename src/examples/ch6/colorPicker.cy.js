@@ -29,7 +29,7 @@ describe('ColorPicker', () => {
   it('should hover', () => {
     mount(<ColorPicker colors={myColors} />)
 
+    // question to D.Kovalenko: why does the next index get hovered on?
     cy.getByCyLike('0').realHover()
-    // why does the next index get hovered on?
   })
 })

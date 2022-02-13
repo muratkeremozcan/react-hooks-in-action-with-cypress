@@ -1,3 +1,4 @@
+// [6.0.1] child components destructure and use the props
 export default function ColorSample({ color }) {
   return color ? (
     <div
