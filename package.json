@@ -44,6 +44,7 @@
     "cy:run": "cypress run",
     "cy:open-ct": "cypress open-ct",
     "cy:run-ct": "cypress run-ct",
+    "cy:open-e2e": "concurrently yarn:start:api 'server-test 3000 cy:open'",
     "server:test": "concurrently yarn:start:api 'server-test 3000 cy:run'"
   },
   "eslintConfig": {

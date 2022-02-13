@@ -66,7 +66,7 @@ describe('BookablesList', { viewportWidth: 700, viewportHeight: 700 }, () => {
 
     it('should call set bookable on any interaction with the list', () => {
       cy.get('.btn').last().click()
-      cy.getByCy('next').click()
+      cy.getByCy('next-btn').click()
       cy.get('select').select(1)
       cy.get('@setBookable').should('be.called', 'thrice')
     })

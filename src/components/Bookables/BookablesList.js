@@ -1,71 +1,30 @@
-import { useState, useEffect, useReducer, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
 import Spinner from '../UI/Spinner'
 import getData from '../../utils/api'
-import reducer from './reducer'
-
-const initialState = {
-  bookables: [],
-  isLoading: true,
-  error: false
-}
 
 export default function BookablesList({ bookable, setBookable }) {
-  // Feature Flag candidate
-  // [3.1.0] useState vs useReducer comparison
-  // const [bookables, setBookables] = useState([])
-  // const [isLoading, setIsLoading] = useState(true)
-  // const [error, setError] = useState(false)
+  const [bookables, setBookables] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(false)
 
   const group = bookable?.group
-
-  // [3.1.1] Use a reducer instead of useState on multiple pieces of state
-  // const [state, dispatch] = useReducer(reducer, initialState)
-  // the component has 4 pieces of state: group, bookableIndex, hasDetails, bookables (from json), isLoading, error
-  // assign state values to local variables
-  const [{ bookables, isLoading, error }, dispatch] = useReducer(
-    reducer,
-    initialState
-  )
 
   const bookablesInGroup = bookables.filter((b) => b.group === group)
   const groups = [...new Set(bookables.map((b) => b.group))]
 
-  // Feature Flag candidate
-  // useEffect(() => {
-  //   getData('http://localhost:3001/bookables')
-  //     .then((bookables) => {
-  //       setBookable(bookables[0])
-  //       setBookables(bookables)
-  //       setIsLoading(false)
-  //     })
-
-  //     .catch((error) => {
-  //       setError(error)
-  //       setIsLoading(false)
-  //     })
-  // }, [setBookable])
-
-  // [4.6] useEffect with fetch & useReducer instead of useState
   useEffect(() => {
-    // dispatch an action for the start of the data fetching
-    dispatch({ type: 'FETCH_BOOKABLES_REQUEST' })
-
     getData('http://localhost:3001/bookables')
-      .then((data) => {
+      .then((bookables) => {
         setBookable(bookables[0])
-        return dispatch({
-          type: 'FETCH_BOOKABLES_SUCCESS',
-          payload: data
-        })
+        setBookables(bookables)
+        setIsLoading(false)
       })
-      .catch((err) =>
-        dispatch({
-          type: 'FETCH_BOOKABLES_ERROR',
-          payload: err
-        })
-      )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+      .catch((error) => {
+        setError(error)
+        setIsLoading(false)
+      })
   }, [setBookable])
 
   // [5.0] useState vs useRef
@@ -75,11 +34,35 @@ export default function BookablesList({ bookable, setBookable }) {
   // [5.1] create a variable to hold the reference
   // useRef returns an object with a .current property
   // initially the arg passed to useRef is assigned to variable.current
-  // passing null because there is no timer initially
   const nextButtonRef = useRef()
 
-  // Feature flag candidate (slide show)
+  function changeGroup(e) {
+    const bookablesInSelectedGroup = bookables.filter(
+      (b) => b.group === e.target.value
+    )
+    setBookable(bookablesInSelectedGroup[0])
+  }
+
+  /** When the group changes, default the index to 0  */
+  function changeBookable(selectedBookable) {
+    setBookable(selectedBookable)
+    // [5.2] use the ref in a handler function
+    // Once React has created the button element for the DOM, it assigns a reference to the element to nextButtonRef.current
+    // We use that reference in the changeBookable function to focus the button by calling the element’s focus method
+    // this way, whenever changeBookable is called, the focus is on Next button
+    nextButtonRef.current.focus()
+  }
+
+  function nextBookable() {
+    const i = bookablesInGroup.indexOf(bookable)
+    const nextIndex = (i + 1) % bookablesInGroup.length
+    const nextBookable = bookablesInGroup[nextIndex]
+    setBookable(nextBookable)
+  }
+
+  // @featureFlag candidate (slide show)
   /*
+    // passing null because there is no timer initially
     const timerRef = useRef(null)
 
     // [5.2] use the ref in a handler function
@@ -96,56 +79,7 @@ export default function BookablesList({ bookable, setBookable }) {
     }, [])
   */
 
-  // Feature Flag candidate
-  // [3.1.0] useState vs useReducer comparison
-  // function changeGroup(e) {
-  //   const bookablesInSelectedGroup = bookables.filter(
-  //     (b) => b.group === e.target.value
-  //   )
-  //   setBookable(bookablesInSelectedGroup[0])
-  // }
-
-  // function changeBookable(selectedBookable) {
-  //   setBookable(selectedBookable)
-  //   nextButtonRef.current.focus()
-  // }
-
-  // function nextBookable() {
-  //   const i = bookablesInGroup.indexOf(bookable)
-  //   const nextIndex = (i + 1) % bookablesInGroup.length
-  //   const nextBookable = bookablesInGroup[nextIndex]
-  //   setBookable(nextBookable)
-  // }
-
-  // [3.2] create dispatch functions for for the reducer
-  // Use the dispatch function to dispatch an action. dispatch takes an object with type and payload properties
-  // React will passes the dispatch to the reducer, reducer generates new state, React replaces the state old state wit the new.
-  /// note the the functions that take an argument have a payload in the reducer
-
-  /** sets the group: rooms or kit */
-  const changeGroup = (e) =>
-    dispatch({
-      type: 'SET_GROUP',
-      payload: e.target.value
-    })
-
-  /** When the group changes, default the index to 0  */
-  const changeBookable = (selectedIndex) => {
-    dispatch({
-      type: 'SET_BOOKABLE',
-      payload: selectedIndex
-    })
-    // (5.2) use the ref in a handler function
-    // Once React has created the button element for the DOM, it assigns a reference to the element to nextButtonRef.current
-    // We use that reference in the changeBookable function to focus the button by calling the element’s focus method
-    // this way, whenever changeBookable is called, the focus is on Next button
-    return nextButtonRef.current.focus()
-  }
-
-  /** event handler for the next button */
-  const nextBookable = () => dispatch({ type: 'NEXT_BOOKABLE' })
-
-  // Feature flag candidate (previous Button)
+  // @featureFlag candidate (previous Button) (convert to useState instead)
   /** event handler for the previous button */
   // const previousBookable = () => dispatch({ type: 'PREVIOUS_BOOKABLE' })
 
@@ -193,13 +127,15 @@ export default function BookablesList({ bookable, setBookable }) {
         <button
           className="btn"
           onClick={nextBookable}
+          // [5.3] assign the reference variable to a ref attribute
+          // the reference variable gets set by changeBookable
+          // after that, the component reads the state from the DOM using the ref attribute
           ref={nextButtonRef}
           autoFocus
+          data-cy="next-btn"
         >
           <FaArrowRight />
-          <span data-cy="next" className="">
-            Next
-          </span>
+          <span className="">Next</span>
         </button>
       </p>
     </div>
