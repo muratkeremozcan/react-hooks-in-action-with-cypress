@@ -72,7 +72,7 @@ describe('BookablesList', { viewportWidth: 700, viewportHeight: 700 }, () => {
     })
   })
 
-  // Feature flag candidate
+  // @featureFlag candidate
   // it('should switch to the previous bookable and keep cycling with next button', () => {
   //   cy.getByCy('prev-btn').click()
   //   checkBtnColor(3, 'rgb(23, 63, 95)')
@@ -82,7 +82,7 @@ describe('BookablesList', { viewportWidth: 700, viewportHeight: 700 }, () => {
   //   checkBtnColor(0, 'rgb(23, 63, 95)')
   // })
 
-  // Feature flag candidate
+  // @featureFlag candidate
   // context('useRef', () => {
   //   it('should go through a presentation changing the bookable every 3 seconds', () => {
   //     cy.clock()

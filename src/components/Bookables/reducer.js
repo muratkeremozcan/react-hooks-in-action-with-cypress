@@ -17,12 +17,6 @@
   */
 
 export default function reducer(state, action) {
-  /** count of bookables */
-  const count = state.bookables.filter((b) => b.group === state.group).length
-
-  /** need real modulus for negative numbers */
-  const mod = (n, m) => ((n % m) + m) % m
-
   // [3.4] In the reducer, use if or switch statements to check for the type of action dispatched
   // the reducer takes a state and action as args, and switches the action.type
   // In the default case, either return the unchanged state (if the reducer will be combined with other reducers)
@@ -42,22 +36,13 @@ export default function reducer(state, action) {
         bookableIndex: action.payload
       }
 
-    case 'TOGGLE_HAS_DETAILS':
-      return {
-        ...state,
-        hasDetails: !state.hasDetails
-      }
-
     case 'NEXT_BOOKABLE':
+      const count = state.bookables.filter(
+        (b) => b.group === state.group
+      ).length
       return {
         ...state,
         bookableIndex: (state.bookableIndex + 1) % count
-      }
-
-    case 'PREVIOUS_BOOKABLE':
-      return {
-        ...state,
-        bookableIndex: mod(state.bookableIndex - 1, count)
       }
 
     case 'FETCH_BOOKABLES_REQUEST':
@@ -65,7 +50,6 @@ export default function reducer(state, action) {
         ...state,
         isLoading: true,
         error: false,
-        // during the fetch, there is nothing to be displayed
         bookables: []
       }
 

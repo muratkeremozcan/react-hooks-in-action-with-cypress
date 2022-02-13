@@ -82,6 +82,18 @@ export default function BookablesList({ bookable, setBookable }) {
   // @featureFlag candidate (previous Button) (convert to useState instead)
   /** event handler for the previous button */
   // const previousBookable = () => dispatch({ type: 'PREVIOUS_BOOKABLE' })
+  /** need real modulus for negative numbers */
+  // const mod = (n, m) => ((n % m) + m) % m
+  /** count of bookables */
+  // const count = state.bookables.filter((b) => b.group === state.group).length
+
+  /** need real modulus for negative numbers */
+  // const mod = (n, m) => ((n % m) + m) % m
+  //     case 'PREVIOUS_BOOKABLE':
+  // return {
+  //   ...state,
+  //   bookableIndex: mod(state.bookableIndex - 1, count)
+  // }
 
   if (error) {
     return <p data-cy="error">{error.message}</p>
