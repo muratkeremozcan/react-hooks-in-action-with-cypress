@@ -13,10 +13,10 @@ import {
 // {date: Wed Feb 02 2022 05:59:38 GMT-0600 (Central Standard Time)}
 
 export default function WeekPicker({ date }) {
-  // [3.1.1] Use a reducer instead of useState on multiple pieces of state
+  // [3.1] utilize useReducer instead of useState on multiple pieces of state
   // const [state, dispatch] = useReducer(reducer, initialState)
 
-  // [3.3] useReducer can also take an init function (similar to useState lazy initial state at (2.1))
+  // [3.2] useReducer init function: useReducer can also take an init function (similar to useState's lazy initial state at (2.1))
   // const [state, dispatch] = useReducer(reducer, initArgument, initFunction)
   // here week/state is {date: x, start: y, end: z}
   const [week, dispatch] = useReducer(reducer, date, getWeek)
@@ -33,15 +33,13 @@ export default function WeekPicker({ date }) {
   // (5.1) create a variable to hold the reference; reference to the text box
   // const textboxRef = useRef()
   // (5.2) use the reference in a handler function
-  // [3.2] create dispatch functions for for the reducer
+  // [3.3] create dispatch functions for for the reducer
   // Use the dispatch function to dispatch an action. dispatch takes an object with type and payload properties
-  // React will passes the dispatch to the reducer, reducer generates new state, React replaces the state old state wit the new.
+  // React will pass the dispatch to the reducer, reducer generates new state, React replaces the state old state wit the new.
   /// note the the functions that take an argument have a payload in the reducer
   const goToDate = () =>
     dispatch({
       type: 'SET_DATE',
-      // manage state with useState instead, for a controlled component approach
-      // payload: textboxRef.current.value
       payload: dateText
     })
 

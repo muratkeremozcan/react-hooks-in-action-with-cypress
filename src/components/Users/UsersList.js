@@ -48,7 +48,7 @@ export default function UsersList({ setUser }) {
           setError(err)
           return setIsLoading(false)
         }),
-    // [6.5] If the function is used in an effect, include the function in the effect’s dependency list.: add note from summary
+    // [6.5] If the function is used in an effect, include the function in the effect’s dependency list
     [setUser]
   )
 
