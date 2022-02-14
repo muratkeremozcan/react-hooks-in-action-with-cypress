@@ -4,9 +4,9 @@ import Spinner from '../UI/Spinner'
 import getData from '../../utils/api'
 
 export default function BookablesList({ bookable, setBookable }) {
-  const [bookables, setBookables] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [bookables, setBookables] = useState([])
 
   const group = bookable?.group
 
@@ -40,7 +40,7 @@ export default function BookablesList({ bookable, setBookable }) {
     const bookablesInSelectedGroup = bookables.filter(
       (b) => b.group === e.target.value
     )
-    setBookable(bookablesInSelectedGroup[0])
+    return setBookable(bookablesInSelectedGroup[0])
   }
 
   /** When the group changes, default the index to 0  */
@@ -50,14 +50,15 @@ export default function BookablesList({ bookable, setBookable }) {
     // Once React has created the button element for the DOM, it assigns a reference to the element to nextButtonRef.current
     // We use that reference in the changeBookable function to focus the button by calling the element’s focus method
     // this way, whenever changeBookable is called, the focus is on Next button
-    nextButtonRef.current.focus()
+    return nextButtonRef.current.focus()
   }
 
   function nextBookable() {
     const i = bookablesInGroup.indexOf(bookable)
     const nextIndex = (i + 1) % bookablesInGroup.length
     const nextBookable = bookablesInGroup[nextIndex]
-    setBookable(nextBookable)
+
+    return setBookable(nextBookable)
   }
 
   // @featureFlag candidate (slide show)

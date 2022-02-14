@@ -2,13 +2,15 @@ import { useEffect, useState } from 'react'
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
 import Spinner from '../UI/Spinner'
 import getData from '../../utils/api'
+import mod from '../../utils/real-modulus'
 
-export default function UsersList() {
+export default function UsersList({ setUser }) {
   // [4.4] useEffect with fetch (example 2)
   // [4.4.1] when initializing state, use null for conditional rendering
+  const [error, setError] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
   const [users, setUsers] = useState(null)
-  const [userIndex, setIndex] = useState(0)
-  const user = users?.[userIndex]
+  const [userIndex, setUserIndex] = useState(0)
 
   // [4.4.2] useEffect to fetch data, once with [],
   // if not once, it will keep fetching data forever
@@ -31,29 +33,63 @@ export default function UsersList() {
   //   })()
   // }, [])
 
-  // challenge ch 4 ending: use the getData helper function
+  // [4.4.1] useEffect to fetch data
   useEffect(
-    () => getData('http://localhost:3001/users').then((data) => setUsers(data)),
-    []
+    () =>
+      // todo: add note from summary
+      getData('http://localhost:3001/users')
+        .then((data) => {
+          // set initial user to first (or undefined)
+          setUser(data[0])
+          setUserIndex(0)
+          setUsers(data)
+          return setIsLoading(false)
+        })
+        .catch((err) => {
+          setError(err)
+          return setIsLoading(false)
+        }),
+    [setUser]
   )
 
-  const selectNext = () => setIndex((i) => (i + 1) % users.length)
+  // @Feature-flag candidates
+  const selectNext = () => {
+    setUserIndex((userIndex) => mod(userIndex + 1, users.length))
+    return setUser(users[userIndex])
+  }
+  const selectPrevious = () => {
+    setUserIndex((userIndex) => mod(userIndex - 1, users.length))
+    return setUser(users[userIndex])
+  }
 
-  /** need real modulus for negative numbers */
-  const mod = (n, m) => ((n % m) + m) % m
+  if (error) {
+    return <p data-cy="error">{error.message}</p>
+  }
 
-  const selectPrevious = () => setIndex((i) => mod(i - 1, users.length))
+  if (isLoading) {
+    return (
+      <p data-cy="spinner">
+        <Spinner /> Loading users...
+      </p>
+    )
+  }
 
-  return users === null ? (
-    <p>
-      <Spinner /> Loading users...
-    </p>
-  ) : (
+  return (
     <>
       <ul className="users items-list-nav" data-cy="users-list">
         {users.map((u, i) => (
-          <li key={u.id} className={i === userIndex ? 'selected' : null}>
-            <button className="btn" onClick={() => setIndex(i)}>
+          <li
+            data-cy={`users-list-item-${i}`}
+            key={i}
+            className={i === userIndex ? 'selected' : null}
+          >
+            <button
+              className="btn"
+              onClick={() => {
+                setUser(u)
+                return setUserIndex(i)
+              }}
+            >
               {u.name}
             </button>
           </li>
@@ -77,17 +113,6 @@ export default function UsersList() {
           <FaArrowRight /> <span>Next</span>
         </button>
       </p>
-      {user && (
-        <div className="item user">
-          <div className="item-header">
-            <h2>{user.name}</h2>
-          </div>
-          <div className="user-details">
-            <h3>{user.title}</h3>
-            <p>{user.notes}</p>
-          </div>
-        </div>
-      )}
     </>
   )
 }
