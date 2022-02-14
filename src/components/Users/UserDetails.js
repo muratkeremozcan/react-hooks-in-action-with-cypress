@@ -1,7 +1,6 @@
-// [6.0.1] child components destructure and use the props
+// [6.2] child components destructure and use the props
 
 export default function UserDetails({ user }) {
-  // todo: add note from summary
   return user ? (
     <div data-cy="user-details" className="item user">
       <div className="item-header">
@@ -13,4 +12,5 @@ export default function UserDetails({ user }) {
       </div>
     </div>
   ) : null
+  // [6.3] Check for undefined or null prop values. Return alternative UI if appropriate
 }

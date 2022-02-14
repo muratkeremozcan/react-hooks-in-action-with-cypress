@@ -13,6 +13,7 @@ export default function Colors() {
 
   return (
     <div className="colors">
+      {/* [6.1] if a child needs to have and/or update state, pass state and/or the updater function to it */}
       <ColorPicker colors={availableColors} color={color} setColor={setColor} />
       <ColorChoiceText color={color} />
       <ColorSample color={color} />

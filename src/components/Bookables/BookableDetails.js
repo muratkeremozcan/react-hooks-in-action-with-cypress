@@ -20,6 +20,7 @@ return (
   );
 
 */
+
 export default function BookableDetails({ bookable }) {
   // [2.1] useState returns a value & its updater function in an array of 2, the names are arbitrary
   // if you want an initial value for the variable, pass it as an argument to the useState
@@ -96,4 +97,5 @@ export default function BookableDetails({ bookable }) {
       )}
     </div>
   ) : null
+  // [6.3] Check for undefined or null prop values. Return alternative UI if appropriate
 }

@@ -1,4 +1,5 @@
-// [6.0.1] child components destructure and use the props
+// [6.2] child components destructure and use the props
+// [6.2.1] Consider using default values for props. If the prop isn’t set, the default value will be used
 export default function ColorPicker({ colors = [], color, setColor }) {
   return (
     <ul>
