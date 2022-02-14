@@ -1,5 +1,6 @@
-// [6.0.1] child components destructure and use the props
+// [6.2] child components destructure and use the props
 export default function ColorChoiceText({ color }) {
+  // [6.3] Check for undefined or null prop values. Return alternative UI if appropriat
   return color ? (
     <p>The selected color is {color}</p>
   ) : (

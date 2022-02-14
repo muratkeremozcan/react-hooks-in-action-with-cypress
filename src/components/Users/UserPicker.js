@@ -16,6 +16,7 @@ export default function UserPicker() {
     []
   )
 
+  // [6.3] Check for undefined or null prop values. Return alternative UI if appropriate
   return users === null ? (
     <Spinner />
   ) : (

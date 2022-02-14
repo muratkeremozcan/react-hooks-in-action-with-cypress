@@ -36,7 +36,6 @@ export default function UsersList({ setUser }) {
   // [4.4.1] useEffect to fetch data
   useEffect(
     () =>
-      // todo: add note from summary
       getData('http://localhost:3001/users')
         .then((data) => {
           // set initial user to first (or undefined)
@@ -49,6 +48,7 @@ export default function UsersList({ setUser }) {
           setError(err)
           return setIsLoading(false)
         }),
+    // [6.5] If the function is used in an effect, include the function in the effect’s dependency list
     [setUser]
   )
 

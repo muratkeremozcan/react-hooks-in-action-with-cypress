@@ -4,6 +4,7 @@ import Spinner from '../UI/Spinner'
 import getData from '../../utils/api'
 import mod from '../../utils/real-modulus'
 
+// [6.2] child components destructure and use the props
 export default function BookablesList({ bookable, setBookable }) {
   const [error, setError] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
@@ -19,13 +20,13 @@ export default function BookablesList({ bookable, setBookable }) {
       .then((bookables) => {
         setBookable(bookables[0])
         setBookables(bookables)
-        setIsLoading(false)
+        return setIsLoading(false)
       })
-
       .catch((error) => {
         setError(error)
-        setIsLoading(false)
+        return setIsLoading(false)
       })
+    // [6.5] If the function is used in an effect, include the function in the effect’s dependency list.: add note from summary
   }, [setBookable])
 
   // [5.0] useState vs useRef
@@ -90,6 +91,7 @@ export default function BookablesList({ bookable, setBookable }) {
     return setBookable(prevBookable)
   }
 
+  // [6.3] Check for undefined or null prop values. Return alternative UI if appropriate
   if (error) {
     return <p data-cy="error">{error.message}</p>
   }

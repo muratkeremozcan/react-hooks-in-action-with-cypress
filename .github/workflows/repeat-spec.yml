@@ -12,8 +12,8 @@ on:
       n:
         description: Number of times to repeat the test
         required: false
-        default: 1
-        type: integer
+        default: '1'
+        type: string
 
 jobs:
   repeat-spec:

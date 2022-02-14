@@ -98,13 +98,13 @@ component-test:
 # note: can use run or open
 
 # strings
-yarn cy:run --env grep=sanity # run by a string in the spec file
-yarn cy:run --env grep="sanity abcs" # multiple words
+yarn cy:run --env grep=retainment # run by a string in the spec file
+yarn cy:run --env grep="retainment abcs" # multiple words
 
 # solo spec; no skipped tests in results
-yarn cy:run --env grep="sanity abcs" --spec 'cypress/integration/sanity.spec.js'
-yarn cy:run --env grep="sanity abcs",grepFilterSpecs=true # newer way
-yarn cy:open --env grep="sanity abcs",grepFilterSpecs=true,grepOmitFiltered=true # omits greyed out tests, good for open mode
+yarn cy:run --env grep="retainment abcs" --spec 'cypress/integration/retainment.spec.js'
+yarn cy:run --env grep="retainment abcs",grepFilterSpecs=true # newer way
+yarn cy:open --env grep="retainment abcs",grepFilterSpecs=true,grepOmitFiltered=true # omits greyed out tests, good for open mode
 
 # tags
 yarn cy:run --env grepTags=@smoke # run by a tag in the spec file

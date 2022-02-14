@@ -20,12 +20,13 @@ return (
   );
 
 */
+
 export default function BookableDetails({ bookable }) {
-  // [2.1] useState returns a value & its updater function in an array of 2, the names are arbitrary
+  // [2.1] useState hook: returns a value & its updater function in an array of 2, the names are arbitrary
   // if you want an initial value for the variable, pass it as an argument to the useState
   // const [value, setValue] = useState(initialValue);
   /*
-  note: the useState hook also accepts a function as its argument, a lazy initial state
+  note: [2.2] lazy load: the useState hook also accepts a function as its argument, a lazy initial state
   Use the lazy initial state if you need to undertake expensive work to generate an initial value
   Example at [4.1] , or search for (2.1) reference
   const [value, setValue] = useState(() => {
@@ -38,13 +39,12 @@ export default function BookableDetails({ bookable }) {
   const setBookableIndex = bookableIndexArray[1] */
   const [hasDetails, setHasDetails] = useState(true)
 
-  // [2.2] Updater function: when we want to update a state value based on a previous value, we can pass it a fn
+  // [2.3] Updater function: setValue(previousValue => newValue)
+  // when we want to update a state value based on a previous value, we can pass it a fn
   // React passes that fn to the current state value, and uses the return value as the new state Value
-  // setValue(previousValue => newValue)
   // in ch2 we used this, in ch3 we used dispatch instead (compare to (3.4))
   // const nextBookable = () =>
   //   setBookableIndex((i) => (i + 1) % bookablesInGroup.length)
-
   /*
   note: if your state value is an object, make sure you copy over the unchanged properties (reducers have to do this)
   setValue(prevState => {
@@ -96,4 +96,5 @@ export default function BookableDetails({ bookable }) {
       )}
     </div>
   ) : null
+  // [6.3] Check for undefined or null prop values. Return alternative UI if appropriate
 }
