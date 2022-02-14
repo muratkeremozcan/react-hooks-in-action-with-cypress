@@ -5,7 +5,7 @@ import getData from '../../utils/api'
 import mod from '../../utils/real-modulus'
 
 export default function UsersList({ setUser }) {
-  // [4.4] useEffect with fetch (example 2)
+  // [4.4] useEffect with fetch
   // [4.4.1] when initializing state, use null for conditional rendering
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -52,14 +52,16 @@ export default function UsersList({ setUser }) {
     [setUser]
   )
 
-  // @Feature-flag candidates
+  // @Feature-flag candidate
   const selectNext = () => {
     setUserIndex((userIndex) => mod(userIndex + 1, users.length))
-    return setUser(users[userIndex])
+    return setUser(users[mod(userIndex + 1, users.length)])
   }
+  // @Feature-flag candidate
   const selectPrevious = () => {
     setUserIndex((userIndex) => mod(userIndex - 1, users.length))
-    return setUser(users[userIndex])
+    console.log(userIndex)
+    return setUser(users[mod(userIndex - 1, users.length)])
   }
 
   if (error) {
@@ -96,6 +98,7 @@ export default function UsersList({ setUser }) {
         ))}
       </ul>
       <p>
+        {/* @FeatureFlag candidate */}
         <button
           className="btn"
           onClick={selectPrevious}
@@ -104,6 +107,8 @@ export default function UsersList({ setUser }) {
         >
           <FaArrowLeft /> <span>Previous</span>
         </button>
+
+        {/* @FeatureFlag candidate */}
         <button
           className="btn"
           onClick={selectNext}

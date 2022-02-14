@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
 import Spinner from '../UI/Spinner'
 import getData from '../../utils/api'
+import mod from '../../utils/real-modulus'
 
 export default function BookablesList({ bookable, setBookable }) {
   const [error, setError] = useState(false)
@@ -55,7 +56,7 @@ export default function BookablesList({ bookable, setBookable }) {
 
   function nextBookable() {
     const i = bookablesInGroup.indexOf(bookable)
-    const nextIndex = (i + 1) % bookablesInGroup.length
+    const nextIndex = mod(i + 1, bookablesInGroup.length)
     const nextBookable = bookablesInGroup[nextIndex]
 
     return setBookable(nextBookable)
@@ -81,20 +82,13 @@ export default function BookablesList({ bookable, setBookable }) {
   */
 
   // @featureFlag candidate (previous Button) (convert to useState instead)
-  /** event handler for the previous button */
-  // const previousBookable = () => dispatch({ type: 'PREVIOUS_BOOKABLE' })
-  /** need real modulus for negative numbers */
-  // const mod = (n, m) => ((n % m) + m) % m
-  /** count of bookables */
-  // const count = state.bookables.filter((b) => b.group === state.group).length
+  function previousBookable() {
+    const i = bookablesInGroup.indexOf(bookable)
+    const prevIndex = mod(i - 1, bookablesInGroup.length)
+    const prevBookable = bookablesInGroup[prevIndex]
 
-  /** need real modulus for negative numbers */
-  // const mod = (n, m) => ((n % m) + m) % m
-  //     case 'PREVIOUS_BOOKABLE':
-  // return {
-  //   ...state,
-  //   bookableIndex: mod(state.bookableIndex - 1, count)
-  // }
+    return setBookable(prevBookable)
+  }
 
   if (error) {
     return <p data-cy="error">{error.message}</p>
@@ -119,8 +113,12 @@ export default function BookablesList({ bookable, setBookable }) {
       </select>
 
       <ul className="bookables items-list-nav">
-        {bookablesInGroup.map((b) => (
-          <li key={b.id} className={b.id === bookable.id ? 'selected' : null}>
+        {bookablesInGroup.map((b, i) => (
+          <li
+            data-cy={`bookable-list-item-${i}`}
+            key={b.id}
+            className={b.id === bookable.id ? 'selected' : null}
+          >
             <button className="btn" onClick={() => changeBookable(b)}>
               {b.title}
             </button>
@@ -128,14 +126,16 @@ export default function BookablesList({ bookable, setBookable }) {
         ))}
       </ul>
       <p>
-        {/* <button
+        {/* @FeatureFlag candidate */}
+        <button
           className="btn"
           onClick={previousBookable}
           autoFocus
           data-cy="prev-btn"
         >
-          <FaArrowLeft /> <span>Previous</span>
-        </button> */}
+          <FaArrowLeft />
+          <span>Previous</span>
+        </button>
 
         <button
           className="btn"
@@ -148,7 +148,7 @@ export default function BookablesList({ bookable, setBookable }) {
           data-cy="next-btn"
         >
           <FaArrowRight />
-          <span className="">Next</span>
+          <span>Next</span>
         </button>
       </p>
     </div>

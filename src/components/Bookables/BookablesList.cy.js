@@ -8,7 +8,7 @@ const checkBtnColor = (i, color) =>
 // the data is static at the component
 // in a real world case we would intercept and stub that at the test
 
-describe('BookablesList', { viewportWidth: 700, viewportHeight: 700 }, () => {
+describe('BookablesList', { viewportWidth: 900, viewportHeight: 700 }, () => {
   it('should render spinner', () => {
     cy.intercept(
       {
