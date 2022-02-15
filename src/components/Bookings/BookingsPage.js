@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import BookablesList from '../Bookables/BookablesList'
-// import Bookings from './Bookings'
+import Bookings from './Bookings'
 
 export default function BookablesPage() {
   const [bookable, setBookable] = useState(null)
@@ -8,7 +8,7 @@ export default function BookablesPage() {
   return (
     <main className="bookings-page">
       <BookablesList bookable={bookable} setBookable={setBookable} />
-      {/* <Bookings bookable={bookable} /> */}
+      <Bookings bookable={bookable} />
     </main>
   )
 }

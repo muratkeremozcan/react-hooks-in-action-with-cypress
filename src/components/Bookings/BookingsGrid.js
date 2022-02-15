@@ -1,5 +1,5 @@
 export default function BookingsGrid(props) {
-  const { week, bookable } = props
+  const { week, bookable, booking, setBooking } = props
 
   return (
     <div data-cy="bookings-grid" className="bookings-grid placeholder">
