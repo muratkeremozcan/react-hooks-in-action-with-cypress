@@ -45,6 +45,7 @@ export default function BookablesList({ bookable, setBookable }) {
     return setBookable(bookablesInSelectedGroup[0])
   }
 
+  // @FeatureFlag candidate
   /** When the group changes, default the index to 0  */
   function changeBookable(selectedBookable) {
     setBookable(selectedBookable)
@@ -121,7 +122,12 @@ export default function BookablesList({ bookable, setBookable }) {
             key={b.id}
             className={b.id === bookable.id ? 'selected' : null}
           >
-            <button className="btn" onClick={() => changeBookable(b)}>
+            {/* @FeatureFlag candidate */}
+            {/* <button className="btn" onClick={() => changeBookable(b)}>
+              {b.title}
+            </button> */}
+
+            <button className="btn" onClick={() => setBookable(b)}>
               {b.title}
             </button>
           </li>
