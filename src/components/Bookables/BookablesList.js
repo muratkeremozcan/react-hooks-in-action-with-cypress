@@ -114,7 +114,7 @@ export default function BookablesList({ bookable, setBookable }) {
         ))}
       </select>
 
-      <ul className="bookables items-list-nav">
+      <ul data-cy="bookable-items" className="bookables items-list-nav">
         {bookablesInGroup.map((b, i) => (
           <li
             data-cy={`bookable-list-item-${i}`}

@@ -44,7 +44,7 @@ export default function WeekPicker({ date }) {
     })
 
   return (
-    <div>
+    <div data-cy="week-picker">
       <p className="date-picker" data-cy="date-picker">
         <button
           className="btn"

@@ -40,6 +40,14 @@ describe('BookablesPage', () => {
     checkBtnColor(0, 'rgb(23, 63, 95)')
   })
 
+  it('should switch the bookable group', () => {
+    cy.get('select').select(1)
+    cy.getByCyLike('bookable-list-item').should('have.length', 2)
+
+    cy.get('select').select(0)
+    cy.getByCyLike('bookable-list-item').should('have.length', 4)
+  })
+
   // @Feature-flag candidate
   it('should switch to the previous user and keep cycling with next button', () => {
     cy.getByCy('prev-btn').click()
