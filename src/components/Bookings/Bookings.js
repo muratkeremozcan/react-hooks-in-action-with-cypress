@@ -1,5 +1,4 @@
 import { useReducer, useState } from 'react'
-import dayjs from 'dayjs'
 import { getWeek } from '../../utils/date-wrangler'
 
 import WeekPicker from './WeekPicker'
@@ -20,8 +19,6 @@ export default function Bookings({ bookable }) {
   const [week, dispatch] = useReducer(weekReducer, new Date(), getWeek)
   const [booking, setBooking] = useState(null)
 
-  console.log(week)
-  console.log(dayjs())
   return (
     <div data-cy="bookings" className="bookings">
       <div>

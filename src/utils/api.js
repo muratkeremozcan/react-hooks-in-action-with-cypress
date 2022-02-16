@@ -1,6 +1,5 @@
 import { shortISO } from './date-wrangler'
 
-/** Sends a get request, checks the response for errors, converts the response to a js object */
 export default function getData(url) {
   return fetch(url).then((resp) => {
     if (!resp.ok) {
@@ -17,7 +16,8 @@ export function getBookings(bookableId, startDate, endDate) {
 
   const urlRoot = 'http://localhost:3001/bookings'
 
-  const query = `bookableId=${bookableId} &date_gte=${start}&date_lte=${end}`
+  const query =
+    `bookableId=${bookableId}` + `&date_gte=${start}&date_lte=${end}`
 
   return getData(`${urlRoot}?${query}`)
 }

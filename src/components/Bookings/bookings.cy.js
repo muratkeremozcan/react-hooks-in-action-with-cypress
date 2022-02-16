@@ -1,22 +1,36 @@
 import Bookings from './Bookings'
 import { mount } from '@cypress/react'
 import dayjs from 'dayjs'
-import { isoRegex } from '../../utils/regex'
 import '../../App.css'
+const bookableData = require('../../../cypress/fixtures/bookables.json')
 
 describe('Bookings', { viewportWidth: 700, viewportHeight: 700 }, () => {
-  let bookable
-  beforeEach(() =>
-    cy.fixture('bookables').then((bookableData) => {
-      bookable = bookableData
-      mount(<Bookings bookable={bookable[0]} />)
-    })
-  )
+  beforeEach(() => {
+    // the fixture data is around valentine's day 2022
+    // we cannot control the week prop of the child component
+    // so we control the time with cy.clock in order to match the fixture data
+    cy.clock(new Date('2022 2 14'))
 
-  it('should render WeekPicker, BookingsGrid and BookingDetails', () => {
+    cy.intercept('GET', 'http://localhost:3001/bookings?bookableId**', {
+      fixture: 'bookings'
+    }).as('data')
+
+    mount(<Bookings bookable={bookableData[0]} />)
+  })
+
+  it('should render WeekPicker and BookingDetails', () => {
     cy.getByCy('week-picker').contains('The date')
-    cy.getByCy('bookings-grid').contains(bookable[0].title).contains(isoRegex)
-    cy.getByCy('booking-details')
+    cy.getByCy('booking-details').should('be.visible')
+  })
+
+  it('should render BookingGrid and change the selected cell on click', () => {
+    cy.getByCy('bookings-grid').should('have.class', 'active')
+    cy.getByCy('Morning-2022-02-14').click()
+    cy.getByCy('Morning-2022-02-14').should('have.class', 'selected')
+
+    cy.getByCy('Lunch-2022-02-14').click()
+    cy.getByCy('Lunch-2022-02-14').should('have.class', 'selected')
+    cy.getByCy('Morning-2022-02-14').should('not.have.class', 'selected')
   })
 
   context('WeekPicker', () => {

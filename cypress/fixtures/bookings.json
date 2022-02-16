@@ -1,0 +1,74 @@
+[
+  {
+    "session": "Lunch",
+    "date": "2022-02-12",
+    "bookableId": 1,
+    "title": "Onboarding",
+    "bookerId": 3,
+    "id": 1
+  },
+  {
+    "session": "Lunch",
+    "date": "2022-02-13",
+    "bookableId": 3,
+    "title": "Football Challenge",
+    "bookerId": 3,
+    "id": 2
+  },
+  {
+    "session": "Morning",
+    "date": "2022-02-14",
+    "bookableId": 1,
+    "title": "Movie Pitch!",
+    "bookerId": 2,
+    "id": 3
+  },
+  {
+    "session": "Evening",
+    "date": "2022-02-15",
+    "bookableId": 1,
+    "title": "Meeting Room",
+    "bookerId": 2,
+    "id": 4
+  },
+  {
+    "session": "Breakfast",
+    "date": "2022-02-16",
+    "bookableId": 3,
+    "title": "Tiddlywinks",
+    "bookerId": 2,
+    "id": 5
+  },
+  {
+    "session": "Lunch",
+    "date": "2020-05-25",
+    "bookableId": 7,
+    "title": "Movie Pitch!",
+    "bookerId": 1,
+    "id": 6
+  },
+  {
+    "session": "Lunch",
+    "date": "2022-02-16",
+    "bookableId": 1,
+    "title": "New Employee Intro",
+    "bookerId": 1,
+    "id": 7
+  },
+  {
+    "session": "Afternoon",
+    "date": "2022-02-13",
+    "bookableId": 1,
+    "title": "Project Update",
+    "bookerId": 1,
+    "id": 8
+  },
+  {
+    "session": "Afternoon",
+    "date": "2022-02-12",
+    "bookableId": 2,
+    "title": "Quiz",
+    "bookerId": 1,
+    "id": 9
+  }
+]
