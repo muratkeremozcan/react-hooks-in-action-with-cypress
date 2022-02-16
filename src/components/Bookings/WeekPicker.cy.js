@@ -1,38 +1,38 @@
 import { mount } from '@cypress/react'
 import WeekPicker from './WeekPicker'
-import '../../App.css'
 import dayjs from 'dayjs'
+import { getWeek } from '../../utils/date-wrangler'
+import '../../App.css'
 
 describe('WeekPicker', { viewportWidth: 700 }, () => {
-  beforeEach(() => mount(<WeekPicker />))
+  // week is a @FeatureFlag candidate, how do we handle that in a prop?
+  const newWeek = getWeek(new Date())
+  beforeEach(() =>
+    mount(<WeekPicker dispatch={cy.spy().as('dispatch')} week={newWeek} />)
+  )
 
   it('should show the beginning of the week with today', () => {
     cy.getByCy('today').click()
-    cy.getByCy('week-interval').should(
-      'contain',
-      dayjs().startOf('week').$d.toDateString()
-    )
-  })
-
-  it('should show previous week with prev-week', () => {
     cy.getByCy('prev-week').click()
-    cy.getByCy('week-interval').should(
-      'contain',
-      dayjs().startOf('week').subtract(1, 'week').$d.toDateString()
-    )
-  })
-
-  it('should show next week with next-week', () => {
     cy.getByCy('next-week').click()
-    cy.getByCy('week-interval').should(
-      'contain',
-      dayjs().startOf('week').add(1, 'week').$d.toDateString()
-    )
+    cy.get('@dispatch').should('be.called', 'thrice')
   })
 
   it('should show a week and date when go to date feature is used', () => {
     cy.getByCy('date-input').clear().type('2020-09-02')
     cy.getByCyLike('go').click()
-    cy.getByCy('week-interval').contains('Sun Aug 30 2020 - Sat Sep 05 2020')
+    cy.get('@dispatch').should('be.called')
+  })
+
+  // @FeatureFlag candidate
+  it('should render the week interval and today', () => {
+    cy.getByCy('week-interval').should(
+      'contain',
+      dayjs().startOf('week').$d.toDateString()
+    )
+
+    cy.getByCy('todays-date').contains(
+      `The date is ${dayjs().$d.toDateString()}`
+    )
   })
 })
