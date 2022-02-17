@@ -2,7 +2,7 @@
 /* eslint-disable jest/valid-expect */
 import spok from 'cy-spok'
 
-describe('retainment abcs', { tags: '@smoke' }, () => {
+describe('Bookable details retainment', { tags: '@smoke' }, () => {
   before(() => {
     cy.visit('/')
     cy.contains('Bookables').click()

@@ -69,6 +69,7 @@
     "bookableId": 2,
     "title": "Quiz",
     "bookerId": 1,
-    "id": 9
+    "id": 9,
+    "notes": "some notes for you"
   }
 ]

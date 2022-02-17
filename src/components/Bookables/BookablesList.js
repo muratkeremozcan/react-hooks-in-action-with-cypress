@@ -26,7 +26,8 @@ export default function BookablesList({ bookable, setBookable }) {
         setError(error)
         return setIsLoading(false)
       })
-    // [6.5] If the function is used in an effect, include the function in the effect’s dependency list.: add note from summary
+    // [6.5] when a child component is allowed to update state, receives a setFn
+    // and if the function is used in an effect, include the function in the effect’s dependency list
   }, [setBookable])
 
   // [5.0] useState vs useRef

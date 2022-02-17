@@ -4,13 +4,13 @@ import Spinner from '../UI/Spinner'
 import getData from '../../utils/api'
 import mod from '../../utils/real-modulus'
 
-export default function UsersList({ setUser }) {
+export default function UsersList({ user, setUser }) {
   // [4.4] useEffect with fetch
   // [4.4.1] when initializing state, use null for conditional rendering
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [users, setUsers] = useState(null)
-  const [userIndex, setUserIndex] = useState(0)
+  const [userIndex, setUserIndex] = useState(() => user.id - 1)
 
   // [4.4.2] useEffect to fetch data, once with [],
   // if not once, it will keep fetching data forever
@@ -38,9 +38,9 @@ export default function UsersList({ setUser }) {
     () =>
       getData('http://localhost:3001/users')
         .then((data) => {
-          // set initial user to first (or undefined)
-          setUser(data[0])
-          setUserIndex(0)
+          // don't set user here - it's done in UsersPage
+          // setUser(data[0])
+          // setUserIndex(0)
           setUsers(data)
           return setIsLoading(false)
         })
@@ -48,7 +48,8 @@ export default function UsersList({ setUser }) {
           setError(err)
           return setIsLoading(false)
         }),
-    // [6.5] If the function is used in an effect, include the function in the effect’s dependency list
+    // [6.5] when a child component is allowed to update state, receives a setFn
+    // and if the function is used in an effect, include the function in the effect’s dependency list
     [setUser]
   )
 
@@ -82,16 +83,10 @@ export default function UsersList({ setUser }) {
         {users.map((u, i) => (
           <li
             data-cy={`users-list-item-${i}`}
-            key={i}
-            className={i === userIndex ? 'selected' : null}
+            key={u.id}
+            className={u.id === user?.id ? 'selected' : null}
           >
-            <button
-              className="btn"
-              onClick={() => {
-                setUser(u)
-                return setUserIndex(i)
-              }}
-            >
+            <button className="btn" onClick={() => setUser(u)}>
               {u.name}
             </button>
           </li>

@@ -1,15 +1,21 @@
 import React from 'react'
 import { mount } from '@cypress/react'
 import UserPicker from './UserPicker'
+import '../../App.css'
+const userData = require('../../../cypress/fixtures/users.json')
 
 describe('UserPicker component', { tags: '@user' }, () => {
-  it('renders UserPicker', () => {
-    cy.intercept('GET', 'http://localhost:3001/users', { fixture: 'users' }).as(
-      'userStub'
-    )
-    mount(<UserPicker />)
+  it('should initially call setUser with the the first user, and should select with respective', () => {
+    cy.intercept('GET', 'http://localhost:3001/users', {
+      fixture: 'users'
+    }).as('userStub')
+    mount(<UserPicker user={userData[3]} setUser={cy.spy().as('setUser')} />)
     cy.wait('@userStub')
-    cy.get('select').select(2).should('have.value', 'Clarisse')
+
+    cy.get('@setUser').should('be.calledWith', userData[0])
+
+    cy.get('select').select(2)
+    cy.get('@setUser').should('be.calledWith', userData[2])
   })
 
   it('should render the spinner while the data is loading', () => {
@@ -24,7 +30,7 @@ describe('UserPicker component', { tags: '@user' }, () => {
       }
     ).as('userStubDelayed')
 
-    mount(<UserPicker />)
+    mount(<UserPicker setUser={cy.spy().as('setUser')} />)
     cy.getByCy('spinner').should('be.visible')
     cy.wait('@userStubDelayed')
     cy.getByCy('spinner').should('not.exist')
