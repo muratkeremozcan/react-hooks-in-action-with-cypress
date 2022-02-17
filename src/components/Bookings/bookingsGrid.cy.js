@@ -45,7 +45,7 @@ describe('BookingsGrid', { viewportWidth: 800, viewportHeight: 700 }, () => {
       },
       {
         fixture: 'bookings',
-        delay: 100
+        delay: 1000
       }
     ).as('data')
 
