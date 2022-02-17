@@ -1,7 +1,6 @@
 import BookingsGrid from './BookingsGrid'
 import { mount } from '@cypress/react'
 import { getWeek } from '../../utils/date-wrangler'
-import { dateRegex } from '../../utils/regex'
 import '../../App.css'
 const bookableData = require('../../../cypress/fixtures/bookables.json')
 const bookings = require('../../../cypress/fixtures/bookings.json')
@@ -11,12 +10,22 @@ describe('BookingsGrid', { viewportWidth: 800, viewportHeight: 700 }, () => {
   // fix the week prop so that state is consistent
   const week = getWeek(new Date('2022 2 14'))
 
-  it('should render the error an spinner', () => {
+  it.only('should render the error an spinner', () => {
+    cy.intercept(
+      {
+        method: 'GET',
+        url: 'http://localhost:3001/bookings?bookableId**'
+      },
+      {
+        statusCode: 500
+      }
+    ).as('data')
+
     mount(
       <BookingsGrid
         bookable={bookableData[0]}
         week={week}
-        booking={[]}
+        booking={bookings[1]}
         setBooking={() => null}
       />
     )
@@ -30,7 +39,7 @@ describe('BookingsGrid', { viewportWidth: 800, viewportHeight: 700 }, () => {
       .should('have.length.gt', 1)
       .and('be.visible')
       .first()
-      .contains(dateRegex)
+      .contains('2022')
     cy.getByCyLike('session-')
       .should('have.length.gt', 1)
       .and('be.visible')
