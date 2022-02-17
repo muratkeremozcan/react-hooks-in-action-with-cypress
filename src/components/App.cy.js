@@ -1,5 +1,7 @@
 import { mount } from '@cypress/react'
 import App from './App'
+import UserContext from './Users/UserContext'
+const users = require('../../cypress/fixtures/users.json')
 
 const testRoute = (route) =>
   cy
@@ -8,13 +10,21 @@ const testRoute = (route) =>
     .location('pathname')
     .should('equal', `/${route}`)
 
-describe('App component', () => {
-  it('should verify routes', { viewportWidth: 700 }, () => {
+describe('App component', { viewportWidth: 900, viewportHeight: 900 }, () => {
+  const cmp = <App />
+
+  beforeEach(() => {
     cy.intercept('GET', 'http://localhost:3001/users', {
       fixture: 'users'
     }).as('userStub')
 
-    mount(<App />)
+    cy.intercept('GET', 'http://localhost:3001/bookables', {
+      fixture: 'bookables'
+    }).as('bookablesStub')
+  })
+
+  it('should verify routes', () => {
+    mount(<UserContext.Provider value={users[0]}>{cmp}</UserContext.Provider>)
 
     cy.get('nav').should('be.visible')
 

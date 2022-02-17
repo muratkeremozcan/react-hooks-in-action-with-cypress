@@ -1,6 +1,7 @@
 import BookingsGrid from './BookingsGrid'
 import { mount } from '@cypress/react'
 import { getWeek } from '../../utils/date-wrangler'
+import { dateRegex } from '../../utils/regex'
 import '../../App.css'
 const bookableData = require('../../../cypress/fixtures/bookables.json')
 const bookings = require('../../../cypress/fixtures/bookings.json')
@@ -29,7 +30,7 @@ describe('BookingsGrid', { viewportWidth: 800, viewportHeight: 700 }, () => {
       .should('have.length.gt', 1)
       .and('be.visible')
       .first()
-      .and('contain', '2022')
+      .contains(dateRegex)
     cy.getByCyLike('session-')
       .should('have.length.gt', 1)
       .and('be.visible')

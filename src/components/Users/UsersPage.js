@@ -1,9 +1,18 @@
-import { useState } from 'react'
 import UsersList from './UsersList'
 import UserDetails from './UserDetails'
+// [8.4] in any component that is consuming Context API, import the context object and useContext hook
+import UserContext from './UserContext'
+import { useState, useContext } from 'react'
 
 export default function UsersPage() {
   const [user, setUser] = useState(null)
+
+  // [8.5] call useContext with the shared context, assign to a var
+  // (get the user from context)
+  const loggedInUser = useContext(UserContext)
+
+  // if no user has been selected in the users list, select the logged in user
+  const currentUser = user || loggedInUser
 
   // [6.0] parent & children sharing state
   // when components use the same data to build their UI,
@@ -11,8 +20,8 @@ export default function UsersPage() {
   return (
     <main data-cy="users-page" className="users-page">
       {/* [6.1] if a child needs to have and/or update state, pass state and/or the updater function to it */}
-      <UsersList setUser={setUser} />
-      <UserDetails user={user} />
+      <UsersList user={currentUser} setUser={setUser} />
+      <UserDetails user={currentUser} />
     </main>
   )
 }
