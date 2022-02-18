@@ -17,9 +17,13 @@ export default function App() {
   // [8.2] identify the state to be passed down
   const [user, setUser] = useState()
 
-  // [8.3] wrap the UI with the context’s Provider component, using the state as a prop
+  // [8.3] wrap the UI with the context object's Provider component
+  // its the value prop makes the state available to descendant components
+  // we can put multiple context objects in value prop
   return (
-    <UserContext.Provider value={user}>
+    // single value comparison
+    // <UserContext.Provider value={user}>
+    <UserContext.Provider value={{ user, setUser }}>
       <Router>
         <div className="App">
           <header>
@@ -46,7 +50,7 @@ export default function App() {
               </ul>
             </nav>
 
-            <UserPicker user={user} setUser={setUser} />
+            <UserPicker />
           </header>
 
           <Routes>

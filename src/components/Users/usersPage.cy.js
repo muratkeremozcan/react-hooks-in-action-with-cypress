@@ -12,7 +12,7 @@ describe('UserDetails', { viewportWidth: 700, viewportHeight: 700 }, () => {
     }).as('userStub')
 
     mount(
-      <UserContext.Provider value={users[initialIndex]}>
+      <UserContext.Provider value={{ user: users[initialIndex] }}>
         <UsersPage />
       </UserContext.Provider>
     )

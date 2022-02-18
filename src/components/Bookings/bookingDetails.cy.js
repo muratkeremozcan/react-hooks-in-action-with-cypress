@@ -8,7 +8,11 @@ const users = require('../../../cypress/fixtures/users.json')
 
 describe('BookingDetails', () => {
   it('should render booking message UI if there is no booking', () => {
-    mount(<BookingDetails bookable={bookableData[0]} />)
+    mount(
+      <UserContext.Provider value={{ user: users[0] }}>
+        <BookingDetails bookable={bookableData[0]} />
+      </UserContext.Provider>
+    )
     cy.getByCy('booking-details').should('be.visible')
     cy.getByCy('booking-message').should('be.visible')
     cy.getByCy('booking-controls').should('not.exist')
@@ -16,7 +20,11 @@ describe('BookingDetails', () => {
   })
 
   it('should render Booking UI if there is a booking', () => {
-    mount(<BookingDetails booking={bookings[8]} bookable={bookableData[0]} />)
+    mount(
+      <UserContext.Provider value={{ user: null }}>
+        <BookingDetails booking={bookings[8]} bookable={bookableData[0]} />
+      </UserContext.Provider>
+    )
     cy.getByCy('booking-details').should('be.visible')
     cy.getByCy('booking-message').should('not.exist')
     cy.getByCy('booking-controls').should('not.exist')
@@ -25,7 +33,7 @@ describe('BookingDetails', () => {
 
   it('should render controls through the context api if there is a booker', () => {
     mount(
-      <UserContext.Provider value={users[0]}>
+      <UserContext.Provider value={{ user: users[0] }}>
         <BookingDetails booking={bookings[8]} bookable={bookableData[0]} />
       </UserContext.Provider>
     )

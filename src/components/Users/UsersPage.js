@@ -9,7 +9,11 @@ export default function UsersPage() {
 
   // [8.5] call useContext with the shared context, assign to a var
   // (get the user from context)
-  const loggedInUser = useContext(UserContext)
+  // since the value prop is an object when passing multiple values, we destructure it
+  // the colon syntax lets us assign a property to a differently named variable
+  const { user: loggedInUser } = useContext(UserContext)
+  // single value comparison
+  // const loggedInUser = useContext(UserContext)
 
   // if no user has been selected in the users list, select the logged in user
   const currentUser = user || loggedInUser

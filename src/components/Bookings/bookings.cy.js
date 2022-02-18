@@ -1,8 +1,10 @@
 import Bookings from './Bookings'
 import { mount } from '@cypress/react'
 import dayjs from 'dayjs'
+import UserContext from '../Users/UserContext'
 import '../../App.css'
 const bookableData = require('../../../cypress/fixtures/bookables.json')
+const users = require('../../../cypress/fixtures/users.json')
 
 describe('Bookings', { viewportWidth: 700, viewportHeight: 700 }, () => {
   beforeEach(() => {
@@ -15,7 +17,11 @@ describe('Bookings', { viewportWidth: 700, viewportHeight: 700 }, () => {
       fixture: 'bookings'
     }).as('data')
 
-    mount(<Bookings bookable={bookableData[0]} />)
+    mount(
+      <UserContext.Provider value={{ user: users[0] }}>
+        <Bookings bookable={bookableData[0]} />
+      </UserContext.Provider>
+    )
   })
 
   it('should render WeekPicker and BookingDetails', () => {

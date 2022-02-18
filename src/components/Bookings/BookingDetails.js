@@ -6,7 +6,10 @@ import { FaEdit } from 'react-icons/fa'
 
 export default function BookingDetails({ booking, bookable }) {
   // [8.5] call useContext with the shared context, assign to a var
-  const user = useContext(UserContext)
+  // since the value prop is an object when passing multiple values, we destructure it
+  const { user } = useContext(UserContext)
+  // single value comparison
+  // const user = useContext(UserContext)
 
   const isBooker = booking && user && booking.bookerId === user.id
 
