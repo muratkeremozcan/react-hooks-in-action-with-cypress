@@ -1,5 +1,5 @@
 import { mount } from '@cypress/react'
-import SayHello from './1.say-hello-custom-hook'
+import SayHello from './1.0.say-hello-custom-hook'
 
 it('useEffect should change document.title', () => {
   mount(<SayHello />)
