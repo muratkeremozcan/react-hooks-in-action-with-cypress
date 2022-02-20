@@ -2,8 +2,18 @@
 // without explicitly threading it through every component.
 // Create a context for the current theme (with "light" as the default).
 
-import { createContext } from 'react'
+import { createContext, useContext } from 'react'
 
 const UserContext = createContext()
 
 export default UserContext
+
+const UserSetContext = createContext()
+
+// [9.5] identify what components may need in common
+export function useUser() {
+  const user = useContext(UserContext)
+  const setUser = useContext(UserSetContext)
+
+  return [user, setUser]
+}
