@@ -11,6 +11,7 @@ export default UserContext
 const UserSetContext = createContext()
 
 // [9.4] identify what components may need in common
+// Manage state and effects related to a hook’s functionality within the hook and return only the value(s) that components need
 export function useUser() {
   const user = useContext(UserContext)
   const setUser = useContext(UserSetContext)

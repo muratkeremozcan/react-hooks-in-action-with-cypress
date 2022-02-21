@@ -33,10 +33,19 @@ export default function UserPicker({ user, setUser }) {
   useEffect(() => {
     setUser(users[0])
   }, [users, setUser])
-  // [9.6] other notes about hooks
-  //   Don’t put hooks inside conditionals.
+  // [9.6] other notes about hooks:
+  // Don’t put hooks inside conditionals.
   // Don’t put hooks inside loops.
   // Don’t put hooks inside nested functions.
+  // Don’t call hooks from regular JavaScript functions; keep your hook calls within function components and custom hooks.
+  // If you need side-effect code to run only under certain conditions, put the condition check inside the effect:
+  /*
+    useEffect(() => {
+      if (condition) {
+        // perform task.
+      }
+    }, [dep1, dep2]);
+  */
 
   function handleSelect(e) {
     const selectedID = parseInt(e.target.value, 10)
