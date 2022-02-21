@@ -10,7 +10,7 @@ export default function UsersPage() {
   // [8.5] call useContext with the shared context, assign to a var
   // (get the user from context)
   // const loggedInUser = useContext(UserContext)
-  // [9.5] destructure as needed; use custom hook instead of the above
+  // [9.4.1] destructure as needed; use custom hook instead of the above
   const [loggedInUser] = useUser()
   // [9.5.1] note: before hooks, presentational components would leave any business logic to wrapper components
   // with hooks, the business logic can be more easily encapsulated, reused, and shared.

@@ -36,7 +36,8 @@ export default function BookablesList({ bookable, setBookable }) {
   // }, [setBookable])
 
   // [9.5.2] the parts not common to the custom hook go in their own effect
-  //  (setBookable has no correspondent in useFetch)
+  // mind that there is an order dependency between the custom hook and useEffect with unique parts
+  // (setBookable has no correspondent in useFetch)
   useEffect(() => {
     setBookable(bookables[0])
     // [6.5] when a child component is allowed to update state, receives a setFn

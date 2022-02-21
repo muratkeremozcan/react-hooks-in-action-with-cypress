@@ -28,10 +28,15 @@ export default function UserPicker({ user, setUser }) {
   //   [setUser]
   // )
   // [9.5.2] the parts not common to the custom hook go in their own effect
+  // mind that there is an order dependency between the custom hook and useEffect with unique parts
   // (setUser has no correspondent in useEffect)
   useEffect(() => {
     setUser(users[0])
   }, [users, setUser])
+  // [9.6] other notes about hooks
+  //   Don’t put hooks inside conditionals.
+  // Don’t put hooks inside loops.
+  // Don’t put hooks inside nested functions.
 
   function handleSelect(e) {
     const selectedID = parseInt(e.target.value, 10)

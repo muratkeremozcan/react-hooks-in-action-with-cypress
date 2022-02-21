@@ -18,6 +18,7 @@ export default function useWindowSize() {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  // [9.4] identify what the component render needs - we want it dumb as possible - an return that
+  // [9.4] identify what the component render needs - we want it dumb as possible - and return that
+  // Manage state and effects related to a hook’s functionality within the hook and return only the value(s) that components need
   return size
 }

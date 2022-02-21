@@ -10,7 +10,7 @@ export default UserContext
 
 const UserSetContext = createContext()
 
-// [9.5] identify what components may need in common
+// [9.4] identify what components may need in common
 export function useUser() {
   const user = useContext(UserContext)
   const setUser = useContext(UserSetContext)

@@ -1,7 +1,7 @@
 import useWindowSize from './use-window-size'
 
 export default function WindowSize() {
-  // [9.5] destructure as needed
+  // [9.4.1] destructure as needed
   const { width, height } = useWindowSize()
 
   return (

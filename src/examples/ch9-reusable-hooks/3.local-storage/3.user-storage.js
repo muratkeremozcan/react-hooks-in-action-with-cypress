@@ -1,7 +1,7 @@
 import useLocalStorage from './use-local-storage'
 
 export default function UserStorage() {
-  // [9.5] destructure as needed
+  // [9.4.1] destructure as needed
   const [user, setUser] = useLocalStorage()
 
   return (

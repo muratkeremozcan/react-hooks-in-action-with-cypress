@@ -9,7 +9,7 @@ import { FaEdit } from 'react-icons/fa'
 export default function BookingDetails({ booking, bookable }) {
   // [8.5] call useContext with the shared context, assign to a var
   // const user = useContext(UserContext)
-  // [9.5] destructure as needed; use custom hook instead of the above
+  // [9.4.1] destructure as needed; use custom hook instead of the above
   const [user] = useUser()
 
   const isBooker = booking && user && booking.bookerId === user.id
