@@ -1,15 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
 import Spinner from '../UI/Spinner'
-import getData from '../../utils/api'
+import useFetch from '../../utils/useFetch'
 import mod from '../../utils/real-modulus'
 
 export default function UsersList({ user, setUser }) {
   // [4.4] useEffect with fetch
   // [4.4.1] when initializing state, use null for conditional rendering
-  const [error, setError] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [users, setUsers] = useState(null)
+  // const [error, setError] = useState(null)
+  // const [isLoading, setIsLoading] = useState(true)
+  // const [users, setUsers] = useState(null)
+  // [9.5.1] using the custom hook, we can simplify the state
+  const {
+    data: users = [],
+    status,
+    error
+  } = useFetch('http://localhost:3001/users')
+
   const [userIndex, setUserIndex] = useState(() => user.id - 1)
 
   // [4.4.2] useEffect to fetch data, once with [],
@@ -34,24 +41,24 @@ export default function UsersList({ user, setUser }) {
   // }, [])
 
   // [4.4.1] useEffect to fetch data
-  useEffect(
-    () =>
-      getData('http://localhost:3001/users')
-        .then((data) => {
-          // don't set user here - it's done in UsersPage
-          // setUser(data[0])
-          // setUserIndex(0)
-          setUsers(data)
-          return setIsLoading(false)
-        })
-        .catch((err) => {
-          setError(err)
-          return setIsLoading(false)
-        }),
-    // [6.5] when a child component is allowed to update state, receives a setFn
-    // and if the function is used in an effect, include the function in the effect’s dependency list
-    [setUser]
-  )
+  // useEffect(
+  //   () =>
+  //     getData('http://localhost:3001/users')
+  //       .then((data) => {
+  //         // don't set user here - it's done in UsersPage
+  //         // setUser(data[0])
+  //         // setUserIndex(0)
+  //         setUsers(data)
+  //         return setIsLoading(false)
+  //       })
+  //       .catch((err) => {
+  //         setError(err)
+  //         return setIsLoading(false)
+  //       }),
+  //   // [6.5] when a child component is allowed to update state, receives a setFn
+  //   // and if the function is used in an effect, include the function in the effect’s dependency list
+  //   [setUser]
+  // )
 
   // @Feature-flag candidate
   const selectNext = () => {
@@ -65,14 +72,14 @@ export default function UsersList({ user, setUser }) {
     return setUser(users[mod(userIndex - 1, users.length)])
   }
 
-  if (error) {
+  if (status === 'error') {
     return <p data-cy="error">{error.message}</p>
   }
-
-  if (isLoading) {
+  // @FeatureFlag candidates
+  if (status === 'loading') {
     return (
-      <p data-cy="spinner">
-        <Spinner /> Loading users...
+      <p>
+        <Spinner /> Loading bookables...
       </p>
     )
   }

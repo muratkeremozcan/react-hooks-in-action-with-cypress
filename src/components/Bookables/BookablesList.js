@@ -6,10 +6,10 @@ import mod from '../../utils/real-modulus'
 
 // [6.2] child components destructure and use the props
 export default function BookablesList({ bookable, setBookable }) {
-  // [9.5.1] using the custom hook, we can simplify the state
   // const [error, setError] = useState(false)
   // const [isLoading, setIsLoading] = useState(true)
   // const [bookables, setBookables] = useState([])
+  // [9.5.1] using the custom hook, we can simplify the state
   const {
     data: bookables = [], // when data is undefined, it is assigned an empty array
     status,
@@ -34,7 +34,9 @@ export default function BookablesList({ bookable, setBookable }) {
   // // [6.5] when a child component is allowed to update state, receives a setFn
   // // and if the function is used in an effect, include th
   // }, [setBookable])
-  // [9.5.2] simplify state with custom hook
+
+  // [9.5.2] the parts not common to the custom hook go in their own effect
+  //  (setBookable has no correspondent in useFetch)
   useEffect(() => {
     setBookable(bookables[0])
     // [6.5] when a child component is allowed to update state, receives a setFn
@@ -108,7 +110,7 @@ export default function BookablesList({ bookable, setBookable }) {
   if (status === 'error') {
     return <p data-cy="error">{error.message}</p>
   }
-
+  // @FeatureFlag candidates
   if (status === 'loading') {
     return (
       <p>
