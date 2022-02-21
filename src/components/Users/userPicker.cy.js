@@ -35,4 +35,19 @@ describe('UserPicker component', { tags: '@user' }, () => {
     cy.wait('@userStubDelayed')
     cy.getByCy('spinner').should('not.exist')
   })
+
+  it('should render error', () => {
+    cy.intercept(
+      {
+        method: 'GET',
+        url: 'http://localhost:3001/users'
+      },
+      {
+        statusCode: 500
+      }
+    ).as('userStubDelayed')
+
+    mount(<UserPicker user={userData[3]} setUser={cy.spy().as('setUser')} />)
+    cy.getByCy('error').should('be.visible')
+  })
 })

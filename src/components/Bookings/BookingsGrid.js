@@ -1,19 +1,25 @@
-import { useEffect, useMemo, useState } from 'react'
-import { getGrid, transformBookings } from './grid-builder'
-import { getBookings } from '../../utils/api'
+import { useBookings, useGrid } from './bookingsHooks'
 import Spinner from '../UI/Spinner'
 
 export default function BookingsGrid({ week, bookable, booking, setBooking }) {
-  const [bookings, setBookings] = useState(null)
-  const [error, setError] = useState(false)
+  // const [bookings, setBookings] = useState(null)
+  // const [error, setError] = useState(false)
+  // [9.5.1] using the custom hook, we can simplify the state
+  const { bookings, status, error } = useBookings(
+    bookable?.id,
+    week.start,
+    week.end
+  )
 
   // [7.1] wrap expensive functions in useMemo and provide an array of dependencies
   // this way we use memoization; if the function is called with the same args, it returns the stored value.
   // const memoizedValue = useMemo(() => expensiveFunction(arg1, arg2), [arg1, arg2])
-  const { grid, sessions, dates } = useMemo(
-    () => (bookable ? getGrid(bookable, week.start) : {}),
-    [bookable, week.start]
-  )
+  // const { grid, sessions, dates } = useMemo(
+  //   () => (bookable ? getGrid(bookable, week.start) : {}),
+  //   [bookable, week.start]
+  // )
+  // (9.5.1) the custom hook is the same function as the above
+  const { grid, sessions, dates } = useGrid(bookable, week.start)
 
   // [7.2] When fetching data within a call to useEffect, combine a local variable and the cleanup function
   // in order to match a data request with its response:
@@ -32,25 +38,26 @@ export default function BookingsGrid({ week, bookable, booking, setBooking }) {
       return () => doUpdate = false;
     }, [url]);
   */
-  useEffect(() => {
-    if (bookable) {
-      let doUpdate = true
+  // useEffect(() => {
+  //   if (bookable) {
+  //     let doUpdate = true
 
-      setBookings(null)
-      setError(false)
-      setBooking(null)
+  //     setBookings(null)
+  //     setError(false)
+  //     setBooking(null)
 
-      getBookings(bookable.id, week.start, week.end)
-        .then((resp) => {
-          if (doUpdate) {
-            setBookings(transformBookings(resp))
-          }
-        })
-        .catch(setError)
+  //     getBookings(bookable.id, week.start, week.end)
+  //       .then((resp) => {
+  //         if (doUpdate) {
+  //           setBookings(transformBookings(resp))
+  //         }
+  //       })
+  //       .catch(setError)
 
-      return () => (doUpdate = false)
-    }
-  }, [week, bookable, setBooking])
+  //     return () => (doUpdate = false)
+  //   }
+  // }, [week, bookable, setBooking])
+  // (9.5.1) the above is handled by useFetch within useBookings
 
   function cell(session, date) {
     const cellData = bookings?.[session]?.[date] || grid[session][date]
@@ -62,7 +69,7 @@ export default function BookingsGrid({ week, bookable, booking, setBooking }) {
         data-cy={`${session}-${date}`}
         key={date}
         className={isSelected ? 'selected' : null}
-        onClick={bookings ? () => setBooking(cellData) : null}
+        onClick={status === 'success' ? () => setBooking(cellData) : null}
       >
         {cellData.title}
       </td>
@@ -82,7 +89,9 @@ export default function BookingsGrid({ week, bookable, booking, setBooking }) {
       )}
       <table
         data-cy="bookings-grid"
-        className={bookings ? 'bookingsGrid active' : 'bookingsGrid'}
+        className={
+          status === 'success' ? 'bookingsGrid active' : 'bookingsGrid'
+        }
       >
         <thead>
           <tr>

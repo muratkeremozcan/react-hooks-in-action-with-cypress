@@ -14,7 +14,8 @@ yarn cy:open-ct # for cypress component test runner
 yarn cy:run-ct # headless version
 
 # runs the ui and api servers, then opens e2e runner
-yarn cy:open-e2e #
+yarn cy:open-e2e
+yarn cy:run-e2e  # headless version
 
 # a la carte
 yarn dev # start the ui and api server
@@ -22,9 +23,6 @@ yarn cy:open # for cypress e2e test runner
 yarn cy:run # headless version
 
 yarn test # run unit tests with jest
-
-# use server-test to start the ui & api servers and run e2e
-yarn server:test
 ```
 
 ## CI

@@ -1,6 +1,7 @@
 import { mount } from '@cypress/react'
 import BookablesList from './BookablesList'
 import '../../App.css'
+const bookableData = require('../../../cypress/fixtures/bookables.json')
 
 const checkBtnColor = (i, color) =>
   cy.get('.btn').eq(i).should('have.css', 'background-color', color)
@@ -21,7 +22,12 @@ describe('BookablesList', { viewportWidth: 900, viewportHeight: 700 }, () => {
       }
     ).as('bookablesStubDelayed')
 
-    mount(<BookablesList />)
+    mount(
+      <BookablesList
+        bookable={bookableData[0]}
+        setBookable={cy.spy().as('setBookable')}
+      />
+    )
     cy.getByCy('spinner').should('be.visible')
     cy.wait('@bookablesStubDelayed')
     cy.getByCy('spinner').should('not.exist')
@@ -38,7 +44,12 @@ describe('BookablesList', { viewportWidth: 900, viewportHeight: 700 }, () => {
       }
     ).as('bookablesStubError')
 
-    mount(<BookablesList />)
+    mount(
+      <BookablesList
+        bookable={bookableData[0]}
+        setBookable={cy.spy().as('setBookable')}
+      />
+    )
     cy.wait('@bookablesStubError')
     cy.getByCy('error').should('be.visible')
   })

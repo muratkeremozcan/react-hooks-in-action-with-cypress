@@ -10,7 +10,7 @@ describe('BookingsGrid', { viewportWidth: 800, viewportHeight: 700 }, () => {
   // fix the week prop so that state is consistent
   const week = getWeek(new Date('2022 2 14'))
 
-  it.only('should render the error an spinner', () => {
+  it('should render the error an spinner', () => {
     cy.intercept(
       {
         method: 'GET',

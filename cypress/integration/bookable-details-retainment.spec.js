@@ -15,7 +15,7 @@ describe('Bookable details retainment', { tags: '@smoke' }, () => {
     cy.get('.item').should('be.visible')
     cy.getByCy('bookables-list')
       .getComponent()
-      .its('state.2')
+      .its('state.0')
       .should((s) => expect(s).to.have.length.gt(0))
       .and(
         spok([
