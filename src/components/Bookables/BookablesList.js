@@ -1,34 +1,45 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
 import Spinner from '../UI/Spinner'
-import getData from '../../utils/api'
+import useFetch from '../../utils/useFetch'
 import mod from '../../utils/real-modulus'
 
 // [6.2] child components destructure and use the props
 export default function BookablesList({ bookable, setBookable }) {
-  const [error, setError] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-  const [bookables, setBookables] = useState([])
+  // [9.5.1] using the custom hook, we can simplify the state
+  // const [error, setError] = useState(false)
+  // const [isLoading, setIsLoading] = useState(true)
+  // const [bookables, setBookables] = useState([])
+  const {
+    data: bookables = [], // when data is undefined, it is assigned an empty array
+    status,
+    error
+  } = useFetch('http://localhost:3001/bookables')
 
   const group = bookable?.group
-
   const bookablesInGroup = bookables.filter((b) => b.group === group)
   const groups = [...new Set(bookables.map((b) => b.group))]
 
+  // useEffect(() => {
+  //   getData('http://localhost:3001/bookables')
+  //     .then((bookables) => {
+  //       setBookable(bookables[0])
+  //       setBookables(bookables)
+  //       return setIsLoading(false)
+  //     })
+  //     .catch((error) => {
+  //       setError(error)
+  //       return setIsLoading(false)
+  //     })
+  // // [6.5] when a child component is allowed to update state, receives a setFn
+  // // and if the function is used in an effect, include th
+  // }, [setBookable])
+  // [9.5.2] simplify state with custom hook
   useEffect(() => {
-    getData('http://localhost:3001/bookables')
-      .then((bookables) => {
-        setBookable(bookables[0])
-        setBookables(bookables)
-        return setIsLoading(false)
-      })
-      .catch((error) => {
-        setError(error)
-        return setIsLoading(false)
-      })
+    setBookable(bookables[0])
     // [6.5] when a child component is allowed to update state, receives a setFn
     // and if the function is used in an effect, include the function in the effect’s dependency list
-  }, [setBookable])
+  }, [bookables, setBookable])
 
   // [5.0] useState vs useRef
   // useState: calling the updater function triggers a re-render
@@ -48,14 +59,14 @@ export default function BookablesList({ bookable, setBookable }) {
 
   // @FeatureFlag candidate
   /** When the group changes, default the index to 0  */
-  function changeBookable(selectedBookable) {
-    setBookable(selectedBookable)
-    // [5.2] use the ref in a handler function
-    // Once React has created the button element for the DOM, it assigns a reference to the element to nextButtonRef.current
-    // We use that reference in the changeBookable function to focus the button by calling the element’s focus method
-    // this way, whenever changeBookable is called, the focus is on Next button
-    return nextButtonRef.current.focus()
-  }
+  // function changeBookable(selectedBookable) {
+  //   setBookable(selectedBookable)
+  //   // [5.2] use the ref in a handler function
+  //   // Once React has created the button element for the DOM, it assigns a reference to the element to nextButtonRef.current
+  //   // We use that reference in the changeBookable function to focus the button by calling the element’s focus method
+  //   // this way, whenever changeBookable is called, the focus is on Next button
+  //   return nextButtonRef.current.focus()
+  // }
 
   function nextBookable() {
     const i = bookablesInGroup.indexOf(bookable)
@@ -94,11 +105,11 @@ export default function BookablesList({ bookable, setBookable }) {
   }
 
   // [6.3] Check for undefined or null prop values. Return alternative UI if appropriate
-  if (error) {
+  if (status === 'error') {
     return <p data-cy="error">{error.message}</p>
   }
 
-  if (isLoading) {
+  if (status === 'loading') {
     return (
       <p>
         <Spinner /> Loading bookables...
