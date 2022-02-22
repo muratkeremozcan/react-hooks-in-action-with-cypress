@@ -18,6 +18,7 @@ export default function App() {
   const [user, setUser] = useState()
 
   // [8.3] wrap the UI with the context’s Provider component, using the state as a prop
+
   return (
     <UserContext.Provider value={user}>
       <Router>
@@ -49,9 +50,11 @@ export default function App() {
             <UserPicker user={user} setUser={setUser} />
           </header>
 
+          {/*  // https://reactrouter.com/docs/en/v6/getting-started/overview */}
           <Routes>
             <Route path="/bookings" element={<BookingsPage />} />
-            <Route path="/bookables" element={<BookablesPage />} />
+            {/* ch[10.0] enable nested routes with /*  */}
+            <Route path="/bookables/*" element={<BookablesPage />} />
             <Route path="/users" element={<UsersPage />} />
           </Routes>
         </div>
