@@ -24,17 +24,17 @@ export default function BookablesPage() {
 
         {/* question: why doesn't the below version does work? */}
         {/* <Route path="/:id">
-        <BookablesView />
-      </Route>
-      <Route path="/">
-        <BookablesView />
-      </Route>
-      <Route path="/:id/edit">
-        <BookableEdit />
-      </Route>
-      <Route path="/new">
-        <BookableNew />
-      </Route> */}
+          <BookablesView />
+        </Route>
+        <Route path="/">
+          <BookablesView />
+        </Route>
+        <Route path="/:id/edit">
+          <BookableEdit />
+        </Route>
+        <Route path="/new">
+          <BookableNew />
+        </Route> */}
       </Routes>
     </>
   )
