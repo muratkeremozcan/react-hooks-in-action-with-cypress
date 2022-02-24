@@ -1,13 +1,45 @@
-import { useState } from 'react'
+import useFetch from '../../utils/useFetch'
+import { shortISO } from '../../utils/date-wrangler'
+import { useBookingsParams } from './bookingsHooks'
+
 import BookablesList from '../Bookables/BookablesList'
 import Bookings from './Bookings'
+import PageSpinner from '../UI/PageSpinner'
 
 export default function BookablesPage() {
-  const [bookable, setBookable] = useState(null)
+  const {
+    data: bookables = [],
+    status,
+    error
+  } = useFetch('http://localhost:3001/bookables')
+
+  // [10.2.3] access the query string's search params
+  const { date, bookableId } = useBookingsParams()
+
+  // if invalid url, set it as the first bookable
+  const bookable = bookables.find((b) => b.id === bookableId) || bookables[0]
+
+  // if no date, just show the bookable, otherwise show the whole query string with both search params
+  function getUrl(id) {
+    const root = `/bookings?bookableId=${id}`
+    return date ? `${root}&date=${shortISO(date)}` : root
+  }
+
+  if (status === 'error') {
+    return <p>{error.message}</p>
+  }
+
+  if (status === 'loading') {
+    return <PageSpinner />
+  }
 
   return (
     <main className="bookings-page">
-      <BookablesList bookable={bookable} setBookable={setBookable} />
+      <BookablesList
+        bookable={bookable}
+        bookables={bookables}
+        getUrl={getUrl}
+      />
       <Bookings bookable={bookable} />
     </main>
   )

@@ -88,7 +88,7 @@ describe('BookableForm', { viewportWidth: 1000, viewportHeight: 700 }, () => {
     )
   })
 
-  it('should nav to something on cancel', () => {
+  it('should nav to back to the bookable on cancel', () => {
     mount(
       <BrowserRouter>
         <BookableForm

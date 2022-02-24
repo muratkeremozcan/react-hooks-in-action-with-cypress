@@ -53,7 +53,8 @@ export default function App() {
           {/*  // https://reactrouter.com/docs/en/v6/getting-started/overview */}
           <Routes>
             <Route path="/bookings" element={<BookingsPage />} />
-            {/* ch[10.0] enable nested routes with /*  */}
+            {/* ch[10.0] using path attributes for Route components to extract state values
+            enable nested routes with /*  */}
             <Route path="/bookables/*" element={<BookablesPage />} />
             <Route path="/users" element={<UsersPage />} />
           </Routes>
