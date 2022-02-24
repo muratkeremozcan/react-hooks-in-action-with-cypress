@@ -1,6 +1,7 @@
 import Bookings from './Bookings'
 import { mount } from '@cypress/react'
 import { BrowserRouter } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import dayjs from 'dayjs'
 import '../../App.css'
 const bookableData = require('../../../cypress/fixtures/bookables.json')
@@ -12,14 +13,18 @@ describe('Bookings', { viewportWidth: 700, viewportHeight: 700 }, () => {
     // so we control the time with cy.clock in order to match the fixture data
     cy.clock(new Date('2022 2 14'))
 
+    const queryClient = new QueryClient()
+
     cy.intercept('GET', 'http://localhost:3001/bookings?bookableId**', {
       fixture: 'bookings'
     }).as('data')
 
     mount(
-      <BrowserRouter>
-        <Bookings bookable={bookableData[0]} />
-      </BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Bookings bookable={bookableData[0]} />
+        </BrowserRouter>
+      </QueryClientProvider>
     )
   })
 
@@ -37,7 +42,7 @@ describe('Bookings', { viewportWidth: 700, viewportHeight: 700 }, () => {
     cy.getByCy('Morning-2022-02-14').should('not.have.class', 'selected')
   })
 
-  // todo: update this or move it
+  // todo: may need to move to an e2e test
   context.skip('WeekPicker', () => {
     it('should show the beginning of the week with today', () => {
       cy.getByCy('today').click()

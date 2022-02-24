@@ -1,5 +1,6 @@
 import { mount } from '@cypress/react'
 import UsersList from './UsersList'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import '../../App.css'
 const users = require('../../../cypress/fixtures/users.json')
 
@@ -7,6 +8,8 @@ const checkBtnColor = (i, color) =>
   cy.get('.btn').eq(i).should('have.css', 'background-color', color)
 
 describe('UsersList', { viewportWidth: 700, viewportHeight: 700 }, () => {
+  const queryClient = new QueryClient()
+
   it('should render spinner preload, and set a user as default', () => {
     cy.intercept(
       {
@@ -19,7 +22,11 @@ describe('UsersList', { viewportWidth: 700, viewportHeight: 700 }, () => {
       }
     ).as('userStubDelayed')
 
-    mount(<UsersList user={users[1]} setUser={cy.spy().as('setUser')} />)
+    mount(
+      <QueryClientProvider client={queryClient}>
+        <UsersList user={users[1]} setUser={cy.spy().as('setUser')} />
+      </QueryClientProvider>
+    )
 
     cy.getByCy('spinner').should('be.visible')
     cy.wait('@userStubDelayed')
@@ -35,8 +42,13 @@ describe('UsersList', { viewportWidth: 700, viewportHeight: 700 }, () => {
       { statusCode: 500 }
     ).as('networkError')
 
-    mount(<UsersList user={users[1]} />)
+    mount(
+      <QueryClientProvider client={queryClient}>
+        <UsersList user={users[1]} />
+      </QueryClientProvider>
+    )
 
+    Cypress._.times(4, () => cy.wait('@networkError', { timeout: 10000 }))
     cy.getByCy('error').should('exist')
   })
 
@@ -45,7 +57,11 @@ describe('UsersList', { viewportWidth: 700, viewportHeight: 700 }, () => {
       fixture: 'users'
     }).as('userStub')
 
-    mount(<UsersList user={users[1]} setUser={cy.spy().as('setUser')} />)
+    mount(
+      <QueryClientProvider client={queryClient}>
+        <UsersList user={users[1]} setUser={cy.spy().as('setUser')} />
+      </QueryClientProvider>
+    )
     cy.wait('@userStub')
 
     checkBtnColor(1, 'rgb(23, 63, 95)')

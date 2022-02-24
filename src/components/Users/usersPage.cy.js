@@ -1,10 +1,13 @@
 import { mount } from '@cypress/react'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import UsersPage from './UsersPage'
 import UserContext from './UserContext'
 import '../../App.css'
 const users = require('../../../cypress/fixtures/users.json')
 
 describe('UserDetails', { viewportWidth: 700, viewportHeight: 700 }, () => {
+  const queryClient = new QueryClient()
+
   const initialIndex = 1
   beforeEach(() => {
     cy.intercept('GET', 'http://localhost:3001/users', {
@@ -12,9 +15,11 @@ describe('UserDetails', { viewportWidth: 700, viewportHeight: 700 }, () => {
     }).as('userStub')
 
     mount(
-      <UserContext.Provider value={users[initialIndex]}>
-        <UsersPage />
-      </UserContext.Provider>
+      <QueryClientProvider client={queryClient}>
+        <UserContext.Provider value={users[initialIndex]}>
+          <UsersPage />
+        </UserContext.Provider>
+      </QueryClientProvider>
     )
     cy.wait('@userStub')
   })
