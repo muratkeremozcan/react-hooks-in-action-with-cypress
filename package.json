@@ -36,7 +36,7 @@
   "scripts": {
     "dev": "concurrently -k yarn:start yarn:start:api",
     "start": "react-scripts start",
-    "start:api": "json-server --watch db.json --port 3001",
+    "start:api": "json-server --watch db.json --port 3001 --delay 2000",
     "build": "react-scripts build",
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",

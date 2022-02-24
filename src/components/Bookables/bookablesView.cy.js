@@ -1,18 +1,23 @@
 import BookablesView from './BookablesView'
 import { BrowserRouter } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { mount } from '@cypress/react'
 import '../../App.css'
 
 describe('BookablesView', { viewportWidth: 700, viewportHeight: 700 }, () => {
+  const queryClient = new QueryClient()
+
   beforeEach(() => {
     cy.intercept('GET', 'http://localhost:3001/bookables', {
       fixture: 'bookables'
     }).as('bookablesStub')
 
     mount(
-      <BrowserRouter>
-        <BookablesView />
-      </BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <BookablesView />
+        </BrowserRouter>
+      </QueryClientProvider>
     )
     cy.wait('@bookablesStub')
   })

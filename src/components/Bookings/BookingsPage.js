@@ -1,6 +1,8 @@
-import useFetch from '../../utils/useFetch'
 import { shortISO } from '../../utils/date-wrangler'
 import { useBookingsParams } from './bookingsHooks'
+
+import { useQuery } from 'react-query'
+import getData from '../../utils/api'
 
 import BookablesList from '../Bookables/BookablesList'
 import Bookings from './Bookings'
@@ -11,7 +13,7 @@ export default function BookablesPage() {
     data: bookables = [],
     status,
     error
-  } = useFetch('http://localhost:3001/bookables')
+  } = useQuery('bookables', () => getData('http://localhost:3001/bookables'))
 
   // [10.2.3] access the query string's search params
   const { date, bookableId } = useBookingsParams()

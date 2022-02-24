@@ -1,20 +1,26 @@
 import { Link, useParams } from 'react-router-dom'
 import { FaPlus } from 'react-icons/fa'
 
-import useFetch from '../../utils/useFetch'
+import { useQuery } from 'react-query'
+import getData from '../../utils/api'
 
 import BookablesList from './BookablesList'
 import BookableDetails from './BookableDetails'
 import PageSpinner from '../UI/PageSpinner'
 
 export default function BookablesView() {
-  // const [bookable, setBookable] = useState()
-  // [9.5.1] using the custom hook, we can simplify the state
+  // [10.4.2] useQuery is similar to our custom useFetch: takes a url, returns an object of data, status & error
+  // the key arg is a unique identifier for the query / data in cache; string, array or object
+  // the 2nd arg an async function that returns the data
+  // const { data, status, error } = useQuery(key, () => fetch(url))
+  // Whenever any component subsequently calls useQuery with the key,
+  // React Query will return the previously fetched  data from its cache
+  //  and then fetch the latest data in the background (very similar to PWAs and service workers)
   const {
     data: bookables = [],
     status,
     error
-  } = useFetch('http://localhost:3001/bookables')
+  } = useQuery('bookables', () => getData('http://localhost:3001/bookables'))
 
   // [10.1] using path attributes to extract state values from the url
   /*
