@@ -3,8 +3,6 @@ import { useEffect, useState } from 'react'
 export default function useFormState(data) {
   const [state, setState] = useState(data)
 
-  // useEffect(() => (data ? setState(data) : null), [data])
-
   useEffect(() => {
     if (data) {
       setState(data)

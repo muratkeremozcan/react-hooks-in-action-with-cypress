@@ -1,20 +1,34 @@
 import { mount } from '@cypress/react'
 import { BrowserRouter } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import BookableEdit from './BookableEdit'
 import '../../App.css'
 
 const getByName = (name) => cy.get(`[name="${name}"]`)
 
 describe('BookableEdit', { viewportWidth: 1000, viewportHeight: 700 }, () => {
+  // note this is to make tests independent of each other; not share cache
+  let queryClient
+  beforeEach(() => (queryClient = new QueryClient()))
+
   it('renders', () => {
+    // note: the component tries to get state from the url,
+    // component test doe snot have a url, and hits bookables/undefined
+    // we wildcard the url, so that we get any data
+    cy.intercept('GET', 'http://localhost:3001/bookables/*', {
+      fixture: 'bookables'
+    }).as('bookablesStub')
+
     mount(
-      <BrowserRouter>
-        <BookableEdit
-          formState={cy.spy().as('formState')}
-          handleSubmit={cy.spy().as('handleSubmit')}
-          handleDelete={cy.spy().as('handleDelete')}
-        />
-      </BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <BookableEdit
+            formState={cy.spy().as('formState')}
+            handleSubmit={cy.spy().as('handleSubmit')}
+            handleDelete={cy.spy().as('handleDelete')}
+          />
+        </BrowserRouter>
+      </QueryClientProvider>
     )
 
     getByName('title').type('title', { delay: 0 })
@@ -34,5 +48,34 @@ describe('BookableEdit', { viewportWidth: 1000, viewportHeight: 700 }, () => {
 
     cy.getByCy('delete').click()
     cy.get('@log').should('be.calledWith', 'handleDelete')
+  })
+
+  it('should show spinner or error', () => {
+    cy.intercept(
+      {
+        method: 'GET',
+        url: 'http://localhost:3001/bookables/*'
+      },
+      {
+        delay: 1000,
+        statusCode: 500
+      }
+    ).as('delayError')
+
+    mount(
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <BookableEdit
+            formState={cy.spy().as('formState')}
+            handleSubmit={cy.spy().as('handleSubmit')}
+            handleDelete={cy.spy().as('handleDelete')}
+          />
+        </BrowserRouter>
+      </QueryClientProvider>
+    )
+
+    cy.getByCy('spinner').should('be.visible')
+    Cypress._.times(4, () => cy.wait('@delayError'))
+    cy.getByCy('error').should('be.visible')
   })
 })

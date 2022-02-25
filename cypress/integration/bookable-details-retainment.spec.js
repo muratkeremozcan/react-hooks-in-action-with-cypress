@@ -1,5 +1,3 @@
-/* eslint-disable jest/no-conditional-expect */
-/* eslint-disable jest/valid-expect */
 import spok from 'cy-spok'
 
 describe('Bookable details retainment', { tags: '@smoke' }, () => {

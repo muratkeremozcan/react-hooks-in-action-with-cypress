@@ -17,7 +17,7 @@ export default function BookablesPage() {
     error
   } = useQuery('bookables', () => getData('http://localhost:3001/bookables'))
 
-  // [10.2.3] access the query string's search params
+  // [10.3.3] access the query string's search params
   const { date, bookableId } = useBookingsParams()
 
   // if invalid url, set it as the first bookable

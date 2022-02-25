@@ -15,7 +15,7 @@ export default function BookablesView() {
   // const { data, status, error } = useQuery(key, () => fetch(url))
   // Whenever any component subsequently calls useQuery with the key,
   // React Query will return the previously fetched  data from its cache
-  //  and then fetch the latest data in the background (very similar to PWAs and service workers)
+  // and then fetch the latest data in the background (very similar to PWAs and service workers)
   const {
     data: bookables = [],
     status,

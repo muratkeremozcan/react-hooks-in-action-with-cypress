@@ -49,7 +49,7 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
     const bookablesInSelectedGroup = bookables.filter(
       (b) => b.group === event.target.value
     )
-    // [10.3] use the navigate function to set a new url
+    // [10.2] use the navigate function to set a new url
     /*
     To update the state, we either need a link that points to a new URL or a function that navigates to the new URL
       // JSX
@@ -76,7 +76,7 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
     const i = bookablesInGroup.indexOf(bookable)
     const nextIndex = (i + 1) % bookablesInGroup.length
     const nextBookable = bookablesInGroup[nextIndex]
-    // [10.3] use the navigate function to set a new url
+    // [10.2] use the navigate function to set a new url
     return navigate(getUrl(nextBookable.id))
   }
 

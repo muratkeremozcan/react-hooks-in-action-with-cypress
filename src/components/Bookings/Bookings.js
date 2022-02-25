@@ -22,7 +22,7 @@ export default function Bookings({ bookable }) {
 
   const [booking, setBooking] = useState(null)
 
-  // [10.2.3] access the query string's search params
+  // [10.3.3] access the query string's search params
   const { date } = useBookingsParams()
   const week = getWeek(date)
   const weekStart = shortISO(week.start)
