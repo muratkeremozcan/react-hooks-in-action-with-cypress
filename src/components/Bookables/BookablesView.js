@@ -96,7 +96,7 @@ export default function BookablesView() {
         <p className="controls">
           <Link to="/bookables/new" replace={true} className="btn">
             <FaPlus />
-            <span>New</span>
+            <span data-cy="new-bookable">New</span>
           </Link>
         </p>
       </div>

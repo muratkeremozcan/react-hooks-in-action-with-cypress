@@ -4,8 +4,6 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import BookableEdit from './BookableEdit'
 import '../../App.css'
 
-const getByName = (name) => cy.get(`[name="${name}"]`)
-
 describe('BookableEdit', { viewportWidth: 1000, viewportHeight: 700 }, () => {
   // note this is to make tests independent of each other; not share cache
   let queryClient
@@ -31,9 +29,9 @@ describe('BookableEdit', { viewportWidth: 1000, viewportHeight: 700 }, () => {
       </QueryClientProvider>
     )
 
-    getByName('title').type('title', { delay: 0 })
-    getByName('group').type('group', { delay: 0 })
-    getByName('notes').type('notes', { delay: 0 })
+    cy.getByName('title').type('title', { delay: 0 })
+    cy.getByName('group').type('group', { delay: 0 })
+    cy.getByName('notes').type('notes', { delay: 0 })
 
     cy.getByCy('day-0').click()
     cy.getByCy('session-0').click()

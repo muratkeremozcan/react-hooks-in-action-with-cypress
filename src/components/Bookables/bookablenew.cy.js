@@ -1,33 +1,69 @@
 import { mount } from '@cypress/react'
 import { BrowserRouter } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import BookableNew from './BookableNew'
 import '../../App.css'
 
-const getByName = (name) => cy.get(`[name="${name}"]`)
-
 describe('BookableNew', { viewportWidth: 1000, viewportHeight: 700 }, () => {
-  it('renders', () => {
+  let queryClient
+
+  beforeEach(() => {
+    queryClient = new QueryClient()
+
     mount(
-      <BrowserRouter>
-        <BookableNew
-          formState={cy.spy().as('formState')}
-          handleSubmit={cy.spy().as('handleSubmit')}
-        />
-      </BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <BookableNew
+            formState={cy.spy().as('formState')}
+            handleSubmit={cy.spy().as('handleSubmit')}
+          />
+        </BrowserRouter>
+      </QueryClientProvider>
     )
 
-    getByName('title').type('title', { delay: 0 })
-    getByName('group').type('group', { delay: 0 })
-    getByName('notes').type('notes', { delay: 0 })
+    cy.getByName('title').type('title', { delay: 0 })
+    cy.getByName('group').type('group', { delay: 0 })
+    cy.getByName('notes').type('notes', { delay: 0 })
 
     cy.getByCy('day-0').click()
     cy.getByCy('session-0').click()
+  })
 
-    // spy on "console.log" calls for now
+  it('should nav back to bookables on cancel', () => {
+    cy.getByCy('cancel').click()
+    cy.location('pathname').should('equal', '/bookables')
+  })
+
+  it('should render delay and error', () => {
+    cy.intercept('POST', 'http://localhost:3001/bookables', {
+      statusCode: 500,
+      delay: 200
+    }).as('delayError')
+
+    cy.getByCy('save').click()
+    cy.getByCy('spinner').should('be.visible')
+    cy.wait('@delayError')
+    cy.getByCy('error').should('be.visible')
+  })
+
+  it('should nav to the new item on post', () => {
+    const id = 666
+
+    cy.intercept('POST', 'http://localhost:3001/bookables', {
+      statusCode: 200,
+      body: {
+        id
+      }
+    }).as('post')
+
+    // spy on "console.log" calls for demo
     cy.window()
       .its('console')
       .then((console) => cy.spy(console, 'log').as('log'))
+
     cy.getByCy('save').click()
     cy.get('@log').should('be.calledWith', 'handleSubmit')
+    cy.wait('@post')
+    cy.location('pathname').should('equal', `/bookables/${id}`)
   })
 })

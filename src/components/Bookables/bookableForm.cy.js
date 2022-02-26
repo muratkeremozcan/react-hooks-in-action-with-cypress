@@ -6,7 +6,6 @@ const bookableData = require('../../../cypress/fixtures/bookables.json')
 
 const daysOfWeek = [0, 1, 2, 3, 4, 5, 6]
 const bookableIndex = 0
-const getByName = (name) => cy.get(`[name="${name}"]`)
 const diff = (a, b) => a.filter((v) => !b.includes(v))
 // array delta utils
 // const unique = (a) => [...new Set(a)]
@@ -69,9 +68,18 @@ describe('BookableForm', { viewportWidth: 1000, viewportHeight: 700 }, () => {
       </BrowserRouter>
     )
 
-    getByName('title').should('have.value', bookableData[bookableIndex].title)
-    getByName('group').should('have.value', bookableData[bookableIndex].group)
-    getByName('notes').should('have.value', bookableData[bookableIndex].notes)
+    cy.getByName('title').should(
+      'have.value',
+      bookableData[bookableIndex].title
+    )
+    cy.getByName('group').should(
+      'have.value',
+      bookableData[bookableIndex].group
+    )
+    cy.getByName('notes').should(
+      'have.value',
+      bookableData[bookableIndex].notes
+    )
 
     cy.wrap(bookableData[bookableIndex].days).each((i) =>
       cy.getByCy(`day-${i}`).should('be.checked')

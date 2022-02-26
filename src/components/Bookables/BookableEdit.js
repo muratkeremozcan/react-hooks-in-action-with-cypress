@@ -12,7 +12,7 @@ export default function BookableEdit() {
   const { id } = useParams()
 
   // [10.5.0] React Query makes the cache available to components via the client object
-  // this is for being able to use cache when direct navigating via a url
+  // useQueryClient is for being able to use cache when direct navigating via a url
   const queryClient = useQueryClient()
 
   // [10.4.2] useQuery takes a url, returns an object of data, status & error
