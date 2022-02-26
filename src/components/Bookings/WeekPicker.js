@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react'
-import { getWeek } from '../../utils/date-wrangler'
 import dayjs from 'dayjs'
 import {
   FaChevronLeft,
@@ -8,8 +7,11 @@ import {
   FaCalendarCheck
 } from 'react-icons/fa'
 
+import { addDays, shortISO, getWeek } from '../../utils/date-wrangler'
+import { useBookingsParams } from './bookingsHooks'
+
 // week is @FeatureFlag candidate, how do we handle that in a prop?
-export default function WeekPicker({ dispatch, week }) {
+export default function WeekPicker() {
   const today = () => dayjs().format('YYYY-MM-DD')
   const [dateText] = useState(today())
 
@@ -22,11 +24,20 @@ export default function WeekPicker({ dispatch, week }) {
   // (5.1) create a variable to hold the reference; reference to the text box
   const textboxRef = useRef()
   // (5.2) use the reference in a handler function
-  const goToDate = () =>
-    dispatch({
-      type: 'SET_DATE',
-      payload: textboxRef.current.value
-    })
+  // const goToDate = () =>
+  //   dispatch({
+  //     type: 'SET_DATE',
+  //     payload: textboxRef.current.value
+  //   })
+
+  const { date, setBookingsDate: goToDate } = useBookingsParams()
+  const week = getWeek(date)
+
+  const dates = {
+    prev: shortISO(addDays(date, -7)),
+    next: shortISO(addDays(date, 7)),
+    today: shortISO(new Date())
+  }
 
   return (
     <div data-cy="week-picker">
@@ -34,7 +45,7 @@ export default function WeekPicker({ dispatch, week }) {
         <button
           className="btn"
           data-cy="prev-week"
-          onClick={() => dispatch({ type: 'PREV_WEEK' })}
+          onClick={() => goToDate(dates.prev)}
         >
           <FaChevronLeft />
           <span>Prev</span>
@@ -43,7 +54,7 @@ export default function WeekPicker({ dispatch, week }) {
         <button
           className="btn"
           data-cy="today"
-          onClick={() => dispatch({ type: 'TODAY' })}
+          onClick={() => goToDate(dates.today)}
         >
           <FaCalendarDay />
           <span>Today</span>
@@ -58,11 +69,16 @@ export default function WeekPicker({ dispatch, week }) {
             ref={textboxRef}
             // manage state with useState instead, for a controlled component approach; component -> DOM
             placeholder={`e.g. ${dateText}`}
+            id="wpDate"
             defaultValue={dateText}
             data-cy="date-input"
           />
 
-          <button className="go btn" data-cy="go-to-date" onClick={goToDate}>
+          <button
+            className="go btn"
+            data-cy="go-to-date"
+            onClick={() => goToDate(textboxRef.current.value)}
+          >
             <FaCalendarCheck /> <span>Go</span>
           </button>
         </span>
@@ -70,7 +86,7 @@ export default function WeekPicker({ dispatch, week }) {
         <button
           className="btn"
           data-cy="next-week"
-          onClick={() => dispatch({ type: 'NEXT_WEEK' })}
+          onClick={() => goToDate(dates.next)}
         >
           <span>Next</span>
           <FaChevronRight />
@@ -78,10 +94,10 @@ export default function WeekPicker({ dispatch, week }) {
       </p>
 
       {/* @FeatureFlag candidate */}
-      <p data-cy="week-interval">
+      {/* <p data-cy="week-interval">
         {week?.start?.toDateString()} - {week?.end?.toDateString()}
       </p>
-      <p data-cy="todays-date">The date is {week?.date?.toDateString()}</p>
+      <p data-cy="todays-date">The date is {week?.date?.toDateString()}</p> */}
     </div>
   )
 }

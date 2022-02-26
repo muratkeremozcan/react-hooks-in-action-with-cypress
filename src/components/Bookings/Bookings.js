@@ -1,11 +1,13 @@
-import { useReducer, useState } from 'react'
-import { getWeek } from '../../utils/date-wrangler'
+import { useEffect, useState } from 'react'
+
+import { getWeek, shortISO } from '../../utils/date-wrangler'
+import { useBookingsParams, useBookings } from './bookingsHooks'
 
 import WeekPicker from './WeekPicker'
 import BookingsGrid from './BookingsGrid'
 import BookingDetails from './BookingDetails'
 
-import weekReducer from './weekReducer'
+// import weekReducer from './weekReducer'
 
 export default function Bookings({ bookable }) {
   // [3.1] utilize useReducer instead of useState on multiple pieces of state
@@ -16,8 +18,20 @@ export default function Bookings({ bookable }) {
   // Use the dispatch function to dispatch an action. dispatch takes an object with type and payload properties
   // React will pass the dispatch to the reducer, reducer generates new state, React replaces the state old state wit the new.
   // ch(6.0) manage the shared state between the child components
-  const [week, dispatch] = useReducer(weekReducer, new Date(), getWeek)
+  // const [week, dispatch] = useReducer(weekReducer, new Date(), getWeek)
+
   const [booking, setBooking] = useState(null)
+
+  // [10.3.3] access the query string's search params
+  const { date } = useBookingsParams()
+  const week = getWeek(date)
+  const weekStart = shortISO(week.start)
+
+  const { bookings } = useBookings(bookable?.id, week.start, week.end)
+  const selectedBooking = bookings?.[booking?.session]?.[booking.date]
+
+  // set the currently selected booking null if the start date changes
+  useEffect(() => setBooking(null), [bookable, weekStart])
 
   return (
     <div data-cy="bookings" className="bookings">
@@ -25,7 +39,8 @@ export default function Bookings({ bookable }) {
         {/*[3.4] Use the dispatch function to dispatch an action 
         dispatch takes an object with type and payload properties */}
         {/* week is @FeatureFlag candidate, how do we handle that in a prop? */}
-        <WeekPicker dispatch={dispatch} week={week} />
+        {/* <WeekPicker dispatch={dispatch} week={week} /> */}
+        <WeekPicker />
 
         <BookingsGrid
           week={week}
@@ -33,7 +48,11 @@ export default function Bookings({ bookable }) {
           booking={booking}
           setBooking={setBooking}
         />
-        <BookingDetails booking={booking} bookable={bookable} />
+
+        <BookingDetails
+          booking={selectedBooking || booking}
+          bookable={bookable}
+        />
       </div>
     </div>
   )

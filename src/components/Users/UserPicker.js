@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import useFetch from '../../utils/useFetch'
+import { useQuery } from 'react-query'
+import getData from '../../utils/api'
 import Spinner from '../UI/Spinner'
 
 // [4.4] useEffect with fetch
@@ -7,11 +8,19 @@ export default function UserPicker({ user, setUser }) {
   // [4.4.1] when initializing state, use null for conditional rendering
   // const [users, setUsers] = useState(null)
   // [9.5.1] using the custom hook, we can simplify the state
+  // const {
+  //   data: users = [],
+  //   status,
+  //   error
+  // } = useFetch('http://localhost:3001/users')
+
+  // [10.4.2] useQuery with a string as the query key
+  // const { data, status, error } = useQuery(key, () => fetch(url))
   const {
     data: users = [],
     status,
     error
-  } = useFetch('http://localhost:3001/users')
+  } = useQuery('users', () => getData('http://localhost:3001/users'))
 
   // [4.4.2] useEffect to fetch data, once with [],
   // if not once, it will keep fetching data forever

@@ -1,6 +1,7 @@
 import BookingsGrid from './BookingsGrid'
 import { mount } from '@cypress/react'
 import { getWeek } from '../../utils/date-wrangler'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import '../../App.css'
 const bookableData = require('../../../cypress/fixtures/bookables.json')
 const bookings = require('../../../cypress/fixtures/bookings.json')
@@ -9,6 +10,9 @@ describe('BookingsGrid', { viewportWidth: 800, viewportHeight: 700 }, () => {
   // the fixture data is around valentine's day 2022
   // fix the week prop so that state is consistent
   const week = getWeek(new Date('2022 2 14'))
+
+  let queryClient
+  beforeEach(() => (queryClient = new QueryClient()))
 
   it('should render the error an spinner', () => {
     cy.intercept(
@@ -19,16 +23,20 @@ describe('BookingsGrid', { viewportWidth: 800, viewportHeight: 700 }, () => {
       {
         statusCode: 500
       }
-    ).as('data')
+    ).as('statusError')
 
     mount(
-      <BookingsGrid
-        bookable={bookableData[0]}
-        week={week}
-        booking={bookings[1]}
-        setBooking={() => null}
-      />
+      <QueryClientProvider client={queryClient}>
+        <BookingsGrid
+          bookable={bookableData[0]}
+          week={week}
+          booking={bookings[1]}
+          setBooking={() => null}
+        />
+      </QueryClientProvider>
     )
+
+    Cypress._.times(4, () => cy.wait('@statusError', { timeout: 10000 }))
     cy.getByCy('bookings-grid')
       .should('be.visible')
       .and('not.have.class', 'active')
@@ -59,12 +67,14 @@ describe('BookingsGrid', { viewportWidth: 800, viewportHeight: 700 }, () => {
     ).as('data')
 
     mount(
-      <BookingsGrid
-        bookable={bookableData[0]}
-        week={week}
-        booking={bookings[1]}
-        setBooking={cy.spy().as('setBooking')}
-      />
+      <QueryClientProvider client={queryClient}>
+        <BookingsGrid
+          bookable={bookableData[0]}
+          week={week}
+          booking={bookings[1]}
+          setBooking={cy.spy().as('setBooking')}
+        />
+      </QueryClientProvider>
     )
     cy.getByCy('bookings-grid')
       .should('be.visible')
