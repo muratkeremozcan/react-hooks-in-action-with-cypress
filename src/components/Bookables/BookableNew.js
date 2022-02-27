@@ -8,8 +8,7 @@ import BookableForm from './BookableForm'
 import PageSpinner from '../UI/PageSpinner'
 
 export default function BookableNew() {
-  // [10.2] React Router’s useNavigate returns a function we can use to set a new URL,
-  // prompting the router to render whichever UI has been associated with the new path
+  // [10.2] React Router’s useNavigate returns a function we can use to direct-nav
   const navigate = useNavigate()
   const formState = useFormState()
   // [10.6.1] recall useQueryClient from (10.5.0), there it was used to retrieve the cache
@@ -17,11 +16,11 @@ export default function BookableNew() {
   const queryClient = useQueryClient()
 
   // [10.6.0] why useMutation?
-  // useParams and useQuery fetch state from a url (server) and cache it in the browser
-  // useMutation is just the opposite: UI state -> server
+  // useParams and useQuery fetch state: UI state <- server/url , and caches it
+  // useMutation is just the opposite: UI state -> server , and still caches it
   // yields data, status, error just like useQuery (10.4.2)
-  // const { dataToMutate, status, error } = useMutation((url) => fetch(url) {.. POST ..})
-  // the first arg is 2nd arg is function that returns posts data
+  // const { dataToMutate, status, error } = useMutation((url) => fetch(url) {.. non-idempotent (POST for example) ..})
+  // the first arg is a function that that executes a non-idempotent request
   // the second arg is an object with onSuccess property
   const {
     mutate: createBookable,
@@ -33,6 +32,7 @@ export default function BookableNew() {
     {
       onSuccess: (bookable) => {
         // [10.6.2] use queryClient's setQueryData to set the cache
+        // takes a key as the first arg, the 2nd arg is a cb that takes the old query cache and returns the new one
         queryClient.setQueryData('bookables', (old) => [
           ...(old || []),
           bookable

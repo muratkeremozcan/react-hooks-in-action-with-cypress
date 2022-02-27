@@ -18,7 +18,7 @@ describe(
 
       const group = `Group${faker.datatype.number()}`
       const title = `Title${faker.datatype.number()}`
-      const notes = faker.lorem.paragraph()
+      let notes = faker.lorem.paragraph()
 
       cy.getByName('group').type(group, { delay: 0 })
       cy.getByName('title').type(title, { delay: 0 })
@@ -50,6 +50,33 @@ describe(
       cy.getByCyLike('bookable-list-item').contains(title)
       cy.getByCyLike('bookable-details').contains(notes)
       cy.get('.bookable-availability > >').should('have.length', items * 2)
+
+      notes = `edited${notes}`
+
+      cy.log('edit bookable')
+      cy.getByCy('edit-bookable').click()
+      cy.location('pathname').should('contain', '/edit')
+      cy.getByName('notes').clear().type(notes, { delay: 0 })
+
+      cy.intercept('PUT', '/bookables/*').as('editBookable')
+      cy.getByCy('save').click()
+      cy.wait('@editBookable')
+        .its('response')
+        .should(
+          spok({
+            statusCode: 200,
+            body: {
+              notes
+            }
+          })
+        )
+
+      cy.log('delete bookable')
+      cy.getByCy('edit-bookable').click()
+      cy.location('pathname').should('contain', '/edit')
+      cy.intercept('DELETE', '/bookables/*').as('deleteBookable')
+      cy.getByCy('delete').click()
+      cy.wait('@deleteBookable').its('response.statusCode').should('eq', 200)
     })
   }
 )

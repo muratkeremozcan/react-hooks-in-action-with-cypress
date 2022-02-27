@@ -1,4 +1,5 @@
 import BookablesDetails from './BookableDetails'
+import { BrowserRouter } from 'react-router-dom'
 import { mount } from '@cypress/react'
 import '../../App.css'
 
@@ -14,13 +15,21 @@ describe('BookableDetails', () => {
   }
 
   it('should not render without props', () => {
-    mount(<BookablesDetails />)
+    mount(
+      <BrowserRouter>
+        <BookablesDetails />)
+      </BrowserRouter>
+    )
 
     cy.getByCy('bookables-details').should('not.exist')
   })
 
   it('should toggle details', () => {
-    mount(<BookablesDetails bookable={bookableData} />)
+    mount(
+      <BrowserRouter>
+        <BookablesDetails bookable={bookableData} />)
+      </BrowserRouter>
+    )
     cy.get('label').contains('Show Details')
     cy.get('input').should('be.checked')
     cy.get('.item-details').should('be.visible')
@@ -31,7 +40,11 @@ describe('BookableDetails', () => {
   })
 
   it('should render with prop data', () => {
-    mount(<BookablesDetails bookable={bookableData} />)
+    mount(
+      <BrowserRouter>
+        <BookablesDetails bookable={bookableData} />)
+      </BrowserRouter>
+    )
 
     cy.contains('h2', bookableData.title)
     cy.contains('p', bookableData.notes)

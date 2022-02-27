@@ -1,5 +1,7 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { days, sessions } from '../../static.json'
+import { FaEdit } from 'react-icons/fa'
 
 /* [2.0] Why useState?
 we want to alert React that a value used within a component has changed
@@ -72,6 +74,16 @@ export default function BookableDetails({ bookable }) {
             />
             Show Details
           </label>
+
+          <Link
+            to={`/bookables/${bookable.id}/edit`}
+            replace={true}
+            className="btn btn-header"
+            data-cy="edit-bookable"
+          >
+            <FaEdit />
+            <span>Edit</span>
+          </Link>
         </span>
       </div>
 

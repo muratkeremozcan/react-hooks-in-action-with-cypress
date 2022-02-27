@@ -9,45 +9,6 @@ describe('BookableEdit', { viewportWidth: 1000, viewportHeight: 700 }, () => {
   let queryClient
   beforeEach(() => (queryClient = new QueryClient()))
 
-  it('renders', () => {
-    // note: the component tries to get state from the url,
-    // component test doe snot have a url, and hits bookables/undefined
-    // we wildcard the url, so that we get any data
-    cy.intercept('GET', 'http://localhost:3001/bookables/*', {
-      fixture: 'bookables'
-    }).as('bookablesStub')
-
-    mount(
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <BookableEdit
-            formState={cy.spy().as('formState')}
-            handleSubmit={cy.spy().as('handleSubmit')}
-            handleDelete={cy.spy().as('handleDelete')}
-          />
-        </BrowserRouter>
-      </QueryClientProvider>
-    )
-
-    cy.getByName('title').type('title', { delay: 0 })
-    cy.getByName('group').type('group', { delay: 0 })
-    cy.getByName('notes').type('notes', { delay: 0 })
-
-    cy.getByCy('day-0').click()
-    cy.getByCy('session-0').click()
-
-    // spy on "console.log" calls for now
-    cy.window()
-      .its('console')
-      .then((console) => cy.spy(console, 'log').as('log'))
-
-    cy.getByCy('save').click()
-    cy.get('@log').should('be.calledWith', 'handleSubmit')
-
-    cy.getByCy('delete').click()
-    cy.get('@log').should('be.calledWith', 'handleDelete')
-  })
-
   it('should show spinner or error', () => {
     cy.intercept(
       {
@@ -55,7 +16,7 @@ describe('BookableEdit', { viewportWidth: 1000, viewportHeight: 700 }, () => {
         url: 'http://localhost:3001/bookables/*'
       },
       {
-        delay: 1000,
+        delay: 100,
         statusCode: 500
       }
     ).as('delayError')
@@ -75,5 +36,61 @@ describe('BookableEdit', { viewportWidth: 1000, viewportHeight: 700 }, () => {
     cy.getByCy('spinner').should('be.visible')
     Cypress._.times(4, () => cy.wait('@delayError'))
     cy.getByCy('error').should('be.visible')
+  })
+
+  context('crud', () => {
+    beforeEach(() => {
+      // note: the component tries to get state from the url,
+      // component test doe snot have a url, and hits bookables/undefined
+      // we wildcard the url, so that we get any data
+      cy.intercept('GET', 'http://localhost:3001/bookables/*', {
+        fixture: 'bookables'
+      }).as('bookablesStub')
+
+      mount(
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <BookableEdit
+              formState={cy.spy().as('formState')}
+              handleSubmit={cy.stub().as('handleSubmit')}
+              handleDelete={cy.stub().as('handleDelete')}
+            />
+          </BrowserRouter>
+        </QueryClientProvider>
+      )
+    })
+
+    it('should edit a component', () => {
+      cy.getByName('title').type('title', { delay: 0 })
+      cy.getByName('group').type('group', { delay: 0 })
+      cy.getByName('notes').type('notes', { delay: 0 })
+
+      cy.getByCy('day-0').click()
+      cy.getByCy('session-0').click()
+
+      cy.intercept(
+        { method: 'PUT', url: 'http://localhost:3001/bookables/*' },
+        { statusCode: 200 }
+      ).as('networkStub')
+
+      cy.getByCy('save').click()
+      cy.wait('@networkStub')
+      // because the nature of the component, and testing it at this level
+      // we can take advantage of the error case
+      cy.getByCy('error').should('be.visible')
+    })
+
+    it('should delete a component', () => {
+      cy.intercept(
+        { method: 'DELETE', url: 'http://localhost:3001/bookables/*' },
+        { statusCode: 200 }
+      ).as('networkStub')
+
+      cy.getByCy('delete').click()
+      cy.wait('@networkStub')
+      // because the nature of the component, and testing it at this level
+      // we can take advantage of the error case
+      cy.getByCy('error').should('be.visible')
+    })
   })
 })

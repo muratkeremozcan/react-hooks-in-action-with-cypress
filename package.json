@@ -37,7 +37,7 @@
   "scripts": {
     "dev": "concurrently -k yarn:start yarn:start:api",
     "start": "react-scripts start",
-    "start:api": "json-server --watch db.json --port 3001 --delay 2000",
+    "start:api": "json-server --watch db.json --port 3001 --delay 1000",
     "build": "react-scripts build",
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
@@ -45,7 +45,7 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:open-ct": "cypress open-ct",
-    "cy:run-ct": "cypress run-ct",
+    "cy:run-ct": "cypress run-ct --browser chrome",
     "cy:open-e2e": "concurrently yarn:start:api 'server-test 3000 cy:open'",
     "cy:run-e2e": "concurrently yarn:start:api 'server-test 3000 cy:run'"
   },

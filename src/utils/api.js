@@ -22,15 +22,26 @@ export function getBookings(bookableId, startDate, endDate) {
   return getData(`${urlRoot}?${query}`)
 }
 
-export function createItem(url, item) {
-  return fetch(url, {
-    method: 'POST',
+const fetcher = (url, method, item) =>
+  fetch(url, {
+    method,
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(item)
+    body: item ? JSON.stringify(item) : null
   }).then((r) => {
     if (!r.ok) {
       throw new Error('There was a problem creating the item!')
     }
     return r.json()
   })
+
+export function createItem(url, item) {
+  return fetcher(url, 'POST', item)
+}
+
+export function editItem(url, item) {
+  return fetcher(url, 'PUT', item)
+}
+
+export function deleteItem(url) {
+  return fetcher(url, 'DELETE')
 }
