@@ -5,48 +5,193 @@
       "group": "Rooms",
       "title": "Meeting Room",
       "notes": "The one with the big table and interactive screen. Seats 12. See Colin if you need the tea and coffee trolley.",
-      "sessions": [1, 2, 3],
-      "days": [1, 2, 3, 4, 5]
+      "sessions": [
+        1,
+        2,
+        3
+      ],
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
     },
     {
       "id": 2,
       "group": "Rooms",
       "title": "Lecture Hall",
       "notes": "For more formal 'sage-on-the-stage' presentations. Seats 100. See Sandra for help with AV setup.",
-      "sessions": [1, 3, 4],
-      "days": [0, 1, 2, 3, 4]
+      "sessions": [
+        1,
+        3,
+        4
+      ],
+      "days": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
     },
     {
       "id": 3,
       "group": "Rooms",
       "title": "Games Room",
       "notes": "Table tennis, table football, pinball! There's also a selection of board games. Please tidy up!",
-      "sessions": [0, 2, 4],
-      "days": [0, 2, 3, 4, 5, 6]
+      "sessions": [
+        0,
+        2,
+        4
+      ],
+      "days": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
     },
     {
       "id": 4,
       "group": "Rooms",
       "title": "Lounge",
       "notes": "A relaxing place to hang out. Ideal for bean bag wranglers and sofa surfers. Help yourself to a beer after hours.",
-      "sessions": [0, 1, 2, 3, 4],
-      "days": [0, 1, 2, 3, 4, 5, 6]
+      "sessions": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "days": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
     },
     {
       "id": 5,
       "group": "Kit",
       "title": "Projector",
       "notes": "Portable but powerful. Keep it with the case. Be careful, it gets quite hot after a while!",
-      "sessions": [1, 2, 3, 4],
-      "days": [0, 2, 3, 4, 5]
+      "sessions": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "days": [
+        0,
+        2,
+        3,
+        4,
+        5
+      ]
     },
     {
       "id": 6,
       "group": "Kit",
       "title": "Wireless mics",
       "notes": "Really handy but don't forget to switch them off when you pop out of the room.",
-      "sessions": [1, 3, 4],
-      "days": [0, 2, 3, 4, 5, 6]
+      "sessions": [
+        1,
+        3,
+        4
+      ],
+      "days": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "group": "Group2060",
+      "title": "Title36633",
+      "notes": "Molestiae facilis omnis qui. Nostrum quam commodi dolores et. Id earum aperiam consequatur deserunt minus quis nostrum est. Est ratione veritatis.editedMolestiae facilis omnis qui. Nostrum quam commodi dolores et. Id earum aperiam consequatur deserunt minus quis nostrum est. Est ratione veritatis.",
+      "days": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sessions": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "id": 7
+    },
+    {
+      "group": "Group65561",
+      "title": "Title25011",
+      "notes": "Est et adipisci dolorem sed voluptas quisquam earum voluptas. Veniam libero sunt id nihil. Illum provident aut quis voluptates.editedEst et adipisci dolorem sed voluptas quisquam earum voluptas. Veniam libero sunt id nihil. Illum provident aut quis voluptates.",
+      "days": [
+        0
+      ],
+      "sessions": [
+        0
+      ],
+      "id": 8
+    },
+    {
+      "group": "Group44698",
+      "title": "Title3680",
+      "notes": "Debitis exercitationem natus. Quidem dolor et aut deleniti assumenda esse veniam sequi et. Ut sit sapiente eos ipsa maiores dolor voluptatem. Temporibus ea odit ut iure eligendi.editedDebitis exercitationem natus. Quidem dolor et aut deleniti assumenda esse veniam sequi et. Ut sit sapiente eos ipsa maiores dolor voluptatem. Temporibus ea odit ut iure eligendi.",
+      "days": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sessions": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "id": 9
+    },
+    {
+      "group": "Group28109",
+      "title": "Title44298",
+      "notes": "Facilis quia optio ad vero illum consectetur nihil. Maxime corrupti numquam quae. Nobis ut ut aut ex ullam asperiores et optio ad. Harum officia nostrum nam sit sunt consequatur laudantium qui. Consequatur excepturi officia iusto.editedFacilis quia optio ad vero illum consectetur nihil. Maxime corrupti numquam quae. Nobis ut ut aut ex ullam asperiores et optio ad. Harum officia nostrum nam sit sunt consequatur laudantium qui. Consequatur excepturi officia iusto.",
+      "days": [
+        0
+      ],
+      "sessions": [
+        0
+      ],
+      "id": 10
+    },
+    {
+      "group": "Group64686",
+      "title": "Title13835",
+      "notes": "Aut est id. A eveniet tempora. Quos recusandae quo sapiente.editedAut est id. A eveniet tempora. Quos recusandae quo sapiente.",
+      "days": [
+        0,
+        1
+      ],
+      "sessions": [
+        0,
+        1
+      ],
+      "id": 11
     }
   ],
   "users": [
