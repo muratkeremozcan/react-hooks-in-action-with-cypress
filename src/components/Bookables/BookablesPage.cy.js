@@ -8,7 +8,7 @@ const checkBtnColor = (i, color) =>
 
 // question: the route does not default to a path, therefore no component
 
-describe.skip('BookablesPage', () => {
+describe('BookablesPage', () => {
   beforeEach(() => {
     cy.intercept('GET', 'http://localhost:3001/bookables', {
       fixture: 'bookables'
@@ -22,7 +22,7 @@ describe.skip('BookablesPage', () => {
     cy.wait('@bookablesStub')
   })
 
-  it('renders BookablesList in BookablesPage', () => {
+  it.only('renders BookablesList in BookablesPage', () => {
     cy.getByCy('bookables-list').should('be.visible')
     cy.getByCy('bookable-details').should('be.visible')
   })

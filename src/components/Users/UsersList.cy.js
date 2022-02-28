@@ -4,9 +4,6 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import '../../App.css'
 const users = require('../../../cypress/fixtures/users.json')
 
-const checkBtnColor = (i, color) =>
-  cy.get('.btn').eq(i).should('have.css', 'background-color', color)
-
 describe('UsersList', { viewportWidth: 700, viewportHeight: 700 }, () => {
   const queryClient = new QueryClient()
 
@@ -64,7 +61,7 @@ describe('UsersList', { viewportWidth: 700, viewportHeight: 700 }, () => {
     )
     cy.wait('@userStub')
 
-    checkBtnColor(1, 'rgb(23, 63, 95)')
-    checkBtnColor(0, 'rgb(255, 255, 255)')
+    cy.checkBtnColor(1, 'rgb(23, 63, 95)')
+    cy.checkBtnColor(0, 'rgb(255, 255, 255)')
   })
 })

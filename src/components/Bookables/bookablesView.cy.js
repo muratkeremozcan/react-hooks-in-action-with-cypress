@@ -45,7 +45,7 @@ describe('BookablesView', { viewportWidth: 700, viewportHeight: 700 }, () => {
   // @FeatureFlag candidate (tied to changeBookable in BookablesList)
   // it('should click and highlight the list item and ch[5.4] the focus should be on Next button', () => {
   //   cy.get('.btn').eq(1).click()
-  //   checkBtnColor(1, 'rgb(23, 63, 95)')
-  //   checkBtnColor(0, 'rgb(255, 255, 255)')
+  //   cy.checkBtnColor(1, 'rgb(23, 63, 95)')
+  //   cy.checkBtnColor(0, 'rgb(255, 255, 255)')
   //   cy.getByCy('next-btn').should('be.focused'  // })
 })

@@ -1,3 +1,5 @@
+const bookable = require('../fixtures/bookables.json')[2]
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -33,3 +35,21 @@ Cypress.Commands.add('getByCyLike', (selector, ...args) =>
 )
 
 Cypress.Commands.add('getByName', (name) => cy.get(`[name="${name}"]`))
+
+Cypress.Commands.add('checkBtnColor', (i, color) =>
+  cy.get('.btn').eq(i).should('have.css', 'background-color', color)
+)
+
+Cypress.Commands.add('stubNetwork', () => {
+  cy.intercept('GET', 'http://localhost:3001/users', {
+    fixture: 'users'
+  }).as('userStub')
+
+  cy.intercept('GET', 'http://localhost:3001/bookables', {
+    fixture: 'bookables'
+  }).as('bookablesStub')
+
+  cy.intercept('GET', 'http://localhost:3001/bookables/*', {
+    body: bookable
+  }).as('bookableStub')
+})

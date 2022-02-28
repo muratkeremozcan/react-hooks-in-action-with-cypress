@@ -1,7 +1,9 @@
-import spok from 'cy-spok'
+// import spok from 'cy-spok'
 
 describe('Bookable details retainment', { tags: '@smoke' }, () => {
   before(() => {
+    cy.stubNetwork()
+
     cy.visit('/')
     cy.contains('Bookables').click()
     cy.url().should('contain', '/bookables')
@@ -13,20 +15,21 @@ describe('Bookable details retainment', { tags: '@smoke' }, () => {
     cy.get('.item').should('be.visible')
 
     // this was a cool approach but very brittle during testing
+    // it seems that reaching into the component from e2e may hurt TDD
     // cy.getByCy('bookables-list')
     //   .getComponent()
     //   .its('state.0')
-    //   .should((s) => expect(s).to.have.length.gt(0))
-    //   .and(
-    //     spok([
-    //       {
-    //         id: spok.number,
-    //         group: (g) => expect(g).to.be.oneOf(['Kit', 'Rooms']),
-    //         title: spok.string,
-    //         notes: spok.string,
-    //         sessions: spok.arrayElementsRange(3, 5)
-    //       }
-    //     ])
-    //   )
+    // .should((s) => expect(s).to.have.length.gt(0))
+    // .and(
+    //   spok([
+    //     {
+    //       id: spok.number,
+    //       group: (g) => expect(g).to.be.oneOf(['Kit', 'Rooms']),
+    //       title: spok.string,
+    //       notes: spok.string,
+    //       sessions: spok.arrayElementsRange(3, 5)
+    //     }
+    //   ])
+    // )
   })
 })
