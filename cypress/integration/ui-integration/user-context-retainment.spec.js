@@ -3,10 +3,8 @@ describe(
   { tags: '@ui-integration' },
   () => {
     before(() => {
+      cy.stubNetwork()
       cy.visit('/')
-      cy.intercept('GET', 'http://localhost:3001/users', {
-        fixture: 'users'
-      }).as('userStub')
     })
 
     it('Should keep the user context between routes', () => {

@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
 import BookablesView from './BookablesView'
 import BookableEdit from './BookableEdit'
@@ -10,12 +10,6 @@ import BookableNew from './BookableNew'
 export default function BookablesPage() {
   return (
     <>
-      {/* question: why doesn't it default to a path? How do we test this with component testing?
-      makes sense; same thing in App.cy.js test, we have to click on routes for them to appear
-      */}
-      <nav>
-        <Link to="/2">Test</Link>
-      </nav>
       <Routes>
         <Route path="/:id" element={<BookablesView />} />
         <Route path="/" element={<BookablesView />} />
@@ -39,3 +33,7 @@ export default function BookablesPage() {
     </>
   )
 }
+
+// note about component testing:
+// the route does not default to a path, therefore no component is rendered on mount
+// all the children are tested in full, and this component should be tested at e2e level

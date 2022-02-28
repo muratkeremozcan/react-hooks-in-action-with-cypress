@@ -42,33 +42,37 @@ describe('Bookings', { viewportWidth: 700, viewportHeight: 700 }, () => {
     cy.getByCy('Morning-2022-02-14').should('not.have.class', 'selected')
   })
 
-  // todo: may need to move to an e2e test
-  context.skip('WeekPicker', () => {
+  context('WeekPicker', () => {
+    beforeEach(() => cy.getByCy('today').click())
+
     it('should show the beginning of the week with today', () => {
-      cy.getByCy('today').click()
-      cy.getByCy('week-interval').should(
+      cy.getByCy('date-0').should(
         'contain',
         dayjs().startOf('week').$d.toDateString()
       )
     })
-    it('should show previous week with prev-week', () => {
-      cy.getByCy('prev-week').click()
-      cy.getByCy('week-interval').should(
-        'contain',
-        dayjs().startOf('week').subtract(1, 'week').$d.toDateString()
-      )
-    })
+
     it('should show next week with next-week', () => {
       cy.getByCy('next-week').click()
-      cy.getByCy('week-interval').should(
+      cy.wait('@data').wait('@data')
+      cy.getByCy('date-0').should(
         'contain',
         dayjs().startOf('week').add(1, 'week').$d.toDateString()
       )
     })
+
+    it('should show previous week with prev-week', () => {
+      cy.getByCy('prev-week').click()
+      cy.getByCy('date-0').should(
+        'contain',
+        dayjs().startOf('week').subtract(1, 'week').$d.toDateString()
+      )
+    })
+
     it('should show a week and date when go to date feature is used', () => {
       cy.getByCy('date-input').clear().type('2020-09-02')
       cy.getByCyLike('go').click()
-      cy.getByCy('week-interval').contains('Sun Aug 30 2020 - Sat Sep 05 2020')
+      cy.getByCy('date-0').contains('Sun Aug 30 2020')
     })
   })
 })

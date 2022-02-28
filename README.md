@@ -130,3 +130,42 @@ yarn cy:run --env grepUntagged=true
 yarn cy:run-ct --env grep="BookingsPage",grepFilterSpecs=true,grepOmitFiltered=true
 
 ```
+
+## (WIP) What to test where: component vs ui-integration vs ui-e2e
+
+- test everything you can at the lowest level component
+
+  - BookablesPage (routes)
+    - BookablesView (parent)
+      - BookablesList (child)
+      - BookableDetails (child)
+    - BookableEdit (parent)
+      - BookableForm (child)
+    - BookableNew (parent)
+      - BookableForm (child)
+
+- test at the parent component when you cannot test any further at child
+
+- test via ui-integration when that is limiting, and also when you want to test an integration of ui components
+
+- test via ui-e2e when back-end matters
+
+  - ideal crud utilizes api seeding, but here we did it all through the UI
+
+    - 1. Test UI Create
+
+      - UI create
+      - API delete
+
+    - 2. Test UI Update
+
+      - API create
+      - UI update
+      - API delete
+
+    - 3. Test UI Delete
+
+      - API create
+      - UI delete
+
+- Finally, do combined coverage and fill the gaps

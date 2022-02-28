@@ -1,7 +1,7 @@
 import { mount } from '@cypress/react'
 import { BrowserRouter } from 'react-router-dom'
 import WeekPicker from './WeekPicker'
-import dayjs from 'dayjs'
+// import dayjs from 'dayjs'
 import { getWeek } from '../../utils/date-wrangler'
 import '../../App.css'
 
