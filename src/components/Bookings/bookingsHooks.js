@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { shortISO, isDate } from '../../utils/date-wrangler'
 import { getGrid, transformBookings } from './grid-builder'
-import getData from '../../utils/api'
+import getData, { createItem, deleteItem, editItem } from '../../utils/api'
 
 export function useBookings(bookableId, startDate, endDate) {
   const start = shortISO(startDate)
@@ -37,7 +37,6 @@ export function useGrid(bookable, startDate) {
 // the alternative of (10.1) using path attributes to extract state from the url
 // here the qs is everything after ?  , search params are key1 and key2
 //  /path/to/page?key1=value1&key2=value2
-
 export function useBookingsParams() {
   // [10.3.1] access the search params with useSearchParams hooks, and get
   const [searchParams, setSearchParams] = useSearchParams()
@@ -78,5 +77,78 @@ export function useBookingsParams() {
     date,
     bookableId: hasId ? idInt : undefined,
     setBookingsDate
+  }
+}
+
+export function useCreateBooking() {
+  // [10.6.1] recall useQueryClient from (10.5.0), there it was used to retrieve the cache
+  // here it will be used to set the cache
+  const queryClient = useQueryClient()
+
+  // useMutation:  UI state -> server , and caches it
+  // const { dataToMutate, status, error } = useMutation((url) => fetch(url) {.. non-idempotent (POST for example) ..})
+  // the first arg is a function that that executes a non-idempotent request
+  // the second arg is an object with onSuccess property
+  const mutation = useMutation(
+    (item) => createItem('http://localhost:3001/bookings', item),
+    {
+      onSuccess: (booking) => {
+        // to create new cache altogether
+        queryClient.invalidateQueries(key)
+        // get all the bookables from the cache
+        const bookings = queryClient.getQueryData(key) || []
+        // [10.6.2] use queryClient's setQueryData to set the cache
+        // takes a key as the first arg, the 2nd arg is the new cache
+        queryClient.setQueryData(key, [...bookings, booking])
+      }
+    }
+  )
+
+  return {
+    createBooking: mutation.mutate,
+    isCreating: mutation.isLoading
+  }
+}
+
+export function useUpdateBooking(key) {
+  const queryClient = useQueryClient()
+  const mutation = useMutation(
+    (item) => editItem(`http://localhost:3001/bookings/${item.id}`, item),
+    {
+      onSuccess: (booking) => {
+        queryClient.invalidateQueries(key)
+        const bookings = queryClient.getQueryData(key) || []
+        const bookingIndex = bookings.findIndex((b) => b.id === booking.id)
+        bookings[bookingIndex] = booking
+        queryClient.setQueryData(key, bookings)
+      }
+    }
+  )
+
+  return {
+    updateBooking: mutation.mutate,
+    isUpdating: mutation.isLoading
+  }
+}
+
+export function useDeleteBooking(key) {
+  const queryClient = useQueryClient()
+  const mutation = useMutation(
+    (id) => deleteItem(`http://localhost:3001/bookings/${id}`),
+    {
+      onSuccess: (resp, id) => {
+        queryClient.invalidateQueries(key)
+        const bookings = queryClient.getQueryData(key) || []
+        queryClient.setQueryData(
+          key,
+          bookings.filter((b) => b.id !== id)
+        )
+      }
+    }
+  )
+
+  return {
+    deleteBooking: mutation.mutate,
+    isDeleting: mutation.isLoading
   }
 }
