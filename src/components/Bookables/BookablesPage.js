@@ -11,12 +11,12 @@ export default function BookablesPage() {
   return (
     <>
       <Routes>
+        {/* Use parameters in routes by pre-pending parameter names with a colon */}
         <Route path="/:id" element={<BookablesView />} />
         <Route path="/" element={<BookablesView />} />
         <Route path="/:id/edit" element={<BookableEdit />} />
         <Route path="/new" element={<BookableNew />} />
-
-        {/* question: why doesn't the below version does work? */}
+        {/* question: why doesn't the below version work? */}
         {/* <Route path="/:id">
           <BookablesView />
         </Route>
@@ -36,4 +36,4 @@ export default function BookablesPage() {
 
 // note about component testing:
 // the route does not default to a path, therefore no component is rendered on mount
-// all the children are tested in full, and this component should be tested at e2e level
+// all the children are tested in full, and this component should be tested at ui-integration level
