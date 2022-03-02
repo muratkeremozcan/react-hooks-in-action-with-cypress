@@ -12,7 +12,7 @@ jobs:
     name: Install Dependencies
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           cache: 'yarn'
@@ -26,7 +26,7 @@ jobs:
     name: Run Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: bahmutov/npm-install@v1
         with: { useRollingCache: true }
         env:
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     container: cypress/included:9.4.1 # save time on not having to install cypress
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: bahmutov/npm-install@v1 # save time on dependencies
         with: { useRollingCache: true }
@@ -72,7 +72,7 @@ jobs:
     runs-on: ubuntu-latest
     container: cypress/included:9.4.1 # save time on not having to install cypress
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: bahmutov/npm-install@v1 # save time on dependencies
         with: { useRollingCache: true }
