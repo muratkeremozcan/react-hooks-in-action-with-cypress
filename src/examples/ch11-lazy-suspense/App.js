@@ -26,7 +26,7 @@ function DogWrapper() {
 // ch[11.0] lazy-suspense
 // React provides an easy way to specify fallback UI: the Suspense component
 // Use the Suspense component to wrap UI that contains one or more lazy components in its tree
-// Once the Dog component has loaded, it doesn’t need to load again,
+// Once the internal component has loaded, it doesn’t need to load again,
 // so clicking the second Show Dog button will immediately render the second Dog component
 export default function App() {
   return (

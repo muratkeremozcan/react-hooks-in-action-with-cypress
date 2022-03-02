@@ -12,6 +12,8 @@ export default function BookableForm({
   const { title = '', group = '', notes = '' } = state
   const { days = [], sessions = [] } = state
 
+  // [11.3] test Error Boundary
+  // throw new Error('Noooo!')
   return (
     <main className="bookables-form">
       <div className="item item-form">

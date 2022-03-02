@@ -24,3 +24,22 @@ describe('routes', { tags: ['@routes', '@appJs'] }, () => {
     cy.get('.users-page')
   })
 })
+
+context('ErrorBoundary', () => {
+  it('should display error when a component fails to load', () => {
+    cy.intercept('GET', 'http://localhost:3001/users', {
+      fixture: 'users',
+      statusCode: 500
+    }).as('userStub')
+
+    Cypress.on('uncaught:exception', (err, runnable) => {
+      // returning false here prevents Cypress from
+      // failing the test
+      return false
+    })
+
+    cy.visit('/')
+    cy.contains('Users').click()
+    cy.contains('Something went wrong')
+  })
+})
