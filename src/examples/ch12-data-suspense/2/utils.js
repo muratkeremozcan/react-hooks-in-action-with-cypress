@@ -17,7 +17,7 @@ function getStatusChecker(promiseIn) {
 }
 
 /** takes a data fetching promise and returns a function that uses the promise’s status to act appropriately. */
-export function makeThrower(promiseIn) {
+export function threeWay(promiseIn) {
   // get a status tracking function for the promise
   const checkStatus = getStatusChecker(promiseIn)
 
