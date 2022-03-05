@@ -12,7 +12,8 @@ import PageSpinner from './UI/PageSpinner'
 // import UsersPage from './Users/UsersPage'
 // [8.1] import the context object
 import UserContext from './Users/UserContext'
-import ErrorBoundary from './UI/ErrorBoundary'
+// import ErrorBoundary from './UI/ErrorBoundary'
+import { ErrorBoundary } from 'react-error-boundary'
 
 // [10.4.1]
 const queryClient = new QueryClient()

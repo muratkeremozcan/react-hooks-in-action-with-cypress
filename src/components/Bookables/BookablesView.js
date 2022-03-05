@@ -6,7 +6,7 @@ import getData from '../../utils/api'
 
 import BookablesList from './BookablesList'
 import BookableDetails from './BookableDetails'
-import PageSpinner from '../UI/PageSpinner'
+// import PageSpinner from '../UI/PageSpinner' // (12.2) use Suspense instead
 
 export default function BookablesView() {
   // [10.4.2] useQuery is similar to our custom useFetch: takes a url, returns an object of data, status & error
@@ -16,11 +16,23 @@ export default function BookablesView() {
   // Whenever any component subsequently calls useQuery with the key,
   // React Query will return the previously fetched  data from its cache
   // and then fetch the latest data in the background (very similar to PWAs and service workers)
-  const {
-    data: bookables = [],
-    status,
-    error
-  } = useQuery('bookables', () => getData('http://localhost:3001/bookables'))
+  // const {
+  //   data: bookables = [],
+  //   status,
+  //   error
+  // } = useQuery('bookables', () => getData('http://localhost:3001/bookables'))
+  // instead of the above...
+
+  // [12.2] use Suspense & ErrorBoundary: useQuery takes a third arg as a configuration option
+  // which tells useQuery to suspend (throw a promise) when loading its initial data
+  // remember the 3 way results from (12.0) while loading show the Suspense, if success show the component, if error show the ErrorBoundary
+  const { data: bookables = [] } = useQuery(
+    'bookables',
+    () => getData('http://localhost:3001/bookables'),
+    {
+      suspense: true
+    }
+  )
 
   // [10.1] using path attributes to extract state values from the url
   /*
@@ -73,13 +85,14 @@ export default function BookablesView() {
   //   // runs once
   // }, [])
 
-  if (status === 'error') {
-    return <p>{error.message}</p>
-  }
+  // (12.2) use Suspense and ErrorBoundary instead
+  // if (status === 'error') {
+  //   return <p>{error.message}</p>
+  // }
 
-  if (status === 'loading') {
-    return <PageSpinner />
-  }
+  // if (status === 'loading') {
+  //   return <PageSpinner />
+  // }
 
   // [6.0] parent & children sharing state
   // when components use the same data to build their UI,

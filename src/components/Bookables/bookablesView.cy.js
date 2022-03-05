@@ -1,4 +1,6 @@
+import { Suspense } from 'react'
 import BookablesView from './BookablesView'
+import PageSpinner from '../UI/PageSpinner'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { mount } from '@cypress/react'
@@ -14,12 +16,13 @@ describe('BookablesView', { viewportWidth: 700, viewportHeight: 700 }, () => {
 
     mount(
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <BookablesView />
-        </BrowserRouter>
+        <Suspense fallback={<PageSpinner />}>
+          <BrowserRouter>
+            <BookablesView />
+          </BrowserRouter>
+        </Suspense>
       </QueryClientProvider>
     )
-    cy.wait('@bookablesStub')
   })
 
   it('should render the children: BookablesList and BookableDetails ', () => {
@@ -33,6 +36,7 @@ describe('BookablesView', { viewportWidth: 700, viewportHeight: 700 }, () => {
   })
 
   it('selects the other dropdown list of items', () => {
+    Cypress.on('uncaught:exception', () => false)
     cy.get('select').select(1)
     cy.location('pathname').should('eq', '/bookables/5')
   })
