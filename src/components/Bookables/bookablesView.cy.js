@@ -1,6 +1,6 @@
-import { Suspense } from 'react'
 import BookablesView from './BookablesView'
 import PageSpinner from '../UI/PageSpinner'
+import { Suspense } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { mount } from '@cypress/react'

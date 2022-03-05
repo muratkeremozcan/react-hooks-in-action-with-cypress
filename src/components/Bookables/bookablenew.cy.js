@@ -37,7 +37,7 @@ describe('BookableNew', { viewportWidth: 1000, viewportHeight: 700 }, () => {
   it('should render delay and error', () => {
     cy.intercept('POST', 'http://localhost:3001/bookables', {
       statusCode: 500,
-      delay: 200
+      delay: 100
     }).as('delayError')
 
     cy.getByCy('save').click()

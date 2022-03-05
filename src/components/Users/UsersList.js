@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useQuery } from 'react-query'
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
-import Spinner from '../UI/Spinner'
+// import Spinner from '../UI/Spinner'  // (12.2) use Suspense and ErrorBoundary instead
 import getData from '../../utils/api'
 import mod from '../../utils/real-modulus'
 
@@ -21,10 +21,12 @@ export default function UsersList({ user, setUser }) {
   // [10.4.2] useQuery with a string as the query key
   // const { data, status, error } = useQuery(key, () => fetch(url))
   const {
-    data: users = [],
-    status,
-    error
-  } = useQuery('users', () => getData('http://localhost:3001/users'))
+    data: users = []
+    // status,
+    // error // (12.2) use Suspense and ErrorBoundary instead
+  } = useQuery('users', () => getData('http://localhost:3001/users'), {
+    suspense: true
+  })
 
   const [userIndex, setUserIndex] = useState(() => user.id - 1)
 
@@ -81,17 +83,17 @@ export default function UsersList({ user, setUser }) {
     return setUser(users[mod(userIndex - 1, users.length)])
   }
 
-  if (status === 'error') {
-    return <p data-cy="error">{error.message}</p>
-  }
-  // @FeatureFlag candidates
-  if (status === 'loading') {
-    return (
-      <p>
-        <Spinner /> Loading bookables...
-      </p>
-    )
-  }
+  // (12.2) use Suspense and ErrorBoundary instead
+  // if (status === 'error') {
+  //   return <p data-cy="error">{error.message}</p>
+  // }
+  // if (status === 'loading') {
+  //   return (
+  //     <p>
+  //       <Spinner /> Loading bookables...
+  //     </p>
+  //   )
+  // }
 
   return (
     <>

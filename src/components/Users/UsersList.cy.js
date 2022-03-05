@@ -1,6 +1,10 @@
-import { mount } from '@cypress/react'
 import UsersList from './UsersList'
+import { mount } from '@cypress/react'
+import PageSpinner from '../UI/PageSpinner'
+import ErrorComp from '../UI/ErrorComp'
+import { Suspense } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { ErrorBoundary } from 'react-error-boundary'
 import '../../App.css'
 const users = require('../../../cypress/fixtures/users.json')
 
@@ -21,7 +25,9 @@ describe('UsersList', { viewportWidth: 700, viewportHeight: 700 }, () => {
 
     mount(
       <QueryClientProvider client={queryClient}>
-        <UsersList user={users[1]} setUser={cy.spy().as('setUser')} />
+        <Suspense fallback={<PageSpinner />}>
+          <UsersList user={users[1]} setUser={cy.spy().as('setUser')} />
+        </Suspense>
       </QueryClientProvider>
     )
 
@@ -39,13 +45,23 @@ describe('UsersList', { viewportWidth: 700, viewportHeight: 700 }, () => {
       { statusCode: 500 }
     ).as('networkError')
 
+    Cypress.on('uncaught:exception', () => false)
+
+    cy.clock()
     mount(
       <QueryClientProvider client={queryClient}>
-        <UsersList user={users[1]} />
+        <ErrorBoundary fallback={<ErrorComp />}>
+          <Suspense fallback={<PageSpinner />}>
+            <UsersList user={users[1]} />
+          </Suspense>
+        </ErrorBoundary>
       </QueryClientProvider>
     )
 
-    Cypress._.times(4, () => cy.wait('@networkError', { timeout: 10000 }))
+    Cypress._.times(4, () => {
+      cy.tick(5000)
+      cy.wait('@networkError')
+    })
     cy.getByCy('error').should('exist')
   })
 
@@ -56,7 +72,9 @@ describe('UsersList', { viewportWidth: 700, viewportHeight: 700 }, () => {
 
     mount(
       <QueryClientProvider client={queryClient}>
-        <UsersList user={users[1]} setUser={cy.spy().as('setUser')} />
+        <Suspense fallback={<PageSpinner />}>
+          <UsersList user={users[1]} setUser={cy.spy().as('setUser')} />
+        </Suspense>
       </QueryClientProvider>
     )
     cy.wait('@userStub')

@@ -62,13 +62,17 @@ describe('UserPicker component', { tags: '@user' }, () => {
       }
     ).as('userStubError')
 
+    cy.clock()
     mount(
       <QueryClientProvider client={queryClient}>
         <UserPicker user={userData[3]} setUser={cy.spy().as('setUser')} />
       </QueryClientProvider>
     )
 
-    Cypress._.times(4, () => cy.wait('@userStubError', { timeout: 10000 }))
+    Cypress._.times(4, () => {
+      cy.tick(5000)
+      cy.wait('@userStubError')
+    })
     cy.getByCy('error').should('be.visible')
   })
 })
