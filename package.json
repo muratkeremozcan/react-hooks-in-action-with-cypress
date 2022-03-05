@@ -19,6 +19,7 @@
   "devDependencies": {
     "@cypress/react": "5.12.4",
     "@cypress/webpack-dev-server": "1.8.2",
+    "@faker-js/faker": "6.0.0-alpha.7",
     "concurrently": "7.0.0",
     "cross-env": "7.0.3",
     "cy-spok": "1.5.2",
@@ -28,10 +29,10 @@
     "cypress-real-events": "1.7.0",
     "eslint-plugin-cypress": "2.12.1",
     "eslint-plugin-prettier": "4.0.0",
-    "@faker-js/faker": "6.0.0-alpha.7",
     "husky": "4.3.8",
     "json-server": "0.17.0",
     "prettier": "2.5.1",
+    "react-error-boundary": "^3.1.4",
     "start-server-and-test": "1.14.0"
   },
   "scripts": {

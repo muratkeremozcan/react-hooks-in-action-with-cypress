@@ -1,10 +1,11 @@
-import { useState, lazy, Suspense, Fragment } from 'react'
+import { useState, lazy, Suspense } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import '../App.css'
 import { FaCalendarAlt, FaDoorOpen, FaUsers } from 'react-icons/fa'
 import UserPicker from './Users/UserPicker'
 import PageSpinner from './UI/PageSpinner'
+import ErrorComp from './UI/ErrorComp'
 
 // use lazy loading instead (11.1)
 // import BookablesPage from './Bookables/BookablesPage'
@@ -12,7 +13,8 @@ import PageSpinner from './UI/PageSpinner'
 // import UsersPage from './Users/UsersPage'
 // [8.1] import the context object
 import UserContext from './Users/UserContext'
-import ErrorBoundary from './UI/ErrorBoundary'
+// import ErrorBoundary from './UI/ErrorBoundary'
+import { ErrorBoundary } from 'react-error-boundary'
 
 // [10.4.1]
 const queryClient = new QueryClient()
@@ -73,14 +75,7 @@ export default function App() {
             </header>
 
             {/* [11.3] Error boundary is a way for the app to show common error when lazy loaded components fail to load */}
-            <ErrorBoundary
-              fallback={
-                <Fragment>
-                  <h1>Something went wrong!</h1>
-                  <p>Try reloading the page.</p>
-                </Fragment>
-              }
-            >
+            <ErrorBoundary fallback={<ErrorComp />}>
               {/* [11.2]
             // React provides an easy way to specify fallback UI: the Suspense component
             // Use the Suspense component to wrap UI that contains one or more lazy components in its tree

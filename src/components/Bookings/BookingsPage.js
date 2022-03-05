@@ -6,16 +6,19 @@ import getData from '../../utils/api'
 
 import BookablesList from '../Bookables/BookablesList'
 import Bookings from './Bookings'
-import PageSpinner from '../UI/PageSpinner'
+// import PageSpinner from '../UI/PageSpinner'
 
 // [10.4.2] useQuery with a string as the query key
 // const { data, status, error } = useQuery(key, () => fetch(url))
+
 export default function BookablesPage() {
   const {
-    data: bookables = [],
-    status,
-    error
-  } = useQuery('bookables', () => getData('http://localhost:3001/bookables'))
+    data: bookables = []
+    //   status,
+    //   error // (12.2) use Suspense & ErrorBoundary instead
+  } = useQuery('bookables', () => getData('http://localhost:3001/bookables'), {
+    suspense: true
+  })
 
   // [10.3.3] access the query string's search params
   const { date, bookableId } = useBookingsParams()
@@ -29,13 +32,14 @@ export default function BookablesPage() {
     return date ? `${root}&date=${shortISO(date)}` : root
   }
 
-  if (status === 'error') {
-    return <p>{error.message}</p>
-  }
+  // (12.2) use Suspense and ErrorBoundary instead
+  // if (status === 'error') {
+  //   return <p>{error.message}</p>
+  // }
 
-  if (status === 'loading') {
-    return <PageSpinner />
-  }
+  // if (status === 'loading') {
+  //   return <PageSpinner />
+  // }
 
   return (
     <main className="bookings-page">

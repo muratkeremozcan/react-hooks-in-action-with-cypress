@@ -1,7 +1,9 @@
 import { mount } from '@cypress/react'
-import BookingsPage from './BookingsPage'
+import { Suspense } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import BookingsPage from './BookingsPage'
+import PageSpinner from '../UI/PageSpinner'
 import '../../App.css'
 const bookableData = require('../../../cypress/fixtures/bookables.json')
 
@@ -15,9 +17,11 @@ describe('BookingsPage', { viewportWidth: 900, viewportHeight: 900 }, () => {
 
     mount(
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <BookingsPage bookable={bookableData[0]} bookables={bookableData} />
-        </BrowserRouter>
+        <Suspense fallback={<PageSpinner />}>
+          <BrowserRouter>
+            <BookingsPage bookable={bookableData[0]} bookables={bookableData} />
+          </BrowserRouter>
+        </Suspense>
       </QueryClientProvider>
     )
   })
@@ -29,6 +33,5 @@ describe('BookingsPage', { viewportWidth: 900, viewportHeight: 900 }, () => {
   })
 
   // todo: use different urls for the 4 cases
-  // cover the spinner and error cases
   // (here or elsewhere?)
 })
