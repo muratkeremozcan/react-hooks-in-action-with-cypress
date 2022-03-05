@@ -75,7 +75,7 @@ export default function App() {
             </header>
 
             {/* [11.3] Error boundary is a way for the app to show common error when lazy loaded components fail to load */}
-            <ErrorBoundary fallback={ErrorComp}>
+            <ErrorBoundary fallback={<ErrorComp />}>
               {/* [11.2]
             // React provides an easy way to specify fallback UI: the Suspense component
             // Use the Suspense component to wrap UI that contains one or more lazy components in its tree

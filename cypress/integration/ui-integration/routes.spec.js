@@ -33,12 +33,15 @@ context('ErrorBoundary', () => {
     }).as('userStub')
 
     Cypress.on('uncaught:exception', (err, runnable) => {
-      // returning false here prevents Cypress from
-      // failing the test
       return false
     })
-
+    cy.clock()
     cy.visit('/')
+
+    Cypress._.times(4, () => {
+      cy.tick(5000)
+      cy.wait('@userStub')
+    })
     cy.contains('Users').click()
     cy.contains('Something went wrong')
   })

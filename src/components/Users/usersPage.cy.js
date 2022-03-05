@@ -1,6 +1,8 @@
 import { mount } from '@cypress/react'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { Suspense } from 'react'
 import UsersPage from './UsersPage'
+import PageSpinner from '../UI/PageSpinner'
 import UserContext from './UserContext'
 import '../../App.css'
 const users = require('../../../cypress/fixtures/users.json')
@@ -14,14 +16,16 @@ describe('UserDetails', { viewportWidth: 700, viewportHeight: 700 }, () => {
       fixture: 'users'
     }).as('userStub')
 
+    Cypress.on('uncaught:exception', () => false)
     mount(
       <QueryClientProvider client={queryClient}>
         <UserContext.Provider value={users[initialIndex]}>
-          <UsersPage />
+          <Suspense fallback={<PageSpinner />}>
+            <UsersPage />
+          </Suspense>
         </UserContext.Provider>
       </QueryClientProvider>
     )
-    cy.wait('@userStub')
   })
 
   it('renders UsersPage with the context of the user', () => {
