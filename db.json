@@ -116,82 +116,10 @@
       ]
     },
     {
-      "group": "Group2060",
-      "title": "Title36633",
-      "notes": "Molestiae facilis omnis qui. Nostrum quam commodi dolores et. Id earum aperiam consequatur deserunt minus quis nostrum est. Est ratione veritatis.editedMolestiae facilis omnis qui. Nostrum quam commodi dolores et. Id earum aperiam consequatur deserunt minus quis nostrum est. Est ratione veritatis.",
-      "days": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "sessions": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
+      "group": "Group22567",
+      "title": "Title96558",
+      "notes": "Dicta voluptatem excepturi molestiae beatae aut consectetur ut rerum voluptatum. Omnis qui autem et. Ratione earum voluptatem occaecati animi excepturi et illum.",
       "id": 7
-    },
-    {
-      "group": "Group65561",
-      "title": "Title25011",
-      "notes": "Est et adipisci dolorem sed voluptas quisquam earum voluptas. Veniam libero sunt id nihil. Illum provident aut quis voluptates.editedEst et adipisci dolorem sed voluptas quisquam earum voluptas. Veniam libero sunt id nihil. Illum provident aut quis voluptates.",
-      "days": [
-        0
-      ],
-      "sessions": [
-        0
-      ],
-      "id": 8
-    },
-    {
-      "group": "Group44698",
-      "title": "Title3680",
-      "notes": "Debitis exercitationem natus. Quidem dolor et aut deleniti assumenda esse veniam sequi et. Ut sit sapiente eos ipsa maiores dolor voluptatem. Temporibus ea odit ut iure eligendi.editedDebitis exercitationem natus. Quidem dolor et aut deleniti assumenda esse veniam sequi et. Ut sit sapiente eos ipsa maiores dolor voluptatem. Temporibus ea odit ut iure eligendi.",
-      "days": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "sessions": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "id": 9
-    },
-    {
-      "group": "Group28109",
-      "title": "Title44298",
-      "notes": "Facilis quia optio ad vero illum consectetur nihil. Maxime corrupti numquam quae. Nobis ut ut aut ex ullam asperiores et optio ad. Harum officia nostrum nam sit sunt consequatur laudantium qui. Consequatur excepturi officia iusto.editedFacilis quia optio ad vero illum consectetur nihil. Maxime corrupti numquam quae. Nobis ut ut aut ex ullam asperiores et optio ad. Harum officia nostrum nam sit sunt consequatur laudantium qui. Consequatur excepturi officia iusto.",
-      "days": [
-        0
-      ],
-      "sessions": [
-        0
-      ],
-      "id": 10
-    },
-    {
-      "group": "Group64686",
-      "title": "Title13835",
-      "notes": "Aut est id. A eveniet tempora. Quos recusandae quo sapiente.editedAut est id. A eveniet tempora. Quos recusandae quo sapiente.",
-      "days": [
-        0,
-        1
-      ],
-      "sessions": [
-        0,
-        1
-      ],
-      "id": 11
     }
   ],
   "users": [
@@ -227,7 +155,7 @@
   "bookings": [
     {
       "session": "Lunch",
-      "date": "2022-02-12",
+      "date": "2020-06-22",
       "bookableId": 1,
       "title": "Onboarding",
       "bookerId": 3,
@@ -235,7 +163,7 @@
     },
     {
       "session": "Lunch",
-      "date": "2022-02-13",
+      "date": "2020-06-23",
       "bookableId": 3,
       "title": "Football Challenge",
       "bookerId": 3,
@@ -243,7 +171,7 @@
     },
     {
       "session": "Morning",
-      "date": "2022-02-14",
+      "date": "2020-06-24",
       "bookableId": 1,
       "title": "Movie Pitch!",
       "bookerId": 2,
@@ -251,7 +179,7 @@
     },
     {
       "session": "Evening",
-      "date": "2022-02-15",
+      "date": "2020-06-25",
       "bookableId": 1,
       "title": "Meeting Room",
       "bookerId": 2,
@@ -259,7 +187,7 @@
     },
     {
       "session": "Breakfast",
-      "date": "2022-02-16",
+      "date": "2020-06-26",
       "bookableId": 3,
       "title": "Tiddlywinks",
       "bookerId": 2,
@@ -275,7 +203,7 @@
     },
     {
       "session": "Lunch",
-      "date": "2022-02-16",
+      "date": "2020-06-26",
       "bookableId": 1,
       "title": "New Employee Intro",
       "bookerId": 1,
@@ -283,7 +211,7 @@
     },
     {
       "session": "Afternoon",
-      "date": "2022-02-13",
+      "date": "2020-06-23",
       "bookableId": 1,
       "title": "Project Update",
       "bookerId": 1,
@@ -291,7 +219,7 @@
     },
     {
       "session": "Afternoon",
-      "date": "2022-02-12",
+      "date": "2020-06-22",
       "bookableId": 2,
       "title": "Quiz",
       "bookerId": 1,
