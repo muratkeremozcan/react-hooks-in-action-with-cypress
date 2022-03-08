@@ -16,7 +16,7 @@ export default function Bookings({ bookable }) {
   // const [state, dispatch] = useReducer(reducer, initArgument, initFunction)
   // [3.3] create dispatch functions for for the reducer
   // Use the dispatch function to dispatch an action. dispatch takes an object with type and payload properties
-  // React will pass the dispatch to the reducer, reducer generates new state, React replaces the state old state wit the new.
+  // React will pass the dispatch to the reducer, reducer generates new state, React replaces the state old state with the new.
   // ch(6.0) manage the shared state between the child components
   // const [week, dispatch] = useReducer(weekReducer, new Date(), getWeek)
 

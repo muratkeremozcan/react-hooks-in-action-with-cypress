@@ -64,7 +64,6 @@ export default function UserPicker({ user, setUser }) {
   }
 
   // [6.3] Check for undefined or null prop values. Return alternative UI if appropriate
-  // (12.2) use Suspense and ErrorBoundary instead
   if (status === 'error') {
     return <p data-cy="error">{error.message}</p>
   }

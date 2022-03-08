@@ -1,5 +1,5 @@
 // [8.0] Context api lets us pass a value deep into the component tree
-// without explicitly threading it through every component.
+// without explicitly threading it through every component (2nd tier state management)
 // Create a context for the current theme (with "light" as the default).
 
 import { createContext, useContext } from 'react'

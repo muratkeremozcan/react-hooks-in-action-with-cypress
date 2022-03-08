@@ -96,7 +96,7 @@ export default function BookablesView() {
 
   // [6.0] parent & children sharing state
   // when components use the same data to build their UI,
-  // share that data by passing it as a prop from parent to child
+  // we can share that data by passing it as a prop from parent to child (simplest state management)
   return (
     <main data-cy="bookables-view" className="bookables-page">
       <div>
