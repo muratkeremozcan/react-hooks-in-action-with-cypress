@@ -54,6 +54,7 @@ jobs:
           install: false # no need to install because of the above 2
           start: yarn dev # concurrently starts ui and api servers
           wait-on: 'http://localhost:3000'
+          wait-on-timeout: 1
           browser: chrome
           # ran out of monthly Cypress Dashboard limit
           # record: true
@@ -61,7 +62,6 @@ jobs:
           # group: e2e-tests
           # tag: e2e-tests
         env:
-          CYPRESS_WAIT_ON_TIMEOUT: 1
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
   cypress-component-tests:
