@@ -4,7 +4,6 @@ describe('Bookables', { viewportHeight: 1000, viewportWidth: 1000 }, () => {
   before(() => {
     cy.stubNetwork()
     cy.visit('/bookables')
-    cy.contains('Bookables').click()
     cy.url().should('contain', '/bookables')
     cy.get('.bookables-page')
   })

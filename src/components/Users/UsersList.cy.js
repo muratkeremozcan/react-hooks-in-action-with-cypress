@@ -52,7 +52,7 @@ describe('UsersList', { viewportWidth: 700, viewportHeight: 700 }, () => {
         </Suspense>
       </QueryClientProvider>
     )
-    // cy.wait('@userStub')
+    cy.wait('@userStub')
 
     cy.checkBtnColor(1, 'rgb(23, 63, 95)')
     cy.checkBtnColor(0, 'rgb(255, 255, 255)')
@@ -85,5 +85,26 @@ describe('UsersList', { viewportWidth: 700, viewportHeight: 700 }, () => {
       cy.wait('@networkError')
     })
     cy.getByCy('error').should('exist')
+  })
+
+  context('feature flag next prev', () => {
+    it('should highlight the selected user on initial load', () => {
+      cy.intercept('GET', 'http://localhost:3001/users', {
+        fixture: 'users'
+      }).as('userStub')
+
+      mount(
+        <QueryClientProvider client={queryClient}>
+          <Suspense fallback={<PageSpinner />}>
+            <UsersList user={users[1]} setUser={cy.spy().as('setUser')} />
+          </Suspense>
+        </QueryClientProvider>
+      )
+      cy.wait('@userStub')
+
+      cy.getByCy('next-btn').click()
+      cy.getByCy('prev-btn').click()
+      cy.get('@setUser').should('have.been.calledTwice')
+    })
   })
 })

@@ -62,7 +62,7 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
 
     return navigate(getUrl(bookablesInSelectedGroup[0].id))
   }
-  // @FeatureFlag candidate
+
   /** When the group changes, default the index to 0  */
   // function changeBookable(selectedBookable) {
   //   setBookable(selectedBookable)
