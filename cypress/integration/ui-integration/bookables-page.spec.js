@@ -66,15 +66,18 @@ describe('Bookables', { viewportHeight: 1000, viewportWidth: 1000 }, () => {
     })
   })
 
-  // // @Feature-flag candidate
-  // it('should switch to the previous user and keep cycling with next button', () => {
-  //   cy.getByCy('prev-btn').click()
-  //   cy.checkBtnColor(3, 'rgb(23, 63, 95)')
-  //   cy.checkBtnColor(0, 'rgb(255, 255, 255)')
+  // @featureFlag (previous bookable)
+  it('should switch to the previous user and keep cycling with next button', () => {
+    cy.getByCy('bookables-list').within(() => {
+      cy.checkBtnColor(0, 'rgb(23, 63, 95)')
+      cy.getByCy('prev-btn').click()
+      cy.checkBtnColor(3, 'rgb(23, 63, 95)')
+      cy.checkBtnColor(0, 'rgb(255, 255, 255)')
 
-  //   cy.getByCy('prev-btn').click().click().click()
-  //   cy.checkBtnColor(0, 'rgb(23, 63, 95)')
-  // })
+      cy.getByCy('prev-btn').click().click().click()
+      cy.checkBtnColor(0, 'rgb(23, 63, 95)')
+    })
+  })
 
   // @featureFlag (slide show)
   it('should cycle through the through a presentation changing the bookable every 3 seconds', () => {

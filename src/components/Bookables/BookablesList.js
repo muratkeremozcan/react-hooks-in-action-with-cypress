@@ -1,7 +1,7 @@
-import { FaArrowRight } from 'react-icons/fa'
+import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import { useRef, useEffect, useCallback } from 'react'
-// import mod from '../../utils/real-modulus'
+import mod from '../../utils/real-modulus'
 
 // [6.2] child components destructure and use the props
 export default function BookablesList({ bookable, bookables, getUrl }) {
@@ -101,14 +101,14 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
     return stopPresentation
   }, [nextBookable])
 
-  // @featureFlag candidate (previous Button) (convert to useState instead)
-  // function previousBookable() {
-  //   const i = bookablesInGroup.indexOf(bookable)
-  //   const prevIndex = mod(i - 1, bookablesInGroup.length)
-  //   const prevBookable = bookablesInGroup[prevIndex]
+  // @featureFlag (previous bookable)
+  const previousBookable = useCallback(() => {
+    const i = bookablesInGroup.indexOf(bookable)
+    const prevIndex = mod(i - 1, bookablesInGroup.length)
+    const prevBookable = bookablesInGroup[prevIndex]
 
-  //   return setBookable(prevBookable)
-  // }
+    return navigate(getUrl(prevBookable.id))
+  }, [bookablesInGroup, bookable, getUrl, navigate])
 
   return (
     <div data-cy="bookables-list">
@@ -134,16 +134,12 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
             <Link to={getUrl(b.id)} className="btn" replace={true}>
               {b.title}
             </Link>
-            {/* @FeatureFlag candidate */}
-            {/* <button className="btn" onClick={() => changeBookable(b)}>
-              {b.title}
-            </button> */}
           </li>
         ))}
       </ul>
       <p>
-        {/* @FeatureFlag candidate */}
-        {/* <button
+        {/* @featureFlag (previous bookable) */}
+        <button
           className="btn"
           onClick={previousBookable}
           autoFocus
@@ -151,7 +147,7 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
         >
           <FaArrowLeft />
           <span>Previous</span>
-        </button> */}
+        </button>
 
         <button
           className="btn"
