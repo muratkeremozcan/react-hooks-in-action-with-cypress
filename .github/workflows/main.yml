@@ -61,7 +61,7 @@ jobs:
           # group: e2e-tests
           # tag: e2e-tests
         env:
-          CYPRESS_WAIT_ON_TIMEOUT: 1000
+          CYPRESS_WAIT_ON_TIMEOUT: 1
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
   cypress-component-tests:
