@@ -65,12 +65,8 @@ describe('BookablesList', { viewportWidth: 900, viewportHeight: 700 }, () => {
 
   // @featureFlag (slide show)
   context('slide show', () => {
-    it('should go through a presentation changing the bookable every 3 seconds', () => {
+    beforeEach(() => {
       cy.clock()
-
-      cy.intercept('GET', 'http://localhost:3001/bookables', {
-        fixture: 'bookables'
-      }).as('bookablesStub')
 
       mount(
         <BrowserRouter>
@@ -81,7 +77,15 @@ describe('BookablesList', { viewportWidth: 900, viewportHeight: 700 }, () => {
           />
         </BrowserRouter>
       )
+    })
 
+    it('should stop the presentation', () => {
+      cy.getByCy('stop-btn').click()
+      cy.tick(3000)
+      cy.location('pathname').should('not.eq', `/bookables/2`)
+    })
+
+    it('should go through a presentation changing the bookable every 3 seconds', () => {
       cy.tick(3000)
       cy.location('pathname').should('eq', `/bookables/2`)
     })

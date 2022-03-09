@@ -1,4 +1,4 @@
-import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
+import { FaArrowRight, FaArrowLeft, FaStop } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import { useRef, useEffect, useCallback } from 'react'
 import mod from '../../utils/real-modulus'
@@ -138,6 +138,16 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
         ))}
       </ul>
       <p>
+        {/* @featureFlag (slide show) */}
+        <button
+          className="items-list-nav btn"
+          data-cy="stop-btn"
+          onClick={stopPresentation}
+        >
+          <FaStop />
+          <span>Stop</span>
+        </button>
+
         {/* @featureFlag (previous bookable) */}
         <button
           className="btn"
@@ -146,18 +156,18 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
           data-cy="prev-btn"
         >
           <FaArrowLeft />
-          <span>Previous</span>
+          <span>Prev</span>
         </button>
-
         <button
           className="btn"
           onClick={nextBookable}
+          autoFocus
+          data-cy="next-btn"
+
           // [5.3] assign the reference variable to a ref attribute
           // the reference variable gets set by changeBookable
           // after that, the component reads the state from the DOM using the ref attribute
           // ref={nextButtonRef}
-          autoFocus
-          data-cy="next-btn"
         >
           <FaArrowRight />
           <span>Next</span>

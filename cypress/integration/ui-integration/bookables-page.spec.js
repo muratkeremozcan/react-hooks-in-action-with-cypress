@@ -80,21 +80,31 @@ describe('Bookables', { viewportHeight: 1000, viewportWidth: 1000 }, () => {
   })
 
   // @featureFlag (slide show)
-  it('should cycle through the through a presentation changing the bookable every 3 seconds', () => {
-    cy.clock()
-    cy.visit('/bookables')
-    cy.tick(1000)
-    cy.wait('@userStub').wait('@bookablesStub')
-
+  context('slide show', () => {
     const testBtnColor = (i) =>
       cy
         .getByCy('bookables-list')
         .within(() => cy.checkBtnColor(i, 'rgb(23, 63, 95)'))
 
-    for (let i = 0; i < 4; i++) {
-      testBtnColor(i)
-      cy.tick(3000)
-    }
-    testBtnColor(0)
+    beforeEach(() => {
+      cy.clock()
+      cy.visit('/bookables')
+      cy.tick(1000)
+      cy.wait('@userStub').wait('@bookablesStub')
+    })
+
+    it('should cycle through the through a presentation changing the bookable every 3 seconds', () => {
+      for (let i = 0; i < 4; i++) {
+        testBtnColor(i)
+        cy.tick(3000)
+      }
+      testBtnColor(0)
+    })
+
+    it('should stop the presentation', () => {
+      cy.getByCy('stop-btn').click()
+      cy.tick(3000).tick(3000)
+      testBtnColor(0)
+    })
   })
 })
