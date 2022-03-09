@@ -71,12 +71,12 @@ export default function UsersList({ user, setUser }) {
   //   [setUser]
   // )
 
-  // @Feature-flag candidate
+  // @featureFlag (users list next prev)
   const selectNext = () => {
     setUserIndex((userIndex) => mod(userIndex + 1, users.length))
     return setUser(users[mod(userIndex + 1, users.length)])
   }
-  // @Feature-flag candidate
+  // @featureFlag (users list next prev)
   const selectPrevious = () => {
     setUserIndex((userIndex) => mod(userIndex - 1, users.length))
     console.log(userIndex)

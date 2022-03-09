@@ -87,7 +87,8 @@ describe('UsersList', { viewportWidth: 700, viewportHeight: 700 }, () => {
     cy.getByCy('error').should('exist')
   })
 
-  context('feature flag next prev', () => {
+  // @featureFlag (users list next prev)
+  context('feature flag next prev user', () => {
     it('should highlight the selected user on initial load', () => {
       cy.intercept('GET', 'http://localhost:3001/users', {
         fixture: 'users'

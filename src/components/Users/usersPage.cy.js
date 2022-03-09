@@ -48,39 +48,32 @@ describe('UserDetails', { viewportWidth: 700, viewportHeight: 700 }, () => {
     cy.getByCy('user-details').contains(users[initialIndex + 1].notes)
   })
 
-  // @Feature-flag candidate
-  // it.only('selecting previous user should  show its details', () => {
-  //   cy.getByCy('prev-btn').click()
-  //   cy.getByCy('user-details').contains(users[initialIndex].notes)
-  // })
+  it('should highlight the selected user', () => {
+    cy.getByCyLike('list-item')
+      .eq(initialIndex + 1)
+      .click()
+    cy.checkBtnColor(initialIndex, 'rgb(255, 255, 255)')
+    cy.checkBtnColor(initialIndex + 1, 'rgb(23, 63, 95)')
+  })
 
-  context('User selection', () => {
-    it('should highlight the selected user', () => {
-      cy.getByCyLike('list-item')
-        .eq(initialIndex + 1)
-        .click()
-      cy.checkBtnColor(initialIndex, 'rgb(255, 255, 255)')
+  // @featureFlag (users list next prev)
+  context('feature flag next prev user', () => {
+    it('should switch to the next user and keep cycling with next button', () => {
+      cy.getByCy('next-btn').click()
       cy.checkBtnColor(initialIndex + 1, 'rgb(23, 63, 95)')
+      cy.checkBtnColor(initialIndex, 'rgb(255, 255, 255)')
+
+      cy.getByCy('next-btn').click().click().click()
+      cy.checkBtnColor(initialIndex, 'rgb(23, 63, 95)')
     })
 
-    // // @Feature-flag candidate
-    // it('should switch to the next user and keep cycling with next button', () => {
-    //   cy.getByCy('next-btn').click()
-    //   cy.checkBtnColor(initialIndex + 1, 'rgb(23, 63, 95)')
-    //   cy.checkBtnColor(initialIndex, 'rgb(255, 255, 255)')
+    it('should switch to the previous user and keep cycling with next button', () => {
+      cy.getByCy('prev-btn').click()
+      cy.checkBtnColor(initialIndex - 1, 'rgb(23, 63, 95)')
+      cy.checkBtnColor(initialIndex + 1, 'rgb(255, 255, 255)')
 
-    //   cy.getByCy('next-btn').click().click().click()
-    //   cy.checkBtnColor(initialIndex, 'rgb(23, 63, 95)')
-    // })
-
-    // // @Feature-flag candidate
-    // it('should switch to the previous user and keep cycling with next button', () => {
-    //   cy.getByCy('prev-btn').click()
-    //   cy.checkBtnColor(initialIndex - 1, 'rgb(23, 63, 95)')
-    //   cy.checkBtnColor(initialIndex + 1, 'rgb(255, 255, 255)')
-
-    //   cy.getByCy('prev-btn').click().click().click()
-    //   cy.checkBtnColor(initialIndex, 'rgb(23, 63, 95)')
-    // })
+      cy.getByCy('prev-btn').click().click().click()
+      cy.checkBtnColor(initialIndex, 'rgb(23, 63, 95)')
+    })
   })
 })
