@@ -16,7 +16,6 @@ describe('BookablesList', { viewportWidth: 900, viewportHeight: 700 }, () => {
           <BookablesList
             bookable={bookableData[initial]}
             bookables={bookableData}
-            // ask: we are copying the fn here, what is a good way to stub instead?
             getUrl={(id) => `/bookables/${id}`}
           />
         </BrowserRouter>
@@ -57,23 +56,27 @@ describe('BookablesList', { viewportWidth: 900, viewportHeight: 700 }, () => {
   //   cy.checkBtnColor(0, 'rgb(23, 63, 95)')
   // })
 
-  // @featureFlag candidate
-  // context('useRef', () => {
-  //   it('should go through a presentation changing the bookable every 3 seconds', () => {
-  //     cy.clock()
+  // @featureFlag (slide show)
+  context('useRef', () => {
+    it('should go through a presentation changing the bookable every 3 seconds', () => {
+      cy.clock()
 
-  //     cy.intercept('GET', 'http://localhost:3001/bookables', {
-  //       fixture: 'bookables'
-  //     }).as('bookablesStub')
+      cy.intercept('GET', 'http://localhost:3001/bookables', {
+        fixture: 'bookables'
+      }).as('bookablesStub')
 
-  //     mount(<BookablesList />)
-  //     cy.wait('@bookablesStub')
+      mount(
+        <BrowserRouter>
+          <BookablesList
+            bookable={bookableData[0]}
+            bookables={bookableData}
+            getUrl={(id) => `/bookables/${id}`}
+          />
+        </BrowserRouter>
+      )
 
-  //     for (let i = 0; i <= 3; i++) {
-  //       cy.checkBtnColor(i, 'rgb(23, 63, 95)')
-  //       cy.tick(3000)
-  //     }
-  //     cy.checkBtnColor(0, 'rgb(23, 63, 95)')
-  //   })
-  // })
+      cy.tick(3000)
+      cy.location('pathname').should('eq', `/bookables/2`)
+    })
+  })
 })

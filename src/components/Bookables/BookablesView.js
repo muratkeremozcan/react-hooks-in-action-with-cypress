@@ -60,9 +60,8 @@ export default function BookablesView() {
     bookables.find((b) => b.id === parseInt(id, 10)) || bookables[0]
 
   // [6.4] why useCallback?
-  // updater & dispatch from useState and useReducer are guaranteed to have unique identities
-  // but custom functions get defined on every render and can cause network spam.
-  // useCallback to the rescue! useCallback lets us memoize functions. To prevent the redefinition or recalculation of values.
+  // custom functions get defined on every render and can cause network spam.
+  // useCallback lets us memoize functions. To prevent the redefinition or recalculation of values.
   // useCallBack(updaterFn, [dependencies])
 
   // will cause network spam

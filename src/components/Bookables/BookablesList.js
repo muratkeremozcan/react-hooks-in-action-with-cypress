@@ -1,5 +1,6 @@
 import { FaArrowRight } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
+import { useRef, useEffect, useCallback } from 'react'
 // import mod from '../../utils/real-modulus'
 
 // [6.2] child components destructure and use the props
@@ -72,32 +73,33 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
   //   return nextButtonRef.current.focus()
   // }
 
-  function nextBookable() {
+  // [6.4] why useCallback?
+  // custom functions get defined on every render and can cause network spam.
+  // useCallback lets us memoize functions. To prevent the redefinition or recalculation of values.
+  // useCallBack(updaterFn, [dependencies])
+  const nextBookable = useCallback(() => {
     const i = bookablesInGroup.indexOf(bookable)
     const nextIndex = (i + 1) % bookablesInGroup.length
     const nextBookable = bookablesInGroup[nextIndex]
     // [10.2] use the navigate function to set a new url
     return navigate(getUrl(nextBookable.id))
-  }
+  }, [bookablesInGroup, bookable, getUrl, navigate])
 
-  // @featureFlag candidate (slide show)
-  /*
-    // passing null because there is no timer initially
-    const timerRef = useRef(null)
+  // @featureFlag (slide show)
 
-    // [5.2] use the ref in a handler function
-    // clears the setInterval timer 
-    const stopPresentation = () => clearInterval(timerRef.current)
+  // passing null because there is no timer initially
+  const timerRef = useRef(null)
+  // [5.2] use the ref in a handler function
+  // clears the setInterval timer
+  const stopPresentation = () => clearInterval(timerRef.current)
+  useEffect(() => {
+    // [5.2.2] assigning new values to the current property  of the ref object doesn’t trigger a re-render.
+    // you can persist state values by assigning them to variable.current
+    timerRef.current = setInterval(() => nextBookable(), 3000)
 
-    useEffect(() => {
-      // [5.2.2] assigning new values to the current properties of the ref objects doesn’t trigger a re-render.
-      // you can persist state values by assigning them to variable.current
-      timerRef.current = setInterval(() => nextBookable(), 3000)
-
-      // clean up function is called onClick, or when the component unmounts (user navigates away)
-      return stopPresentation
-    }, [])
-  */
+    // clean up function is called onClick, or when the component unmounts (user navigates away)
+    return stopPresentation
+  }, [nextBookable])
 
   // @featureFlag candidate (previous Button) (convert to useState instead)
   // function previousBookable() {
