@@ -12,6 +12,7 @@
   },
   "experimentalPolyfill": true,
   "env": {
+    "WAIT_ON_TIMEOUT": 1000,
     "grepFilterSpecs": true,
     "grepOmitFiltered": true
   }
