@@ -31,7 +31,4 @@ describe('BookingsPage', { viewportWidth: 900, viewportHeight: 900 }, () => {
     cy.getByCy('bookables-list').should('be.visible')
     cy.getByCy('bookings').should('be.visible')
   })
-
-  // todo: use different urls for the 4 cases
-  // (here or elsewhere?)
 })

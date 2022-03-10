@@ -1,12 +1,11 @@
 import { mount } from '@cypress/react'
 import { BrowserRouter } from 'react-router-dom'
 import WeekPicker from './WeekPicker'
-// import dayjs from 'dayjs'
+import dayjs from 'dayjs'
 import { getWeek } from '../../utils/date-wrangler'
 import '../../App.css'
 
 describe('WeekPicker', { viewportWidth: 700 }, () => {
-  // week is a @FeatureFlag candidate, how do we handle that in a prop?
   const newWeek = getWeek(new Date())
   beforeEach(() =>
     mount(
@@ -27,15 +26,17 @@ describe('WeekPicker', { viewportWidth: 700 }, () => {
     cy.getByCyLike('go').click()
   })
 
-  // @FeatureFlag candidate
-  // it('should render the week interval and today', () => {
-  //   cy.getByCy('week-interval').should(
-  //     'contain',
-  //     dayjs().startOf('week').$d.toDateString()
-  //   )
+  // @featureFlag (today's date and this week)
+  it('should render the week interval and today', () => {
+    cy.getByCy('today').click()
 
-  //   cy.getByCy('todays-date').contains(
-  //     `The date is ${dayjs().$d.toDateString()}`
-  //   )
-  // })
+    cy.getByCy('week-interval').should(
+      'contain',
+      dayjs().startOf('week').$d.toDateString()
+    )
+
+    cy.getByCy('todays-date').contains(
+      `The date is ${dayjs().$d.toDateString()}`
+    )
+  })
 })
