@@ -84,7 +84,7 @@ jobs:
           install: false
           # to run component tests we need to use "cypress run-ct"
           # with component tests since we have a custom command, we pass these parameters in the command instead
-          command: yarn cypress run-ct --record --key=${{ secrets.CYPRESS_RECORD_KEY }} --parallel --browser chrome --group component-tests --tag component-tests --parallel 3
+          command: yarn cypress run-ct --record --key=${{ secrets.CYPRESS_RECORD_KEY }} --parallel 3 --browser chrome --group component-tests --tag component-tests --parallel 3
           # if you run out of parallelization, turn it off
           # command: yarn cypress run-ct --browser chrome
         env:
