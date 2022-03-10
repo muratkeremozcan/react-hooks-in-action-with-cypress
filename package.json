@@ -52,7 +52,8 @@
     "cy:open-ct": "cypress open-ct",
     "cy:run-ct": "cypress run-ct --browser chrome",
     "cy:open-e2e": "concurrently yarn:start:api 'server-test 3000 cy:open'",
-    "cy:run-e2e": "concurrently yarn:start:api 'server-test 3000 cy:run'"
+    "cy:run-e2e": "concurrently yarn:start:api 'server-test 3000 cy:run'",
+    "coverage:reset": "rm -rf .nyc_output && rm -rf coverage"
   },
   "eslintConfig": {
     "extends": [
@@ -86,9 +87,8 @@
     "extension": [
       ".js"
     ],
-    "include": [
-      "src/components/*.js",
-      "src/utils/*.js"
+    "exclude": [
+      "/src/examples/**/"
     ]
   }
 }
