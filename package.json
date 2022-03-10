@@ -17,6 +17,8 @@
     "web-vitals": "2.1.4"
   },
   "devDependencies": {
+    "@cypress/code-coverage": "^3.9.12",
+    "@cypress/instrument-cra": "^1.4.0",
     "@cypress/react": "5.12.4",
     "@cypress/webpack-dev-server": "1.8.2",
     "@faker-js/faker": "6.0.0-beta.0",
@@ -30,14 +32,16 @@
     "eslint-plugin-cypress": "2.12.1",
     "eslint-plugin-prettier": "4.0.0",
     "husky": "4.3.8",
+    "istanbul-lib-coverage": "^3.2.0",
     "json-server": "0.17.0",
+    "nyc": "^15.1.0",
     "prettier": "2.5.1",
     "react-error-boundary": "3.1.4",
     "start-server-and-test": "1.14.0"
   },
   "scripts": {
     "dev": "concurrently -k yarn:start yarn:start:api",
-    "start": "react-scripts start",
+    "start": "react-scripts -r @cypress/instrument-cra start",
     "start:api": "json-server --watch db.json --port 3001 --delay 1000",
     "build": "react-scripts build",
     "test": "cross-env CI=true react-scripts test --env=jsdom",
@@ -77,5 +81,14 @@
     "hooks": {
       "pre-commit": "yarn lint && yarn cy:run-ct"
     }
+  },
+  "nyc": {
+    "extension": [
+      ".js"
+    ],
+    "include": [
+      "src/components/*.js",
+      "src/utils/*.js"
+    ]
   }
 }

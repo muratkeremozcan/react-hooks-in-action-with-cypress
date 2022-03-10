@@ -17,6 +17,7 @@
 import './commands'
 import 'cypress-react-app-actions'
 import 'cypress-real-events/support'
+import '@cypress/code-coverage/support'
 require('cypress-grep')()
 
 // Alternatively you can use CommonJS syntax:
