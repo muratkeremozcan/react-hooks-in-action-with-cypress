@@ -1,10 +1,17 @@
 /// <reference types="cypress" />
 
-module.exports = (on, config) => {
-  if (config.testingType === 'component') {
-    require('@cypress/react/plugins/react-scripts')(on, config)
-  }
-  require('cypress-grep/src/plugin')(config)
+const reactScripts = require('@cypress/react/plugins/react-scripts')
+const cyGrep = require('cypress-grep/src/plugin')
+const codeCoverageTask = require('@cypress/code-coverage/task')
 
-  return config
+module.exports = (on, config) => {
+  const injectDevServer =
+    config.testingType === 'component' ? reactScripts : () => ({})
+
+  return Object.assign(
+    {},
+    codeCoverageTask(on, config),
+    injectDevServer(on, config),
+    cyGrep
+  )
 }
