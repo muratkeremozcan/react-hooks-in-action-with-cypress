@@ -1,6 +1,7 @@
-import { FaArrowRight } from 'react-icons/fa'
+import { FaArrowRight, FaArrowLeft, FaStop } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
-// import mod from '../../utils/real-modulus'
+import { useRef, useEffect, useCallback } from 'react'
+import mod from '../../utils/real-modulus'
 
 // [6.2] child components destructure and use the props
 export default function BookablesList({ bookable, bookables, getUrl }) {
@@ -36,15 +37,6 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
   // and if the function is used in an effect, include the function in the effect’s dependency list
   // }, [bookables, setBookable])
 
-  // [5.0] useState vs useRef
-  // useState: calling the updater function triggers a re-render
-  // useRef: can update a value without a corresponding change to the UI
-  // use the useRef hook when you want React to manage a state value but don’t want changes to the value to trigger a re-render
-  // [5.1] create a variable to hold the reference
-  // useRef returns an object with a .current property
-  // initially the arg passed to useRef is assigned to variable.current
-  // const nextButtonRef = useRef()
-
   function changeGroup(event) {
     const bookablesInSelectedGroup = bookables.filter(
       (b) => b.group === event.target.value
@@ -61,52 +53,50 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
 
     return navigate(getUrl(bookablesInSelectedGroup[0].id))
   }
-  // @FeatureFlag candidate
-  /** When the group changes, default the index to 0  */
-  // function changeBookable(selectedBookable) {
-  //   setBookable(selectedBookable)
-  //   // [5.2] use the ref in a handler function
-  //   // Once React has created the button element for the DOM, it assigns a reference to the element to nextButtonRef.current
-  //   // We use that reference in the changeBookable function to focus the button by calling the element’s focus method
-  //   // this way, whenever changeBookable is called, the focus is on Next button
-  //   return nextButtonRef.current.focus()
-  // }
 
-  function nextBookable() {
+  // [6.4] why useCallback?
+  // custom functions get defined on every render and can cause network spam.
+  // useCallback lets us memoize functions. To prevent the redefinition or recalculation of values.
+  // useCallBack(updaterFn, [dependencies])
+  const nextBookable = useCallback(() => {
     const i = bookablesInGroup.indexOf(bookable)
     const nextIndex = (i + 1) % bookablesInGroup.length
     const nextBookable = bookablesInGroup[nextIndex]
     // [10.2] use the navigate function to set a new url
     return navigate(getUrl(nextBookable.id))
-  }
+  }, [bookablesInGroup, bookable, getUrl, navigate])
 
-  // @featureFlag candidate (slide show)
-  /*
-    // passing null because there is no timer initially
-    const timerRef = useRef(null)
+  // @featureFlag (slide show)
 
-    // [5.2] use the ref in a handler function
-    // clears the setInterval timer 
-    const stopPresentation = () => clearInterval(timerRef.current)
+  // [5.0] useState vs useRef
+  // useState: calling the updater function triggers a re-render
+  // useRef: can update a value without a corresponding change to the UI
+  // use the useRef hook when you want React to manage a state value but don’t want changes to the value to trigger a re-render
+  // [5.1] create a variable to hold the reference
+  // useRef returns an object with a .current property
+  // initially the arg passed to useRef is assigned to variable.current
+  // (passing null because there is no timer initially)
+  const timerRef = useRef(null)
+  // [5.2] use the ref in a handler function
+  // (clears the setInterval timer)
+  const stopPresentation = () => clearInterval(timerRef.current)
+  useEffect(() => {
+    // [5.2.2] assigning new values to the current property  of the ref object doesn’t trigger a re-render.
+    // you can persist state values by assigning them to variable.current
+    timerRef.current = setInterval(() => nextBookable(), 3000)
 
-    useEffect(() => {
-      // [5.2.2] assigning new values to the current properties of the ref objects doesn’t trigger a re-render.
-      // you can persist state values by assigning them to variable.current
-      timerRef.current = setInterval(() => nextBookable(), 3000)
+    // clean up function is called onClick, or when the component unmounts (user navigates away)
+    return stopPresentation
+  }, [nextBookable])
 
-      // clean up function is called onClick, or when the component unmounts (user navigates away)
-      return stopPresentation
-    }, [])
-  */
+  // @featureFlag (previous bookable)
+  const previousBookable = useCallback(() => {
+    const i = bookablesInGroup.indexOf(bookable)
+    const prevIndex = mod(i - 1, bookablesInGroup.length)
+    const prevBookable = bookablesInGroup[prevIndex]
 
-  // @featureFlag candidate (previous Button) (convert to useState instead)
-  // function previousBookable() {
-  //   const i = bookablesInGroup.indexOf(bookable)
-  //   const prevIndex = mod(i - 1, bookablesInGroup.length)
-  //   const prevBookable = bookablesInGroup[prevIndex]
-
-  //   return setBookable(prevBookable)
-  // }
+    return navigate(getUrl(prevBookable.id))
+  }, [bookablesInGroup, bookable, getUrl, navigate])
 
   return (
     <div data-cy="bookables-list">
@@ -132,32 +122,33 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
             <Link to={getUrl(b.id)} className="btn" replace={true}>
               {b.title}
             </Link>
-            {/* @FeatureFlag candidate */}
-            {/* <button className="btn" onClick={() => changeBookable(b)}>
-              {b.title}
-            </button> */}
           </li>
         ))}
       </ul>
       <p>
-        {/* @FeatureFlag candidate */}
-        {/* <button
+        {/* @featureFlag (slide show) */}
+        <button
+          className="items-list-nav btn"
+          data-cy="stop-btn"
+          onClick={stopPresentation}
+        >
+          <FaStop />
+          <span>Stop</span>
+        </button>
+
+        {/* @featureFlag (previous bookable) */}
+        <button
           className="btn"
           onClick={previousBookable}
           autoFocus
           data-cy="prev-btn"
         >
           <FaArrowLeft />
-          <span>Previous</span>
-        </button> */}
-
+          <span>Prev</span>
+        </button>
         <button
           className="btn"
           onClick={nextBookable}
-          // [5.3] assign the reference variable to a ref attribute
-          // the reference variable gets set by changeBookable
-          // after that, the component reads the state from the DOM using the ref attribute
-          // ref={nextButtonRef}
           autoFocus
           data-cy="next-btn"
         >

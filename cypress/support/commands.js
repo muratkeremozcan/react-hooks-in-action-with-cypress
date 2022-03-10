@@ -1,4 +1,5 @@
 const bookable = require('../fixtures/bookables.json')[2]
+const users = require('../fixtures/users.json')
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -44,6 +45,22 @@ Cypress.Commands.add('stubNetwork', () => {
   cy.intercept('GET', 'http://localhost:3001/users', {
     fixture: 'users'
   }).as('userStub')
+
+  cy.intercept('GET', 'http://localhost:3001/users/1', {
+    body: users[0]
+  }).as('Mark')
+
+  cy.intercept('GET', 'http://localhost:3001/users/2', {
+    body: users[1]
+  }).as('Simon')
+
+  cy.intercept('GET', 'http://localhost:3001/users/3', {
+    body: users[2]
+  }).as('Clarisse')
+
+  cy.intercept('GET', 'http://localhost:3001/users/4', {
+    body: users[3]
+  }).as('Clarisse')
 
   cy.intercept('GET', 'http://localhost:3001/bookables', {
     fixture: 'bookables'

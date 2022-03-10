@@ -16,7 +16,6 @@ describe('BookablesList', { viewportWidth: 900, viewportHeight: 700 }, () => {
           <BookablesList
             bookable={bookableData[initial]}
             bookables={bookableData}
-            // ask: we are copying the fn here, what is a good way to stub instead?
             getUrl={(id) => `/bookables/${id}`}
           />
         </BrowserRouter>
@@ -47,33 +46,48 @@ describe('BookablesList', { viewportWidth: 900, viewportHeight: 700 }, () => {
     })
   })
 
-  // @featureFlag candidate
-  // it('should switch to the previous bookable and keep cycling with next button', () => {
-  //   cy.getByCy('prev-btn').click()
-  //   cy.checkBtnColor(3, 'rgb(23, 63, 95)')
-  //   cy.checkBtnColor(0, 'rgb(255, 255, 255)')
+  // @featureFlag (previous bookable)
+  context('previous bookable', () => {
+    it('should switch to the previous bookable and keep cycling with next button', () => {
+      mount(
+        <BrowserRouter>
+          <BookablesList
+            bookable={bookableData[0]}
+            bookables={bookableData}
+            getUrl={(id) => `/bookables/${id}`}
+          />
+        </BrowserRouter>
+      )
+      cy.getByCy('prev-btn').click()
+      cy.location('pathname').should('eq', `/bookables/4`)
+    })
+  })
 
-  //   cy.getByCy('prev-btn').click().click().click()
-  //   cy.checkBtnColor(0, 'rgb(23, 63, 95)')
-  // })
+  // @featureFlag (slide show)
+  context('slide show', () => {
+    beforeEach(() => {
+      cy.clock()
 
-  // @featureFlag candidate
-  // context('useRef', () => {
-  //   it('should go through a presentation changing the bookable every 3 seconds', () => {
-  //     cy.clock()
+      mount(
+        <BrowserRouter>
+          <BookablesList
+            bookable={bookableData[0]}
+            bookables={bookableData}
+            getUrl={(id) => `/bookables/${id}`}
+          />
+        </BrowserRouter>
+      )
+    })
 
-  //     cy.intercept('GET', 'http://localhost:3001/bookables', {
-  //       fixture: 'bookables'
-  //     }).as('bookablesStub')
+    it('should stop the presentation', () => {
+      cy.getByCy('stop-btn').click()
+      cy.tick(3000)
+      cy.location('pathname').should('not.eq', `/bookables/2`)
+    })
 
-  //     mount(<BookablesList />)
-  //     cy.wait('@bookablesStub')
-
-  //     for (let i = 0; i <= 3; i++) {
-  //       cy.checkBtnColor(i, 'rgb(23, 63, 95)')
-  //       cy.tick(3000)
-  //     }
-  //     cy.checkBtnColor(0, 'rgb(23, 63, 95)')
-  //   })
-  // })
+    it('should go through a presentation changing the bookable every 3 seconds', () => {
+      cy.tick(3000)
+      cy.location('pathname').should('eq', `/bookables/2`)
+    })
+  })
 })

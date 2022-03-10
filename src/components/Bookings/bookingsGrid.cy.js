@@ -15,6 +15,8 @@ describe('BookingsGrid', { viewportWidth: 800, viewportHeight: 700 }, () => {
   beforeEach(() => (queryClient = new QueryClient()))
 
   it('should render the error an spinner', () => {
+    Cypress.on('uncaught:exception', () => false)
+    cy.clock()
     cy.intercept(
       {
         method: 'GET',
@@ -36,7 +38,11 @@ describe('BookingsGrid', { viewportWidth: 800, viewportHeight: 700 }, () => {
       </QueryClientProvider>
     )
 
-    Cypress._.times(4, () => cy.wait('@statusError', { timeout: 10000 }))
+    Cypress._.times(4, () => {
+      cy.tick(5000)
+      cy.wait('@statusError', { timeout: 10000 })
+    })
+
     cy.getByCy('bookings-grid')
       .should('be.visible')
       .and('not.have.class', 'active')

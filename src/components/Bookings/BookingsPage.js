@@ -6,7 +6,6 @@ import getData from '../../utils/api'
 
 import BookablesList from '../Bookables/BookablesList'
 import Bookings from './Bookings'
-// import PageSpinner from '../UI/PageSpinner'
 
 // [10.4.2] useQuery with a string as the query key
 // const { data, status, error } = useQuery(key, () => fetch(url))
@@ -32,7 +31,7 @@ export default function BookablesPage() {
     return date ? `${root}&date=${shortISO(date)}` : root
   }
 
-  // (12.2) use Suspense and ErrorBoundary instead
+  // (12.2) use Suspense and ErrorBoundary instead; the parent component App has them
   // if (status === 'error') {
   //   return <p>{error.message}</p>
   // }

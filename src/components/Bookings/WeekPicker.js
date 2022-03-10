@@ -10,7 +10,6 @@ import {
 import { addDays, shortISO, getWeek } from '../../utils/date-wrangler'
 import { useBookingsParams } from './bookingsHooks'
 
-// week is @FeatureFlag candidate, how do we handle that in a prop?
 export default function WeekPicker() {
   const today = () => dayjs().format('YYYY-MM-DD')
   const [dateText] = useState(today())
@@ -21,14 +20,14 @@ export default function WeekPicker() {
   // * controlled components: component -> DOM
   // React recommends you use controlled components. Use the useState hook or the useReducer hook to manage the state
 
-  // (5.1) create a variable to hold the reference; reference to the text box
+  // [5.0] useState vs useRef
+  // useState: calling the updater function triggers a re-render
+  // useRef: can update a value without a corresponding change to the UI
+  // use the useRef hook when you want React to manage a state value but don’t want changes to the value to trigger a re-render
+  // [5.1] create a variable to hold the reference
+  // useRef returns an object with a .current property
+  // if useRef has an argument, initially the arg passed to useRef is assigned to variable.current
   const textboxRef = useRef()
-  // (5.2) use the reference in a handler function
-  // const goToDate = () =>
-  //   dispatch({
-  //     type: 'SET_DATE',
-  //     payload: textboxRef.current.value
-  //   })
 
   const { date, setBookingsDate: goToDate } = useBookingsParams()
   const week = getWeek(date)
@@ -63,11 +62,9 @@ export default function WeekPicker() {
         <span>
           <input
             type="text"
-            // (5.3) assign the reference variable to a ref attribute
-            // the reference variable gets set by a dispatch; goToDate
-            // after that, the component reads the state from the DOM using the ref attribute
+            // [5.3] assign the reference variable to a ref attribute
+            // the component reads the state from the DOM using the ref attribute
             ref={textboxRef}
-            // manage state with useState instead, for a controlled component approach; component -> DOM
             placeholder={`e.g. ${dateText}`}
             id="wpDate"
             defaultValue={dateText}
@@ -93,11 +90,10 @@ export default function WeekPicker() {
         </button>
       </p>
 
-      {/* @FeatureFlag candidate */}
-      {/* <p data-cy="week-interval">
+      {/* @featureFlag (today's date and this week) */}
+      <p data-cy="week-interval">
         {week?.start?.toDateString()} - {week?.end?.toDateString()}
       </p>
-      <p data-cy="todays-date">The date is {week?.date?.toDateString()}</p> */}
     </div>
   )
 }
