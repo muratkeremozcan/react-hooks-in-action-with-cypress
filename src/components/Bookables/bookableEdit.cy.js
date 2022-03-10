@@ -10,6 +10,9 @@ describe('BookableEdit', { viewportWidth: 1000, viewportHeight: 700 }, () => {
   beforeEach(() => (queryClient = new QueryClient()))
 
   it('should show spinner or error', () => {
+    Cypress.on('uncaught:exception', () => false)
+    cy.clock()
+
     cy.intercept(
       {
         method: 'GET',
@@ -34,7 +37,11 @@ describe('BookableEdit', { viewportWidth: 1000, viewportHeight: 700 }, () => {
     )
 
     cy.getByCy('spinner').should('be.visible')
-    Cypress._.times(4, () => cy.wait('@delayError'))
+
+    Cypress._.times(4, () => {
+      cy.tick(5000)
+      cy.wait('@delayError')
+    })
     cy.getByCy('error').should('be.visible')
   })
 

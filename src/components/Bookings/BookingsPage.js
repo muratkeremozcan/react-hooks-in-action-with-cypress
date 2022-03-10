@@ -31,7 +31,7 @@ export default function BookablesPage() {
     return date ? `${root}&date=${shortISO(date)}` : root
   }
 
-  // (12.2) use Suspense and ErrorBoundary instead (the parent component App has it)
+  // (12.2) use Suspense and ErrorBoundary instead; the parent component App has them
   // if (status === 'error') {
   //   return <p>{error.message}</p>
   // }

@@ -28,14 +28,11 @@ describe('WeekPicker', { viewportWidth: 700 }, () => {
 
   // @featureFlag (today's date and this week)
   it('should render the week interval and today', () => {
-    const today = dayjs().$d.toDateString()
     cy.getByCy('today').click()
 
     cy.getByCy('week-interval').should(
       'contain',
       dayjs().startOf('week').$d.toDateString()
     )
-
-    cy.getByCy('todays-date').should('contain', today)
   })
 })

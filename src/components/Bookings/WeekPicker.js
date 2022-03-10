@@ -94,7 +94,6 @@ export default function WeekPicker() {
       <p data-cy="week-interval">
         {week?.start?.toDateString()} - {week?.end?.toDateString()}
       </p>
-      <p data-cy="todays-date">The date is {week?.date?.toDateString()}</p>
     </div>
   )
 }
