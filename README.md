@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 # React Hooks in Action Book, with Cypress e2e & component tests
-=======
-# React Hooks in Action Book, with Cypress e2e & component tests ![react version](https://img.shields.io/badge/react-18.0.0-rc.2-brightgreen) ![react version](https://img.shields.io/badge/react-18.0.0-rc.2-brightgreen) ![react version](https://img.shields.io/badge/react-18.0.0-rc.2-brightgreen)
->>>>>>> 230b198744206b03946e92d779debd8cd24ddd29
 
 [![react-hooks-in-action](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/nr3y7v/main&style=flat-square&logo=cypress)](https://dashboard.cypress.io/projects/nr3y7v/runs) [![Build, Lint, e2e & ct test](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/actions/workflows/main.yml/badge.svg?branch=main&event=push)](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/actions/workflows/main.yml)
 ![cypress version](https://img.shields.io/badge/cypress-9.5.2-brightgreen) ![@cypress/react version](https://img.shields.io/badge/@cypress/react-5.12.4-brightgreen) ![@cypress/webpack-dev-server version](https://img.shields.io/badge/@cypress/webpack--dev--server-1.8.3-brightgreen) [![renovate-app badge][renovate-badge]][renovate-app]
