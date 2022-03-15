@@ -37,6 +37,8 @@ build  -->  Cypress e2e test
 
 ## Component Testing
 
+<details><summary>details</summary>
+
 Followed the instructions at [Getting Started with Cypress Component Testing (React)](https://www.cypress.io/blog/2021/04/06/cypress-component-testing-react/).
 
 Minimal instructions:
@@ -90,7 +92,11 @@ component-test:
         command: yarn cypress run-ct
 ```
 
+</details>
+
 ## cypress-grep cheat sheet
+
+<details><summary>details</summary>
 
 ```bash
 # note: can use run or open
@@ -131,7 +137,9 @@ yarn cy:run-ct --env grep="BookingsPage",grepFilterSpecs=true,grepOmitFiltered=t
 
 ```
 
-## (WIP) What to test where: component vs ui-integration vs ui-e2e
+</details>
+
+## What to test where: component vs ui-integration vs ui-e2e
 
 - test everything you can at the lowest level component
 
@@ -152,20 +160,85 @@ yarn cy:run-ct --env grep="BookingsPage",grepFilterSpecs=true,grepOmitFiltered=t
 
   - ideal crud utilizes api seeding, but here we did it all through the UI
 
-    - 1. Test UI Create
+    - Test UI Create
 
       - UI create
       - API delete
 
-    - 2. Test UI Update
+    - Test UI Update
 
       - API create
       - UI update
       - API delete
 
-    - 3. Test UI Delete
+    - Test UI Delete
 
       - API create
       - UI delete
 
 - Finally, do combined coverage and fill the gaps
+
+## Combined Coverage
+
+<details><summary>details</summary>
+
+Quick setup for CRA.
+
+[Reference PR](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/pull/64/files)
+
+- Add packages: `@cypress/code-coverage` `@cypress/instrument-cra` `istanbul-lib-coverage` `nyc`
+
+- Modify `package.json`/`scripts`/`start`
+
+  ```json
+  "start": "react-scripts -r @cypress/instrument-cra start",
+  ```
+
+- Add a config for nyc to `package.json`
+
+  ```json
+  "nyc": {
+    "extension": [
+      ".js"
+    ],
+    "include": [
+      "src/**/*.js",
+    ]
+  }
+  ```
+
+- Add a convenience script to reset e2e coverage
+
+  ```json
+  "coverage:reset": "rm -rf .nyc_output && rm -rf coverage"
+  ```
+
+- Setup `cypress/plugins/index.js`
+
+  ```js
+  const reactScripts = require('@cypress/react/plugins/react-scripts') // for component testing...
+  const cyGrep = require('cypress-grep/src/plugin')
+  const codeCoverageTask = require('@cypress/code-coverage/task') // new plugin for code coverage
+
+  module.exports = (on, config) => {
+    // for component testing, can become obsolete  in Cypress 10
+    const injectDevServer =
+      config.testingType === 'component' ? reactScripts : () => ({})
+
+    // combine the plugin config and return
+    return Object.assign(
+      {},
+      injectDevServer(on, config),
+      codeCoverageTask(on, config),
+      cyGrep
+    )
+  }
+  ```
+
+- Setup `cypress/support/index.js`
+
+  ```js
+  import '@cypress/code-coverage/support'
+  ```
+
+  </details>
