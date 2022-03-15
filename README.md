@@ -35,110 +35,6 @@ build  -->  Cypress e2e test
 
 ---
 
-## Component Testing
-
-<details><summary>details</summary>
-
-Followed the instructions at [Getting Started with Cypress Component Testing (React)](https://www.cypress.io/blog/2021/04/06/cypress-component-testing-react/).
-
-Minimal instructions:
-
-1. `yarn add -D @cypress/react @cypress/webpack-dev-server`, add `cy:open-ct` and `cy:run-ct` scripts to `package.json`.
-
-2. Modify the cypress.json for test file naming. Cypress recommends ComponentName.cy.js for Cypress component tests so folks can stick with ComponentName.spec.js for their jest tests `cy.js`:
-
-   ```json
-   {
-   "baseUrl": "http://localhost:3000",
-   "component": {
-       "testFiles": "**/*.ct-spec.{js,ts,jsx,tsx}",
-       "componentFolder": "src"
-   }
-   ```
-
-3. Enhance the plugins/index file with the component test configuration. The dev server depends on your react setup.
-
-```json
-const injectDevServer = require("@cypress/react/plugins/react-scripts")
-
-module.exports = (on, config) => {
-  injectDevServer(on, config)
-  return config
-}
-```
-
-Launch component test runner with `yarn cy:open-ct`.
-
-4. The component test CI setup can be isolated, or can be steps after the e2e steps
-
-```yml
-component-test:
-    needs: [install-dependencies]
-    runs-on: ubuntu-latest
-    container: cypress/included:9.3.1 # save time on not having to install cypress
-    steps:
-    - uses: actions/checkout@v2
-
-    - uses: bahmutov/npm-install@v1 # save time on dependencies
-        with: { useRollingCache: true }
-
-    # the docs advise to run component tests after the e2e tests, this part could also be right after e2e tests
-    - name: Cypress component tests 🧪
-        uses: cypress-io/github-action@v2.11.7
-        with:
-        # we have already installed everything
-        install: false
-        # to run component tests we need to use "cypress run-ct"
-        command: yarn cypress run-ct
-```
-
-</details>
-
-## cypress-grep cheat sheet
-
-<details><summary>details</summary>
-
-```bash
-# note: can use run or open
-
-# strings
-yarn cy:run --env grep=retainment # run by a string in the spec file
-yarn cy:run --env grep="Bookable details retainment" # multiple words
-
-# solo spec; no skipped tests in results
-yarn cy:run --env grep="Bookable details retainment" --spec 'cypress/integration/retainment.spec.js'
-yarn cy:run --env grep="Bookable details retainment",grepFilterSpecs=true # newer way
-yarn cy:open --env grep="Bookable details retainment",grepFilterSpecs=true,grepOmitFiltered=true # omits greyed out tests, good for open mode
-
-# tags
-yarn cy:run --env grepTags=@smoke # run by a tag in the spec file
-# logic combos
-yarn cy:run --env grepTags="@smoke @routes" # OR
-yarn cy:run --env grepTags="@appJs+@routes" # AND
-
-# reversion
-yarn cy:run --env grep=-sanity # runs the tests without sanity string in the spec
-yarn cy:run --env grep="- abcs" # string variant
-yarn cy:run --env grepTags="-@routes" # tags, can drop quotes if single tag
-
-
-# mix string and tag, AND logic
-yarn cy:run --env grep="routes",grepTags="@appJs"
-
-# burn; run it x times
-yarn cy:run --env grepTags=@smoke,burn=10
-
-# run untagged tests
-yarn cy:run --env grepUntagged=true
-
-# run a component test (filtering does not work with component tests yet)
-# wait for Cypress 10
-yarn cy:run-ct --env grep="BookingsPage",grepFilterSpecs=true,grepOmitFiltered=true
-
-```
-
-</details>
-
 ## What to test where: component vs ui-integration vs ui-e2e
 
 - test everything you can at the lowest level component
@@ -242,3 +138,107 @@ Quick setup for CRA.
   ```
 
   </details>
+
+## Component Testing
+
+<details><summary>details</summary>
+
+Followed the instructions at [Getting Started with Cypress Component Testing (React)](https://www.cypress.io/blog/2021/04/06/cypress-component-testing-react/).
+
+Minimal instructions:
+
+1. `yarn add -D @cypress/react @cypress/webpack-dev-server`, add `cy:open-ct` and `cy:run-ct` scripts to `package.json`.
+
+2. Modify the cypress.json for test file naming. Cypress recommends ComponentName.cy.js for Cypress component tests so folks can stick with ComponentName.spec.js for their jest tests `cy.js`:
+
+   ```json
+   {
+   "baseUrl": "http://localhost:3000",
+   "component": {
+       "testFiles": "**/*.ct-spec.{js,ts,jsx,tsx}",
+       "componentFolder": "src"
+   }
+   ```
+
+3. Enhance the plugins/index file with the component test configuration. The dev server depends on your react setup.
+
+```json
+const injectDevServer = require("@cypress/react/plugins/react-scripts")
+
+module.exports = (on, config) => {
+  injectDevServer(on, config)
+  return config
+}
+```
+
+Launch component test runner with `yarn cy:open-ct`.
+
+4. The component test CI setup can be isolated, or can be steps after the e2e steps
+
+```yml
+component-test:
+    needs: [install-dependencies]
+    runs-on: ubuntu-latest
+    container: cypress/included:9.3.1 # save time on not having to install cypress
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: bahmutov/npm-install@v1 # save time on dependencies
+        with: { useRollingCache: true }
+
+    # the docs advise to run component tests after the e2e tests, this part could also be right after e2e tests
+    - name: Cypress component tests 🧪
+        uses: cypress-io/github-action@v2.11.7
+        with:
+        # we have already installed everything
+        install: false
+        # to run component tests we need to use "cypress run-ct"
+        command: yarn cypress run-ct
+```
+
+</details>
+
+## cypress-grep cheat sheet
+
+<details><summary>details</summary>
+
+```bash
+# note: can use run or open
+
+# strings
+yarn cy:run --env grep=retainment # run by a string in the spec file
+yarn cy:run --env grep="Bookable details retainment" # multiple words
+
+# solo spec; no skipped tests in results
+yarn cy:run --env grep="Bookable details retainment" --spec 'cypress/integration/retainment.spec.js'
+yarn cy:run --env grep="Bookable details retainment",grepFilterSpecs=true # newer way
+yarn cy:open --env grep="Bookable details retainment",grepFilterSpecs=true,grepOmitFiltered=true # omits greyed out tests, good for open mode
+
+# tags
+yarn cy:run --env grepTags=@smoke # run by a tag in the spec file
+# logic combos
+yarn cy:run --env grepTags="@smoke @routes" # OR
+yarn cy:run --env grepTags="@appJs+@routes" # AND
+
+# reversion
+yarn cy:run --env grep=-sanity # runs the tests without sanity string in the spec
+yarn cy:run --env grep="- abcs" # string variant
+yarn cy:run --env grepTags="-@routes" # tags, can drop quotes if single tag
+
+
+# mix string and tag, AND logic
+yarn cy:run --env grep="routes",grepTags="@appJs"
+
+# burn; run it x times
+yarn cy:run --env grepTags=@smoke,burn=10
+
+# run untagged tests
+yarn cy:run --env grepUntagged=true
+
+# run a component test (filtering does not work with component tests yet)
+# wait for Cypress 10
+yarn cy:run-ct --env grep="BookingsPage",grepFilterSpecs=true,grepOmitFiltered=true
+
+```
+
+</details>
