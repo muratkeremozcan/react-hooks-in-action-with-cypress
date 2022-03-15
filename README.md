@@ -1,7 +1,7 @@
-# React Hooks in Action Book, with Cypress e2e & component tests ![react version](https://img.shields.io/badge/react-18.0.0-rc.2-brightgreen) ![react version](https://img.shields.io/badge/react-18.0.0-rc.2-brightgreen)
+# React Hooks in Action Book, with Cypress e2e & component tests
 
 [![react-hooks-in-action](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/nr3y7v/main&style=flat-square&logo=cypress)](https://dashboard.cypress.io/projects/nr3y7v/runs) [![Build, Lint, e2e & ct test](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/actions/workflows/main.yml/badge.svg?branch=main&event=push)](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/actions/workflows/main.yml)
-![react version](https://img.shields.io/badge/react-18.0.0-rc.2-brightgreen) ![react-scripts version](https://img.shields.io/badge/react--scripts-4.0.3-brightgreen) ![cypress version](https://img.shields.io/badge/cypress-9.5.2-brightgreen) ![@cypress/react version](https://img.shields.io/badge/@cypress/react-5.12.4-brightgreen) ![@cypress/webpack-dev-server version](https://img.shields.io/badge/@cypress/webpack--dev--server-1.8.3-brightgreen) [![renovate-app badge][renovate-badge]][renovate-app]
+![cypress version](https://img.shields.io/badge/cypress-9.5.2-brightgreen) ![@cypress/react version](https://img.shields.io/badge/@cypress/react-5.12.4-brightgreen) ![@cypress/webpack-dev-server version](https://img.shields.io/badge/@cypress/webpack--dev--server-1.8.3-brightgreen) [![renovate-app badge][renovate-badge]][renovate-app]
 
 [renovate-badge]: https://img.shields.io/badge/renovate-app-blue.svg
 [renovate-app]: https://renovateapp.com/
@@ -37,16 +37,18 @@ build  -->  Cypress e2e test
 
 ## What to test where: component vs ui-integration vs ui-e2e
 
-- test everything you can at the lowest level component
+TL,DR; test everything you can at the lowest level component; when that is limiting move to the parent, when that is limiting move further up; ui-integration (ui-component-integration, stubs the network) and ui-e2e where backend is needed. Most of the time the backend is not needed.
 
-  - BookablesPage (routes)
-    - BookablesView (parent)
-      - BookablesList (child)
-      - BookableDetails (child)
-    - BookableEdit (parent)
-      - BookableForm (child)
-    - BookableNew (parent)
-      - BookableForm (child)
+> Example component setup:
+>
+> - BookablesPage (routes - _ui-integration_)
+>   - BookablesView (parent - _component test_)
+>     - BookablesList (child - _component test_)
+>     - BookableDetails (child - _component test_)
+>   - BookableEdit (parent - _component test_)
+>     - BookableForm (child - _component test_)
+>   - BookableNew (parent - _component test_)
+>     - BookableForm (child - _component test_)
 
 - test at the parent component when you cannot test any further at child
 
@@ -54,23 +56,19 @@ build  -->  Cypress e2e test
 
 - test via ui-e2e when back-end matters
 
-  - ideal crud utilizes api seeding, but here we did it all through the UI
-
-    - Test UI Create
-
-      - UI create
-      - API delete
-
-    - Test UI Update
-
-      - API create
-      - UI update
-      - API delete
-
-    - Test UI Delete
-
-      - API create
-      - UI delete
+  > An example of needing backend is when CRUD is of concern.
+  > An ideal crud utilizes api seeding, but here we did it all through the UI.
+  >
+  > - Test UI Create
+  >   - UI create
+  >   - API delete
+  > - Test UI Update
+  >   - API create
+  >   - UI update
+  >   - API delete
+  > - Test UI Delete
+  >   - API create
+  >   - UI delete
 
 - Finally, do combined coverage and fill the gaps
 
