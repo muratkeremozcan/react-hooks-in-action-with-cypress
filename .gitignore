@@ -26,4 +26,3 @@ public/manifest.json
 
 cypress/videos
 cypress/screenshots
-.nyc_output/out.json
