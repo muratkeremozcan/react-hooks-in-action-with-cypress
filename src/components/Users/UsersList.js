@@ -96,7 +96,7 @@ export default function UsersList({ user, setUser }) {
   // }
 
   return (
-    <>
+    <div>
       <ul className="users items-list-nav" data-cy="users-list">
         {users.map((u, i) => (
           <li
@@ -131,6 +131,6 @@ export default function UsersList({ user, setUser }) {
           <FaArrowRight /> <span>Next</span>
         </button>
       </p>
-    </>
+    </div>
   )
 }

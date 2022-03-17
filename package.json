@@ -34,6 +34,7 @@
     "husky": "4.3.8",
     "istanbul-lib-coverage": "^3.2.0",
     "json-server": "0.17.0",
+    "launchdarkly-react-client-sdk": "^2.25.1",
     "nyc": "^15.1.0",
     "prettier": "2.5.1",
     "react-error-boundary": "3.1.4",

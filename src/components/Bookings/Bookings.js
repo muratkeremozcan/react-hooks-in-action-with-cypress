@@ -38,7 +38,6 @@ export default function Bookings({ bookable }) {
       <div>
         {/*[3.4] Use the dispatch function to dispatch an action 
         dispatch takes an object with type and payload properties */}
-        {/* week is @FeatureFlag candidate, how do we handle that in a prop? */}
         {/* <WeekPicker dispatch={dispatch} week={week} /> */}
         <WeekPicker />
 
