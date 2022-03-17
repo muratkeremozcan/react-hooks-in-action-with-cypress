@@ -5,127 +5,54 @@
       "group": "Rooms",
       "title": "Meeting Room",
       "notes": "The one with the big table and interactive screen. Seats 12. See Colin if you need the tea and coffee trolley.",
-      "sessions": [
-        1,
-        2,
-        3
-      ],
-      "days": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
+      "sessions": [1, 2, 3],
+      "days": [1, 2, 3, 4, 5]
     },
     {
       "id": 2,
       "group": "Rooms",
       "title": "Lecture Hall",
       "notes": "For more formal 'sage-on-the-stage' presentations. Seats 100. See Sandra for help with AV setup.",
-      "sessions": [
-        1,
-        3,
-        4
-      ],
-      "days": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ]
+      "sessions": [1, 3, 4],
+      "days": [0, 1, 2, 3, 4]
     },
     {
       "id": 3,
       "group": "Rooms",
       "title": "Games Room",
       "notes": "Table tennis, table football, pinball! There's also a selection of board games. Please tidy up!",
-      "sessions": [
-        0,
-        2,
-        4
-      ],
-      "days": [
-        0,
-        2,
-        3,
-        4,
-        5,
-        6
-      ]
+      "sessions": [0, 2, 4],
+      "days": [0, 2, 3, 4, 5, 6]
     },
     {
       "id": 4,
       "group": "Rooms",
       "title": "Lounge",
       "notes": "A relaxing place to hang out. Ideal for bean bag wranglers and sofa surfers. Help yourself to a beer after hours.",
-      "sessions": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "days": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
-      ]
+      "sessions": [0, 1, 2, 3, 4],
+      "days": [0, 1, 2, 3, 4, 5, 6]
     },
     {
       "id": 5,
       "group": "Kit",
       "title": "Projector",
       "notes": "Portable but powerful. Keep it with the case. Be careful, it gets quite hot after a while!",
-      "sessions": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "days": [
-        0,
-        2,
-        3,
-        4,
-        5
-      ]
+      "sessions": [1, 2, 3, 4],
+      "days": [0, 2, 3, 4, 5]
     },
     {
       "id": 6,
       "group": "Kit",
       "title": "Wireless mics",
       "notes": "Really handy but don't forget to switch them off when you pop out of the room.",
-      "sessions": [
-        1,
-        3,
-        4
-      ],
-      "days": [
-        0,
-        2,
-        3,
-        4,
-        5,
-        6
-      ]
+      "sessions": [1, 3, 4],
+      "days": [0, 2, 3, 4, 5, 6]
     },
     {
       "group": "Group60606",
       "title": "Title72952",
       "notes": "Similique odio placeat aut expedita iusto debitis tempore inventore. Voluptatem quia rem atque qui ut ab vero quia. Provident laborum sint modi. Repellendus consequatur in sit consequatur eaque quia iste quas ut. Illo consectetur porro ipsam.",
       "id": 7
-    },
-    {
-      "group": "Group34722",
-      "title": "Title7749",
-      "notes": "Dolore ipsam et perferendis nihil aut. Nihil omnis libero. Culpa vitae ipsum et consectetur quia ut occaecati ipsum. Et eius est dolorem quia veniam non. Ut facilis iure eos nam. Adipisci repellendus vitae.",
-      "id": 8
     }
   ],
   "users": [
