@@ -26,7 +26,7 @@ describe('WeekPicker', { viewportWidth: 700 }, () => {
     cy.getByCyLike('go').click()
   })
 
-  // @featureFlag (today's date and this week)
+  // @featureFlag (date and week)
   it('should render the week interval and today', () => {
     cy.getByCy('today').click()
 
