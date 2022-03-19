@@ -14,12 +14,8 @@ import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk'
     // https://docs.launchdarkly.com/sdk/client-side/react/react-web#configuring-the-react-sdk
     user: {
       key: 'aa0ceb',
-      firstName: 'Ernestina',
-      lastName: 'Evans',
-      email: 'ernestina@example.com',
-      custom: {
-        groups: ['Google', 'Microsoft']
-      }
+      name: 'Grace Hopper',
+      email: 'gracehopper@example.com'
     }
   })
 
