@@ -43,7 +43,17 @@ describe('UserDetails', { viewportWidth: 700, viewportHeight: 700 }, () => {
     cy.getByCy('user-details').contains(users[initialIndex + 1].notes)
   })
 
-  it('selecting next user should  show its details', () => {
+  // @FF_nextPrev
+  // https://github.com/cypress-io/cypress/issues/18662
+  // Stubbing modules isn't working in the component runner. The same thing is ok in the e2e runner. Wait for Cy 10
+  // TODO: once stubbing works in Cypress 10, try to stub the LaunchDarkly hook
+  // https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/stubbing-spying__functions
+  /*
+  import * as LD from 'launchdarkly-react-client-sdk'
+
+  cy.stub(LD, 'useFlags).returns({ 'prev-next': 3 })
+  */
+  it.skip('selecting next user should  show its details', () => {
     cy.getByCy('next-btn').click()
     cy.getByCy('user-details').contains(users[initialIndex + 1].notes)
   })
@@ -56,8 +66,17 @@ describe('UserDetails', { viewportWidth: 700, viewportHeight: 700 }, () => {
     cy.checkBtnColor(initialIndex + 1, 'rgb(23, 63, 95)')
   })
 
-  // @featureFlag (users list next prev)
-  context('feature flag next prev user', () => {
+  // @FF_nextPrev
+  // https://github.com/cypress-io/cypress/issues/18662
+  // Stubbing modules isn't working in the component runner. The same thing is ok in the e2e runner. Wait for Cy 10
+  // TODO: once stubbing works in Cypress 10, try to stub the LaunchDarkly hook
+  // https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/stubbing-spying__functions
+  /*
+  import * as LD from 'launchdarkly-react-client-sdk'
+
+  cy.stub(LD, 'useFlags).returns({ 'prev-next': 3 })
+  */
+  context.skip('feature flag next prev user', () => {
     it('should switch to the next user and keep cycling with next button', () => {
       cy.getByCy('next-btn').click()
       cy.checkBtnColor(initialIndex + 1, 'rgb(23, 63, 95)')
