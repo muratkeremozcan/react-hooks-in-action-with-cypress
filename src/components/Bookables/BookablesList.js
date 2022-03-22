@@ -1,6 +1,7 @@
 import { FaArrowRight, FaArrowLeft, FaStop } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import { useRef, useEffect, useCallback } from 'react'
+import { useFlags } from 'launchdarkly-react-client-sdk'
 import mod from '../../utils/real-modulus'
 
 // [6.2] child components destructure and use the props
@@ -12,6 +13,7 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
   // [10.2] React Router’s useNavigate returns a function we can use to set a new URL,
   // prompting the router to render whichever UI has been associated with the new path
   const navigate = useNavigate()
+  const { 'slide-show': FF_slideShow } = useFlags()
 
   // useEffect(() => {
   //   getData('http://localhost:3001/bookables')
@@ -80,14 +82,17 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
   // [5.2] use the ref in a handler function
   // (clears the setInterval timer)
   const stopPresentation = () => clearInterval(timerRef.current)
-  useEffect(() => {
-    // [5.2.2] assigning new values to the current property  of the ref object doesn’t trigger a re-render.
-    // you can persist state values by assigning them to variable.current
-    timerRef.current = setInterval(() => nextBookable(), 3000)
 
-    // clean up function is called onClick, or when the component unmounts (user navigates away)
+  useEffect(() => {
+    if (FF_slideShow) {
+      // [5.2.2] assigning new values to the current property  of the ref object doesn’t trigger a re-render.
+      // you can persist state values by assigning them to variable.current
+      timerRef.current = setInterval(() => nextBookable(), 3000)
+
+      // clean up function is called onClick, or when the component unmounts (user navigates away)
+    }
     return stopPresentation
-  }, [nextBookable])
+  }, [nextBookable, FF_slideShow])
 
   // @featureFlag (previous bookable)
   const previousBookable = useCallback(() => {
@@ -126,15 +131,16 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
         ))}
       </ul>
       <p>
-        {/* @featureFlag (slide show) */}
-        <button
-          className="items-list-nav btn"
-          data-cy="stop-btn"
-          onClick={stopPresentation}
-        >
-          <FaStop />
-          <span>Stop</span>
-        </button>
+        {FF_slideShow && (
+          <button
+            className="items-list-nav btn"
+            data-cy="stop-btn"
+            onClick={stopPresentation}
+          >
+            <FaStop />
+            <span>Stop</span>
+          </button>
+        )}
 
         {/* @featureFlag (previous bookable) */}
         <button
