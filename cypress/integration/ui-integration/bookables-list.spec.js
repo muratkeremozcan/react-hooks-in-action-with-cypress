@@ -65,7 +65,7 @@ describe('Bookables', { viewportHeight: 1000, viewportWidth: 1000 }, () => {
     })
   })
 
-  // @featureFlag (previous bookable)
+  // @FF_prevNextBookable
   it('should switch to the previous bookable and keep cycling with next button', () => {
     cy.getByCy('bookables-list').within(() => {
       cy.checkBtnColor(0, 'rgb(23, 63, 95)')
@@ -78,7 +78,7 @@ describe('Bookables', { viewportHeight: 1000, viewportWidth: 1000 }, () => {
     })
   })
 
-  // @featureFlag (slide show)
+  // @FF_slideShow
   context('slide show', () => {
     const testBtnColor = (i) =>
       cy

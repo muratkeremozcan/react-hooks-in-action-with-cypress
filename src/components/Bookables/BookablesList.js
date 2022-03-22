@@ -13,7 +13,10 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
   // [10.2] React Router’s useNavigate returns a function we can use to set a new URL,
   // prompting the router to render whichever UI has been associated with the new path
   const navigate = useNavigate()
-  const { 'slide-show': FF_slideShow } = useFlags()
+  const {
+    'slide-show': FF_slideShow,
+    'prev-next-bookable': FF_prevNextBookable
+  } = useFlags()
 
   // useEffect(() => {
   //   getData('http://localhost:3001/bookables')
@@ -68,7 +71,7 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
     return navigate(getUrl(nextBookable.id))
   }, [bookablesInGroup, bookable, getUrl, navigate])
 
-  // @featureFlag (slide show)
+  // @FF_slideShow
 
   // [5.0] useState vs useRef
   // useState: calling the updater function triggers a re-render
@@ -142,25 +145,29 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
           </button>
         )}
 
-        {/* @featureFlag (previous bookable) */}
-        <button
-          className="btn"
-          onClick={previousBookable}
-          autoFocus
-          data-cy="prev-btn"
-        >
-          <FaArrowLeft />
-          <span>Prev</span>
-        </button>
-        <button
-          className="btn"
-          onClick={nextBookable}
-          autoFocus
-          data-cy="next-btn"
-        >
-          <FaArrowRight />
-          <span>Next</span>
-        </button>
+        {FF_prevNextBookable?.Previous === true && (
+          <button
+            className="btn"
+            onClick={previousBookable}
+            autoFocus
+            data-cy="prev-btn"
+          >
+            <FaArrowLeft />
+            <span>Prev</span>
+          </button>
+        )}
+
+        {FF_prevNextBookable?.Next === true && (
+          <button
+            className="btn"
+            onClick={nextBookable}
+            autoFocus
+            data-cy="next-btn"
+          >
+            <FaArrowRight />
+            <span>Next</span>
+          </button>
+        )}
       </p>
     </div>
   )
