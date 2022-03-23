@@ -1,14 +1,23 @@
 const bookableData = require('../../fixtures/bookables.json')
 
 describe('Bookables', { viewportHeight: 1000, viewportWidth: 1000 }, () => {
-  before(() => {
+  const allStubs = () => {
     cy.stubNetwork()
+    cy.stubFeatureFlags({
+      'prev-next-bookable': { Next: true, Previous: true },
+      'slide-show': true
+    })
+  }
+
+  before(() => {
+    allStubs()
+
     cy.visit('/bookables')
     cy.url().should('contain', '/bookables')
     cy.get('.bookables-page')
   })
 
-  beforeEach(() => cy.stubNetwork())
+  beforeEach(allStubs)
 
   const defaultIndex = 0
 
@@ -18,7 +27,7 @@ describe('Bookables', { viewportHeight: 1000, viewportWidth: 1000 }, () => {
     cy.getByCy('bookable-details').should('be.visible')
   })
 
-  it('should highlight the selected bookable and cycle through the list', () => {
+  it('should highlight the selected bookable', () => {
     cy.getByCy('bookables-list').within(() => {
       cy.checkBtnColor(defaultIndex, 'rgb(23, 63, 95)')
       cy.checkBtnColor(defaultIndex + 1, 'rgb(255, 255, 255)')
@@ -66,20 +75,37 @@ describe('Bookables', { viewportHeight: 1000, viewportWidth: 1000 }, () => {
   })
 
   // @FF_prevNextBookable
-  it('should switch to the previous bookable and keep cycling with next button', () => {
-    cy.getByCy('bookables-list').within(() => {
-      cy.checkBtnColor(0, 'rgb(23, 63, 95)')
-      cy.getByCy('prev-btn').click()
-      cy.checkBtnColor(3, 'rgb(23, 63, 95)')
-      cy.checkBtnColor(0, 'rgb(255, 255, 255)')
+  context('Previous and Next buttons', () => {
+    it('should switch to the previous bookable and cycle', () => {
+      // cy.stubFeatureFlags('prev-next-bookable', true)
+      cy.getByCy('bookables-list').within(() => {
+        cy.getByCyLike('list-item').eq(defaultIndex).click()
 
-      cy.getByCy('prev-btn').click().click().click()
-      cy.checkBtnColor(0, 'rgb(23, 63, 95)')
+        cy.getByCy('prev-btn').click()
+        cy.checkBtnColor(defaultIndex + 3, 'rgb(23, 63, 95)')
+        cy.checkBtnColor(defaultIndex, 'rgb(255, 255, 255)')
+
+        cy.getByCy('prev-btn').click().click().click()
+        cy.checkBtnColor(defaultIndex, 'rgb(23, 63, 95)')
+      })
+    })
+
+    it('should switch to the next bookable and cycle', () => {
+      cy.getByCy('bookables-list').within(() => {
+        cy.getByCyLike('list-item').eq(defaultIndex).click()
+
+        cy.getByCy('next-btn').click().click().click()
+        cy.checkBtnColor(defaultIndex + 3, 'rgb(23, 63, 95)')
+
+        cy.getByCy('next-btn').click()
+        cy.checkBtnColor(defaultIndex, 'rgb(23, 63, 95)')
+        cy.checkBtnColor(defaultIndex + 1, 'rgb(255, 255, 255)')
+      })
     })
   })
 
   // @FF_slideShow
-  context('slide show', () => {
+  context('Slide show', () => {
     const testBtnColor = (i) =>
       cy
         .getByCy('bookables-list')

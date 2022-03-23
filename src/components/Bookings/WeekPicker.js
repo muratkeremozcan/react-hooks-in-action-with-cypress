@@ -6,7 +6,7 @@ import {
   FaChevronRight,
   FaCalendarCheck
 } from 'react-icons/fa'
-import { useFlags } from 'launchdarkly-react-client-sdk'
+import { useFlags /*, useLDClient */ } from 'launchdarkly-react-client-sdk'
 
 import { addDays, shortISO, getWeek } from '../../utils/date-wrangler'
 import { useBookingsParams } from './bookingsHooks'
@@ -15,6 +15,12 @@ export default function WeekPicker() {
   const today = () => dayjs().format('YYYY-MM-DD')
   const [dateText] = useState(today())
   const { 'date-and-week': FF_dateAndWeek } = useFlags()
+
+  // const flags = useFlags()
+  // const ldClient = useLDClient()
+
+  // console.log('here are flags:', flags)
+  // console.log('here is ldClient:', ldClient)
 
   // ch[5] note: controlled vs uncontrolled components
   // * uncontrolled components: component <- DOM . They read their state from the DOM.

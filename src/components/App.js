@@ -89,6 +89,7 @@ export default function App() {
                 // enable nested routes with /*  */}
                   <Route path="/bookables/*" element={<BookablesPage />} />
                   <Route path="/users" element={<UsersPage />} />
+                  <Route path="*" element={<BookingsPage />} />
                 </Routes>
               </Suspense>
             </ErrorBoundary>

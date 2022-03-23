@@ -97,7 +97,6 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
     return stopPresentation
   }, [nextBookable, FF_slideShow])
 
-  // @featureFlag (previous bookable)
   const previousBookable = useCallback(() => {
     const i = bookablesInGroup.indexOf(bookable)
     const prevIndex = mod(i - 1, bookablesInGroup.length)
