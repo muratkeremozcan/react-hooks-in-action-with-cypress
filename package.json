@@ -28,8 +28,10 @@
     "cy-spok": "1.5.2",
     "cypress": "9.4.1",
     "cypress-grep": "2.13.1",
+    "cypress-ld-control": "^1.1.2",
     "cypress-react-app-actions": "1.0.2",
     "cypress-real-events": "1.7.0",
+    "dotenv": "^16.0.0",
     "eslint-plugin-cypress": "2.12.1",
     "eslint-plugin-prettier": "4.0.0",
     "husky": "4.3.8",
@@ -64,7 +66,8 @@
     "rules": {
       "no-unused-expressions": "off",
       "no-undef": "off",
-      "jest/valid-describe": "off"
+      "jest/valid-describe": "off",
+      "jest/valid-expect": "off"
     }
   },
   "browserslist": {
