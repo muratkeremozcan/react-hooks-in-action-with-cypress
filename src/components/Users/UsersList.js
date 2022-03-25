@@ -80,7 +80,6 @@ export default function UsersList({ user, setUser }) {
 
   const selectPrevious = () => {
     setUserIndex((userIndex) => mod(userIndex - 1, users.length))
-    console.log(userIndex)
     return setUser(users[mod(userIndex - 1, users.length)])
   }
 

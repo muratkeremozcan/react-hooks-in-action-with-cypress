@@ -60,14 +60,11 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ],
     "rules": {
       "no-unused-expressions": "off",
-      "no-undef": "off",
-      "jest/valid-describe": "off",
-      "jest/valid-expect": "off"
+      "no-undef": "off"
     }
   },
   "browserslist": {
