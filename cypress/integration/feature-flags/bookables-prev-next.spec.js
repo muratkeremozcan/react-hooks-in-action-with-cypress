@@ -8,6 +8,7 @@ describe('Bookables prev-next-bookable', () => {
     cy.visit('/bookables')
     cy.wait('@bookables').wait('@bookables')
   })
+
   const featureFlagKey = 'prev-next-bookable'
   const userId = 'aa0ceb'
   const expectedFFs = [
@@ -33,7 +34,7 @@ describe('Bookables prev-next-bookable', () => {
     it('should get prev-next-bookable flags v1', () => {
       cy.task('cypress-ld-control:getFeatureFlag', featureFlagKey)
         .its('variations')
-        .should('have.length', 4)
+        .should('have.length', expectedFFs.length)
         .and((variations) => {
           const values = Cypress._.map(
             variations,
@@ -46,7 +47,7 @@ describe('Bookables prev-next-bookable', () => {
     it('should get prev-next-bookable flags v2', () => {
       cy.task('cypress-ld-control:getFeatureFlag', featureFlagKey)
         .its('variations')
-        .should('have.length', 4)
+        .should('have.length', expectedFFs.length)
         .then((variations) =>
           Cypress._.map(variations, (variation) => variation.value)
         )
@@ -61,7 +62,7 @@ describe('Bookables prev-next-bookable', () => {
     it('should get prev-next-bookable flags v3 (favorite)', () => {
       cy.task('cypress-ld-control:getFeatureFlag', featureFlagKey)
         .its('variations')
-        .should('have.length', 4)
+        .should('have.length', expectedFFs.length)
         .then(map('value'))
         .should(spok(expectedFFs))
     })
