@@ -1,4 +1,4 @@
-describe('Feature flags', () => {
+describe('Feature flags sanity', () => {
   it('should sanity check the plugin setup', () => {
     expect(Cypress.env('launchDarklyApiAvailable')).to.eq(true)
   })

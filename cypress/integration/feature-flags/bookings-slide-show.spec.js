@@ -63,7 +63,7 @@ describe('Bookings slide-show', () => {
       testBtnColor(initialIndex)
     })
 
-    afterEach(() =>
+    after(() =>
       cy.task('cypress-ld-control:removeUserTarget', {
         featureFlagKey,
         userId
