@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "5.16.2",
+    "@testing-library/jest-dom": "5.16.3",
     "@testing-library/react": "12.1.4",
     "@testing-library/user-event": "13.5.0",
     "dayjs": "1.11.0",
@@ -39,8 +39,8 @@
     "husky": "4.3.8",
     "istanbul-lib-coverage": "3.2.0",
     "json-server": "0.17.0",
-    "nyc": "15.1.0",
-    "prettier": "2.5.1",
+    "nyc": "^15.1.0",
+    "prettier": "2.6.1",
     "react-error-boundary": "3.1.4",
     "start-server-and-test": "1.14.0"
   },
