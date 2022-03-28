@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
+import { setFlagVariation, removeUserTarget } from '../../support/ff-helper'
 
 describe('Bookings slide-show', () => {
   const featureFlagKey = 'slide-show'
-  const userId = 'aa0ceb'
 
   const testBtnColor = (i) =>
     cy
@@ -20,23 +20,29 @@ describe('Bookings slide-show', () => {
   })
 
   context('Flag on off', () => {
-    const setupState = () => {
+    const initialIndex = 0
+    let userId
+
+    beforeEach(() => {
+      // nothing to store the first time,
+      // we need it for subsequent tests
+      cy.restoreLocalStorage([userId])
+
+      // setting up state for the test
       cy.clock()
       cy.stubNetwork()
       cy.visit('/bookables')
       cy.tick(1000)
-      return cy.wait('@userStub').wait('@bookablesStub')
-    }
-    const initialIndex = 0
+      cy.wait('@userStub').wait('@bookablesStub')
+
+      // assign the variable and use it throughout the spec
+      cy.getLocalStorage('ld:$anonUserId').then((id) => (userId = id))
+    })
+
+    afterEach(() => cy.saveLocalStorage([userId]))
 
     it('should slide show through and stop the presentation', () => {
-      cy.log('**variation 0: True**')
-      cy.task('cypress-ld-control:setFeatureFlagForUser', {
-        featureFlagKey,
-        userId,
-        variationIndex: 0
-      })
-      setupState()
+      setFlagVariation(featureFlagKey, userId, 0)
 
       for (let i = initialIndex; i < 4; i++) {
         testBtnColor(i)
@@ -50,24 +56,13 @@ describe('Bookings slide-show', () => {
     })
 
     it('should not show stop button or rotate bookables on a timer', () => {
-      cy.log('**variation 1: False**')
-      cy.task('cypress-ld-control:setFeatureFlagForUser', {
-        featureFlagKey,
-        userId,
-        variationIndex: 1
-      })
-      setupState()
+      setFlagVariation(featureFlagKey, userId, 1)
 
       cy.getByCy('stop-btn').should('not.exist')
       cy.tick(3000).tick(3000)
       testBtnColor(initialIndex)
     })
 
-    after(() =>
-      cy.task('cypress-ld-control:removeUserTarget', {
-        featureFlagKey,
-        userId
-      })
-    )
+    after(() => removeUserTarget(featureFlagKey, userId))
   })
 })

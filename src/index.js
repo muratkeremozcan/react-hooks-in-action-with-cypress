@@ -13,9 +13,17 @@ import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk'
     },
     // https://docs.launchdarkly.com/sdk/client-side/react/react-web#configuring-the-react-sdk
     user: {
-      key: 'aa0ceb',
-      name: 'Grace Hopper',
-      email: 'gracehopper@example.com'
+      // key: 'aa0ceb',
+      // name: 'Grace Hopper',
+      // email: 'gracehopper@example.com'
+
+      // to create an anonymous user you can specify the "anonymous" property
+      // and omit the "key" property.
+      // In doing so, the LaunchDarkly client
+      // auto-generates a unique identifier for this user.
+      // The identifier is saved in local storage and reused in future
+      // browser sessions to ensure a constant experience.
+      anonymous: true
     }
   })
 

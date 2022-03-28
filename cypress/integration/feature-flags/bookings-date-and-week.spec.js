@@ -1,15 +1,21 @@
 /// <reference types="cypress" />
 
+import { setFlagVariation, removeUserTarget } from '../../support/ff-helper'
+
 describe('Bookings date-and-week', () => {
+  const featureFlagKey = 'date-and-week'
+  let userId
+
   before(() => {
     cy.intercept('GET', '**/bookables').as('bookables')
     cy.visit('/bookings')
     cy.wait('@bookables')
+
+    cy.getLocalStorage('ld:$anonUserId').then((id) => (userId = id))
   })
 
   it('should toggle date-and-week', () => {
-    const featureFlagKey = 'date-and-week'
-    const userId = 'aa0ceb'
+    cy.log(`user ID is: ${userId}`)
 
     cy.task('cypress-ld-control:getFeatureFlag', featureFlagKey)
       .its('variations')
@@ -25,26 +31,13 @@ describe('Bookings date-and-week', () => {
       })
 
     cy.log('**variation 0: True**')
-    cy.task('cypress-ld-control:setFeatureFlagForUser', {
-      featureFlagKey,
-      userId,
-      variationIndex: 0
-    })
-
+    setFlagVariation(featureFlagKey, userId, 0)
     cy.getByCy('week-interval').should('be.visible')
 
     cy.log('**variation 1: False**')
-    cy.task('cypress-ld-control:setFeatureFlagForUser', {
-      featureFlagKey,
-      userId,
-      variationIndex: 1
-    })
-
+    setFlagVariation(featureFlagKey, userId, 1)
     cy.getByCy('week-interval').should('not.exist')
-
-    cy.task('cypress-ld-control:removeUserTarget', {
-      featureFlagKey,
-      userId
-    })
   })
+
+  after(() => removeUserTarget(featureFlagKey, userId))
 })

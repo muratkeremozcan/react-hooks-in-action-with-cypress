@@ -29,6 +29,7 @@
     "cypress": "9.4.1",
     "cypress-grep": "2.13.1",
     "cypress-ld-control": "^1.1.2",
+    "cypress-localstorage-commands": "^1.7.0",
     "cypress-react-app-actions": "1.0.2",
     "cypress-real-events": "1.7.0",
     "cypress-should-really": "^1.5.0",

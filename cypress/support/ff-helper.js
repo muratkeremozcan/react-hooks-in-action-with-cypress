@@ -10,3 +10,10 @@ export const removeUserTarget = (featureFlagKey, userId) =>
     featureFlagKey,
     userId
   })
+
+/** Can be used for clearing multiple user targets */
+export const removeTarget = (featureFlagKey, targetIndex = 0) =>
+  cy.task('cypress-ld-control:removeTarget', {
+    featureFlagKey,
+    targetIndex
+  })

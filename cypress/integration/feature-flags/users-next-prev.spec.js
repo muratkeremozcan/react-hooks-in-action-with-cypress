@@ -5,15 +5,23 @@ import { map } from 'cypress-should-really'
 import { setFlagVariation, removeUserTarget } from '../../support/ff-helper'
 
 describe('Users nex-prev', () => {
+  const featureFlagKey = 'next-prev'
+  const expectedFFs = Cypress._.range(0, 4)
+  // the variable will be available throughout the spec
+  let userId
+
   before(() => {
     cy.intercept('GET', '**/users').as('users')
     cy.visit('/users')
     cy.wait('@users').wait('@users')
+
+    // assign the variable in the beginning
+    cy.getLocalStorage('ld:$anonUserId').then((id) => (userId = id))
   })
 
-  const featureFlagKey = 'next-prev'
-  const userId = 'aa0ceb'
-  const expectedFFs = Cypress._.range(0, 4)
+  // preserve the local storage between tests
+  beforeEach(() => cy.restoreLocalStorage([userId]))
+  afterEach(() => cy.saveLocalStorage([userId]))
 
   it('should get prev-next-user flags', () => {
     cy.task('cypress-ld-control:getFeatureFlag', featureFlagKey)
@@ -56,5 +64,10 @@ describe('Users nex-prev', () => {
     })
 
     after(() => removeUserTarget(featureFlagKey, userId))
+
+    // we could also use removeTarget()
+    // which is like a deleteAll in case we have multiple users being targeted
+    // mind that it will impact other tests that are concurrently running
+    // after(() => removeTarget(featureFlagKey))
   })
 })

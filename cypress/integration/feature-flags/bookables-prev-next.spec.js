@@ -1,16 +1,10 @@
 /// <reference types="cypress" />
 import spok from 'cy-spok'
 import { map } from 'cypress-should-really'
+import { setFlagVariation, removeUserTarget } from '../../support/ff-helper'
 
 describe('Bookables prev-next-bookable', () => {
-  before(() => {
-    cy.intercept('GET', '**/bookables').as('bookables')
-    cy.visit('/bookables')
-    cy.wait('@bookables').wait('@bookables')
-  })
-
   const featureFlagKey = 'prev-next-bookable'
-  const userId = 'aa0ceb'
   const expectedFFs = [
     {
       Next: false,
@@ -29,6 +23,20 @@ describe('Bookables prev-next-bookable', () => {
       Previous: true
     }
   ]
+  let userId
+
+  before(() => {
+    cy.intercept('GET', '**/bookables').as('bookables')
+    cy.visit('/bookables')
+    cy.wait('@bookables').wait('@bookables')
+    cy.getLocalStorage('ld:$anonUserId').then((id) => (userId = id))
+  })
+
+  // restore & save localStorage commands restore & take a snapshot
+  // we can name that snapshot anything
+  // therefore we can use the unique userId for it without issues
+  beforeEach(() => cy.restoreLocalStorage([userId]))
+  afterEach(() => cy.saveLocalStorage([userId]))
 
   context('flag sanity', () => {
     it('should get prev-next-bookable flags v1', () => {
@@ -69,46 +77,34 @@ describe('Bookables prev-next-bookable', () => {
   })
 
   context('flag variations', () => {
-    const flagVariation = (variationIndex) =>
-      cy.task('cypress-ld-control:setFeatureFlagForUser', {
-        featureFlagKey,
-        userId,
-        variationIndex
-      })
-
     it('should toggle the flag to off off', () => {
-      flagVariation(0)
+      setFlagVariation(featureFlagKey, userId, 0)
 
       cy.getByCy('prev-btn').should('not.exist')
       cy.getByCy('next-btn').should('not.exist')
     })
 
     it('should toggle the flag to off on', () => {
-      flagVariation(1)
+      setFlagVariation(featureFlagKey, userId, 1)
 
       cy.getByCy('prev-btn').should('not.exist')
       cy.getByCy('next-btn').should('be.visible')
     })
 
     it('should toggle the flag to on off', () => {
-      flagVariation(2)
+      setFlagVariation(featureFlagKey, userId, 2)
 
       cy.getByCy('prev-btn').should('be.visible')
       cy.getByCy('next-btn').should('not.exist')
     })
 
     it('should toggle the flag to on on', () => {
-      flagVariation(3)
+      setFlagVariation(featureFlagKey, userId, 3)
 
       cy.getByCy('prev-btn').should('be.visible')
       cy.getByCy('next-btn').should('be.visible')
     })
-
-    after(() =>
-      cy.task('cypress-ld-control:removeUserTarget', {
-        featureFlagKey,
-        userId
-      })
-    )
   })
+
+  after(() => removeUserTarget(featureFlagKey, userId))
 })
