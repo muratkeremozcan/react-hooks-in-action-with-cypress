@@ -71,8 +71,6 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
     return navigate(getUrl(nextBookable.id))
   }, [bookablesInGroup, bookable, getUrl, navigate])
 
-  // @FF_slideShow
-
   // [5.0] useState vs useRef
   // useState: calling the updater function triggers a re-render
   // useRef: can update a value without a corresponding change to the UI
