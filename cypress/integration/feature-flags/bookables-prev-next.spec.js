@@ -60,10 +60,11 @@ describe('Bookables prev-next-bookable', () => {
           Cypress._.map(variations, (variation) => variation.value)
         )
         // with TDD syntax, using should instead of then will ensure retry ability
-        .should((values) => expect(values).to.deep.eq(expectedFFs))
+        // .should((values) => expect(values).to.deep.eq(expectedFFs))
         // alternatively we can use the BDD syntax, same retry ability
-        .then((values) => cy.wrap(values).should('deep.eq', expectedFFs))
-        // much concise version using cy-spok
+        // .then((values) => cy.wrap(values).should('deep.eq', expectedFFs))
+        // much concise versions
+        // .should('deep.eq', expectedFFs)
         .should(spok(expectedFFs))
     })
 
