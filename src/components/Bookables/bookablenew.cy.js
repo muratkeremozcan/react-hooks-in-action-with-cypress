@@ -56,13 +56,7 @@ describe('BookableNew', { viewportWidth: 1000, viewportHeight: 700 }, () => {
       }
     }).as('post')
 
-    // spy on "console.log" calls for demo
-    cy.window()
-      .its('console')
-      .then((console) => cy.spy(console, 'log').as('log'))
-
     cy.getByCy('save').click()
-    cy.get('@log').should('be.calledWith', 'handleSubmit')
     cy.wait('@post')
     cy.location('pathname').should('equal', `/bookables/${id}`)
   })

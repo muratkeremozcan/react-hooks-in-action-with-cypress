@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useQuery } from 'react-query'
+import { useFlags } from 'launchdarkly-react-client-sdk'
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
 // import Spinner from '../UI/Spinner'  // (12.2) use Suspense and ErrorBoundary instead
 import getData from '../../utils/api'
@@ -29,6 +30,7 @@ export default function UsersList({ user, setUser }) {
   })
 
   const [userIndex, setUserIndex] = useState(() => user.id - 1)
+  const { 'next-prev': FF_nextPrev } = useFlags()
 
   // [4.4.2] useEffect to fetch data, once with [],
   // if not once, it will keep fetching data forever
@@ -71,15 +73,13 @@ export default function UsersList({ user, setUser }) {
   //   [setUser]
   // )
 
-  // @featureFlag (users list next prev)
   const selectNext = () => {
     setUserIndex((userIndex) => mod(userIndex + 1, users.length))
     return setUser(users[mod(userIndex + 1, users.length)])
   }
-  // @featureFlag (users list next prev)
+
   const selectPrevious = () => {
     setUserIndex((userIndex) => mod(userIndex - 1, users.length))
-    console.log(userIndex)
     return setUser(users[mod(userIndex - 1, users.length)])
   }
 
@@ -111,25 +111,27 @@ export default function UsersList({ user, setUser }) {
         ))}
       </ul>
       <p>
-        {/* @FeatureFlag candidate */}
-        <button
-          className="btn"
-          onClick={selectPrevious}
-          autoFocus
-          data-cy="prev-btn"
-        >
-          <FaArrowLeft /> <span>Previous</span>
-        </button>
+        {(FF_nextPrev === 2 || FF_nextPrev === 3) && (
+          <button
+            className="btn"
+            onClick={selectPrevious}
+            autoFocus
+            data-cy="prev-btn"
+          >
+            <FaArrowLeft /> <span>Previous</span>
+          </button>
+        )}
 
-        {/* @FeatureFlag candidate */}
-        <button
-          className="btn"
-          onClick={selectNext}
-          autoFocus
-          data-cy="next-btn"
-        >
-          <FaArrowRight /> <span>Next</span>
-        </button>
+        {(FF_nextPrev === 1 || FF_nextPrev === 3) && (
+          <button
+            className="btn"
+            onClick={selectNext}
+            autoFocus
+            data-cy="next-btn"
+          >
+            <FaArrowRight /> <span>Next</span>
+          </button>
+        )}
       </p>
     </div>
   )

@@ -4,7 +4,7 @@ describe('routes', { tags: ['@routes', '@appJs'] }, () => {
     cy.visit('/')
   })
 
-  beforeEach(() => cy.stubNetwork())
+  beforeEach(cy.stubNetwork)
 
   it('Bookings', () => {
     cy.contains('Bookings').click()

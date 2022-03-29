@@ -70,3 +70,39 @@ Cypress.Commands.add('stubNetwork', () => {
     body: bookable
   }).as('bookableStub')
 })
+
+Cypress.Commands.add('stubFeatureFlags', (featureFlags) => {
+  // ignore api calls to events endpoint
+  cy.intercept(
+    { method: 'POST', hostname: /.*events.launchdarkly.com/ },
+    { body: {} }
+  ).as('LDEvents')
+
+  // turn off push updates from LaunchDarkly (EventSource)
+  cy.intercept(
+    { method: 'GET', hostname: /.*clientstream.launchdarkly.com/ },
+    // access the request handler and stub a response
+    (req) =>
+      req.reply('data: no streaming feature flag data here\n\n', {
+        'content-type': 'text/event-stream; charset=utf-8'
+      })
+  ).as('LDClientStream')
+
+  /** Stubs the FF with the specification
+   * Iterate through our desired FF object `featureFlags`
+   * Take the real response `body` as a table sample
+   * Declare our desired `featureFlags` keys into the table: `body[ffKey]`
+   * Assign our desired `featureFlags` values into the table `body[ffKey] = { value: ffValue }`
+   * Build our stubbed `body` and return it
+   */
+  return cy
+    .intercept({ method: 'GET', hostname: /.*app.launchdarkly.com/ }, (req) =>
+      req.reply(({ body }) =>
+        Cypress._.map(featureFlags, (ffValue, ffKey) => {
+          body[ffKey] = { value: ffValue }
+          return body
+        })
+      )
+    )
+    .as('LDApp')
+})

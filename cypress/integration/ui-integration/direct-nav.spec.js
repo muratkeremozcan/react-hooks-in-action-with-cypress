@@ -5,7 +5,7 @@ describe('direct nav to BookableEdit', { tags: '@smoke' }, () => {
     cy.contains('h2', 'Edit Bookable')
   })
 
-  beforeEach(() => cy.stubNetwork())
+  beforeEach(cy.stubNetwork)
 
   it('should render the component upon direct nav between routes', () => {
     cy.visit('/bookables/3/edit')

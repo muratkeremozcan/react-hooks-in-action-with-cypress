@@ -32,7 +32,7 @@ describe(
 
       cy.intercept('POST', '/bookables').as('saveBookable')
       cy.getByCy('save').click()
-      cy.wait('@saveBookable')
+      cy.wait('@saveBookable', { timeout: 10000 })
         .its('response')
         .should(
           spok({

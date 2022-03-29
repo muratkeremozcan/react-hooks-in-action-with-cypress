@@ -45,7 +45,6 @@ export default function BookableNew() {
   )
 
   function handleSubmit() {
-    console.log('handleSubmit')
     return createBookable(formState.state)
   }
 

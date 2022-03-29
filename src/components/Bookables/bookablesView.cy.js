@@ -30,7 +30,23 @@ describe('BookablesView', { viewportWidth: 700, viewportHeight: 700 }, () => {
     cy.getByCy('bookable-details').should('be.visible')
   })
 
-  it('should switch to the next bookable and keep cycling with next button', () => {
+  // @FF_prevNextBookable
+  // https://github.com/cypress-io/cypress/issues/18662
+  // Stubbing modules isn't working in the component runner. The same thing is ok in the e2e runner. Wait for Cy 10
+  // TODO: once stubbing works in Cypress 10, try to stub the LaunchDarkly hook
+  // https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/stubbing-spying__functions
+  /*
+
+  import * as LD from 'launchdarkly-react-client-sdk'
+
+  cy.stub(LD, 'useFlags).returns({ 'pre-next-bookable': {
+      "Next": true,
+      "Previous": true
+    }
+  })
+
+  */
+  it.skip('should switch to the next bookable and keep cycling with next button', () => {
     cy.getByCy('next-btn').click()
     cy.location('pathname').should('eq', '/bookables/2')
   })

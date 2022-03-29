@@ -87,8 +87,17 @@ describe('UsersList', { viewportWidth: 700, viewportHeight: 700 }, () => {
     cy.getByCy('error').should('exist')
   })
 
-  // @featureFlag (users list next prev)
-  context('feature flag next prev user', () => {
+  // @FF_nextPrev
+  // https://github.com/cypress-io/cypress/issues/18662
+  // Stubbing modules isn't working in the component runner. The same thing is ok in the e2e runner. Wait for Cy 10
+  // TODO: once stubbing works in Cypress 10, try to stub the LaunchDarkly hook
+  // https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/stubbing-spying__functions
+  /*
+  import * as LD from 'launchdarkly-react-client-sdk'
+
+  cy.stub(LD, 'useFlags).returns({ 'prev-next': 3 })
+  */
+  context.skip('feature flag next prev user', () => {
     it('should highlight the selected user on initial load', () => {
       cy.intercept('GET', 'http://localhost:3001/users', {
         fixture: 'users'

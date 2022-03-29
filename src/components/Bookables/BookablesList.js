@@ -1,6 +1,7 @@
 import { FaArrowRight, FaArrowLeft, FaStop } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import { useRef, useEffect, useCallback } from 'react'
+import { useFlags } from 'launchdarkly-react-client-sdk'
 import mod from '../../utils/real-modulus'
 
 // [6.2] child components destructure and use the props
@@ -12,6 +13,10 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
   // [10.2] React Router’s useNavigate returns a function we can use to set a new URL,
   // prompting the router to render whichever UI has been associated with the new path
   const navigate = useNavigate()
+  const {
+    'slide-show': FF_slideShow,
+    'prev-next-bookable': FF_prevNextBookable
+  } = useFlags()
 
   // useEffect(() => {
   //   getData('http://localhost:3001/bookables')
@@ -66,8 +71,6 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
     return navigate(getUrl(nextBookable.id))
   }, [bookablesInGroup, bookable, getUrl, navigate])
 
-  // @featureFlag (slide show)
-
   // [5.0] useState vs useRef
   // useState: calling the updater function triggers a re-render
   // useRef: can update a value without a corresponding change to the UI
@@ -80,16 +83,18 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
   // [5.2] use the ref in a handler function
   // (clears the setInterval timer)
   const stopPresentation = () => clearInterval(timerRef.current)
+
   useEffect(() => {
-    // [5.2.2] assigning new values to the current property  of the ref object doesn’t trigger a re-render.
-    // you can persist state values by assigning them to variable.current
-    timerRef.current = setInterval(() => nextBookable(), 3000)
+    if (FF_slideShow) {
+      // [5.2.2] assigning new values to the current property  of the ref object doesn’t trigger a re-render.
+      // you can persist state values by assigning them to variable.current
+      timerRef.current = setInterval(() => nextBookable(), 3000)
 
-    // clean up function is called onClick, or when the component unmounts (user navigates away)
+      // clean up function is called onClick, or when the component unmounts (user navigates away)
+    }
     return stopPresentation
-  }, [nextBookable])
+  }, [nextBookable, FF_slideShow])
 
-  // @featureFlag (previous bookable)
   const previousBookable = useCallback(() => {
     const i = bookablesInGroup.indexOf(bookable)
     const prevIndex = mod(i - 1, bookablesInGroup.length)
@@ -126,35 +131,40 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
         ))}
       </ul>
       <p>
-        {/* @featureFlag (slide show) */}
-        <button
-          className="items-list-nav btn"
-          data-cy="stop-btn"
-          onClick={stopPresentation}
-        >
-          <FaStop />
-          <span>Stop</span>
-        </button>
+        {FF_slideShow && (
+          <button
+            className="items-list-nav btn"
+            data-cy="stop-btn"
+            onClick={stopPresentation}
+          >
+            <FaStop />
+            <span>Stop</span>
+          </button>
+        )}
 
-        {/* @featureFlag (previous bookable) */}
-        <button
-          className="btn"
-          onClick={previousBookable}
-          autoFocus
-          data-cy="prev-btn"
-        >
-          <FaArrowLeft />
-          <span>Prev</span>
-        </button>
-        <button
-          className="btn"
-          onClick={nextBookable}
-          autoFocus
-          data-cy="next-btn"
-        >
-          <FaArrowRight />
-          <span>Next</span>
-        </button>
+        {FF_prevNextBookable?.Previous === true && (
+          <button
+            className="btn"
+            onClick={previousBookable}
+            autoFocus
+            data-cy="prev-btn"
+          >
+            <FaArrowLeft />
+            <span>Prev</span>
+          </button>
+        )}
+
+        {FF_prevNextBookable?.Next === true && (
+          <button
+            className="btn"
+            onClick={nextBookable}
+            autoFocus
+            data-cy="next-btn"
+          >
+            <FaArrowRight />
+            <span>Next</span>
+          </button>
+        )}
       </p>
     </div>
   )

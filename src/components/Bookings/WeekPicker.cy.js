@@ -26,8 +26,19 @@ describe('WeekPicker', { viewportWidth: 700 }, () => {
     cy.getByCyLike('go').click()
   })
 
-  // @featureFlag (today's date and this week)
-  it('should render the week interval and today', () => {
+  // @FF_dateAndWeek
+  // https://github.com/cypress-io/cypress/issues/18662
+  // Stubbing modules isn't working in the component runner. The same thing is ok in the e2e runner. Wait for Cy 10
+  // TODO: once stubbing works in Cypress 10, try to stub the LaunchDarkly hook
+  // https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/stubbing-spying__functions
+  /*
+
+  import * as LD from 'launchdarkly-react-client-sdk'
+
+  cy.stub(LD, 'useFlags).returns({ 'date-and-week': true })
+
+  */
+  it.skip('should render the week interval and today', () => {
     cy.getByCy('today').click()
 
     cy.getByCy('week-interval').should(

@@ -240,3 +240,16 @@ yarn cy:run-ct --env grep="BookingsPage",grepFilterSpecs=true,grepOmitFiltered=t
 ```
 
 </details>
+
+## Setting up and Testing LaunchDarkly Feature flags
+
+<details><summary>details</summary>
+
+Check out the multi-part series:
+
+- [Effective Test Strategies for Testing Front-end Applications using LaunchDarkly Feature Flags and Cypress. Part1: the setup](https://dev.to/muratkeremozcan/effective-test-strategies-for-testing-front-end-applications-using-launchdarkly-feature-flags-and-cypress-part1-the-setup-jfp)
+- [Effective Test Strategies for Testing Front-end Applications using LaunchDarkly Feature Flags and Cypress. Part2: testing](https://dev.to/muratkeremozcan/effective-test-strategies-for-testing-front-end-applications-using-launchdarkly-feature-flags-and-cypress-part2-testing-2c72)
+
+A version of the app without feature flags can be checked out at the branch `before-feature-flags`. The PR for the blog post can be found [here](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/pull/76).
+
+</details>

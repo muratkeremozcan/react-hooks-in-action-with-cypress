@@ -33,6 +33,7 @@ describe('UserDetails', { viewportWidth: 700, viewportHeight: 700 }, () => {
       cy.tick(5000)
       cy.wait('@notFound')
     })
+    cy.tick(5000)
 
     cy.getByCy('error').should('be.visible')
   })
