@@ -6,7 +6,7 @@ import {
   randomId
 } from '../../support/ff-helper'
 
-describe('Bookings date-and-week', () => {
+describe('Uses setLocalStorage instead of get for date-and-week flag', () => {
   const featureFlagKey = 'date-and-week'
   const userId = randomId()
 
