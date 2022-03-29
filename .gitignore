@@ -28,4 +28,3 @@ public/manifest.json
 
 cypress/videos
 cypress/screenshots
-cypress/plugins/index.js
