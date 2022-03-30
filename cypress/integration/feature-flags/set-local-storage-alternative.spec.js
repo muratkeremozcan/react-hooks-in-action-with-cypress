@@ -3,11 +3,12 @@
 import {
   setFlagVariation,
   removeUserTarget,
-  randomId
+  randomId,
+  FLAG
 } from '../../support/ff-helper'
 
 describe('Uses setLocalStorage instead of get for date-and-week flag', () => {
-  const featureFlagKey = 'date-and-week'
+  const featureFlagKey = FLAG.DATE_AND_WEEK
   const userId = randomId()
 
   before(() => {

@@ -1,8 +1,12 @@
 /// <reference types="cypress" />
-import { setFlagVariation, removeUserTarget } from '../../support/ff-helper'
+import {
+  setFlagVariation,
+  removeUserTarget,
+  FLAG
+} from '../../support/ff-helper'
 
 describe('Bookings slide-show', () => {
-  const featureFlagKey = 'slide-show'
+  const featureFlagKey = FLAG.SLIDE_SHOW
 
   const testBtnColor = (i) =>
     cy

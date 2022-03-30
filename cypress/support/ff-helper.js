@@ -1,3 +1,10 @@
+export const FLAG = Object.freeze({
+  DATE_AND_WEEK: 'date-and-week',
+  NEXT_PREV: 'next-prev',
+  SLIDE_SHOW: 'slide-show',
+  PREV_NEXT_BOOKABLE: 'prev-next-bookable'
+})
+
 export const setFlagVariation = (featureFlagKey, userId, variationIndex) =>
   cy.task('cypress-ld-control:setFeatureFlagForUser', {
     featureFlagKey,
