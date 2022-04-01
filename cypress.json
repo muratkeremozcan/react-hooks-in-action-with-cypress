@@ -2,6 +2,7 @@
   "projectId": "nr3y7v",
   "$schema": "https://on.cypress.io/cypress.schema.json",
   "baseUrl": "http://localhost:3000",
+  "ignoreTestFiles": "**/feature-flags/*.js",
   "component": {
     "testFiles": "**/**/*.cy.{js,ts,jsx,tsx}",
     "componentFolder": "src"
