@@ -41,7 +41,7 @@
     "istanbul-lib-coverage": "3.2.0",
     "json-server": "0.17.0",
     "nyc": "15.1.0",
-    "prettier": "2.6.1",
+    "prettier": "2.6.2",
     "react-error-boundary": "3.1.4",
     "start-server-and-test": "1.14.0"
   },
