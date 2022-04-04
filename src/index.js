@@ -34,4 +34,16 @@ import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk'
     </LDProvider>,
     document.getElementById('root')
   )
+
+  // with react 18
+  // (there are issues with Cypress 9 component test runner with React 18, upgrade react with cy 10)
+  /*
+  const root = ReactDOM.createRoot(document.getElementById('root'))
+
+  return root.render(
+    <LDProvider>
+      <App />
+    </LDProvider>
+  )
+  */
 })()
