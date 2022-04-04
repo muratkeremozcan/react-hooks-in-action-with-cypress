@@ -13,10 +13,8 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
   // [10.2] React Router’s useNavigate returns a function we can use to set a new URL,
   // prompting the router to render whichever UI has been associated with the new path
   const navigate = useNavigate()
-  const {
-    'slide-show': FF_slideShow,
-    'prev-next-bookable': FF_prevNextBookable
-  } = useFlags()
+  const { 'slide-show': FF_slideShow, 'prev-next': FF_prevNextBookable } =
+    useFlags()
 
   // useEffect(() => {
   //   getData('http://localhost:3001/bookables')

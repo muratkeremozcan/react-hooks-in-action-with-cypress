@@ -7,8 +7,8 @@ import {
   FLAG
 } from '../../support/ff-helper'
 
-describe('Bookables prev-next-bookable', () => {
-  const featureFlagKey = FLAG.PREV_NEXT_BOOKABLE
+describe('Bookables prev-next', () => {
+  const featureFlagKey = FLAG.PREV_NEXT
   const expectedFFs = [
     {
       Next: false,
@@ -43,7 +43,7 @@ describe('Bookables prev-next-bookable', () => {
   afterEach(() => cy.saveLocalStorage([userId]))
 
   context('flag sanity', () => {
-    it('should get prev-next-bookable flags v1', () => {
+    it('should get prev-next flags v1', () => {
       cy.task('cypress-ld-control:getFeatureFlag', featureFlagKey)
         .its('variations')
         .should('have.length', expectedFFs.length)
@@ -56,7 +56,7 @@ describe('Bookables prev-next-bookable', () => {
         })
     })
 
-    it('should get prev-next-bookable flags v2', () => {
+    it('should get prev-next flags v2', () => {
       cy.task('cypress-ld-control:getFeatureFlag', featureFlagKey)
         .its('variations')
         .should('have.length', expectedFFs.length)
@@ -72,7 +72,7 @@ describe('Bookables prev-next-bookable', () => {
         .should(spok(expectedFFs))
     })
 
-    it('should get prev-next-bookable flags v3 (favorite)', () => {
+    it('should get prev-next flags v3 (favorite)', () => {
       cy.task('cypress-ld-control:getFeatureFlag', featureFlagKey)
         .its('variations')
         .should('have.length', expectedFFs.length)

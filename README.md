@@ -243,7 +243,7 @@ yarn cy:run-ct --env grep="BookingsPage",grepFilterSpecs=true,grepOmitFiltered=t
 
 ## Setting up and Testing LaunchDarkly Feature flags
 
-The launch-darkly folder will not be working until you have aa `.env` file with your LaunchDarkly API key. You can add a property to your `cypress.json` file to disable the feature flag tests.
+The specs in the launch-darkly folder will not be working until you have aa `.env` file with your LaunchDarkly API key. You can add a property to your `cypress.json` file to disable the feature flag tests until you have an api key.
 
 ```json
 {
