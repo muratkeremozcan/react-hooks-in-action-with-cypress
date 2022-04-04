@@ -4,7 +4,7 @@ describe('Bookables', { viewportHeight: 1000, viewportWidth: 1000 }, () => {
   const allStubs = () => {
     cy.stubNetwork()
     cy.stubFeatureFlags({
-      'prev-next-bookable': { Next: true, Previous: true },
+      'prev-next': { Next: true, Previous: true },
       'slide-show': true
     })
   }

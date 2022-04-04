@@ -5,7 +5,7 @@ import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk'
 // because we are using await, we have to wrap it all in an async IIFE
 ;(async () => {
   const LDProvider = await asyncWithLDProvider({
-    clientSideID: '62346a0d87293a1355565b20',
+    clientSideID: '624b26b7a161aa154d1d15dc',
     // we do not want the React SDK to change flag keys to camel case
     // https://docs.launchdarkly.com/sdk/client-side/react/react-web#flag-keys
     reactOptions: {

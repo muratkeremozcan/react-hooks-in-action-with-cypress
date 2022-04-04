@@ -30,7 +30,7 @@ export default function UsersList({ user, setUser }) {
   })
 
   const [userIndex, setUserIndex] = useState(() => user.id - 1)
-  const { 'next-prev': FF_nextPrev } = useFlags()
+  const { 'prev-next-user': FF_nextPrev } = useFlags()
 
   // [4.4.2] useEffect to fetch data, once with [],
   // if not once, it will keep fetching data forever

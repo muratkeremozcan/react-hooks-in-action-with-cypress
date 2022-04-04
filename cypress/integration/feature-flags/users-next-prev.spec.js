@@ -4,8 +4,8 @@ import spok from 'cy-spok'
 import { map } from 'cypress-should-really'
 import { setFlagVariation, removeUserTarget } from '../../support/ff-helper'
 
-describe('Users nex-prev', () => {
-  const featureFlagKey = 'next-prev'
+describe('Users prev-next-user', () => {
+  const featureFlagKey = 'prev-next-user'
   const expectedFFs = Cypress._.range(0, 4)
   // the variable will be available throughout the spec
   let userId

@@ -4,7 +4,7 @@ describe('Bookable details retainment', { tags: '@smoke' }, () => {
   before(() => {
     cy.stubNetwork()
     cy.stubFeatureFlags({
-      'prev-next-bookable': { Next: true }
+      'prev-next': { Next: true }
     })
 
     cy.visit('/')
