@@ -20,7 +20,12 @@ describe(
         // cy.percySnapshot('User selection retainment between routes')
 
         // another visual test with an optional css selector
-        cy.percySnapshot('User details', '[data-cy="user-details"]')
+        cy.percySnapshot('User details', {
+          percyCSS: '[data-cy="user-details"]',
+          // additional args
+          'min-height': 1024,
+          widths: [375, 1280]
+        })
         // note: taking 2 snapshots would be redundant
         // it is only being shown for example purposes
       })
