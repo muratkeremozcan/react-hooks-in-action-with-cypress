@@ -85,11 +85,6 @@ jobs:
           wait-on: 'http://localhost:3000'
           browser: chrome
           command: yarn percy exec -- cypress run --spec 'cypress/integration/ui-integration/user-context-retainment.spec.js' --config video=false,screenshotOnRunFailure=false
-          # the only extra commands for percy
-          # command-prefix: 'percy exec -- npx'
-          # spec: cypress/integration/ui-integration/user-context-retainment.spec.js
-          # we do not need any additional artifacts percy: --config video=false,screenshotOnRunFailure=false
-          # config: video=false,screenshotOnRunFailure=false
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
