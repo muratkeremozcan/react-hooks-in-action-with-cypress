@@ -84,7 +84,7 @@ jobs:
           wait-on: 'http://localhost:3000'
           browser: chrome
           # the only extra commands for percy
-          command-prefix: 'percy exec -- npx'
+          command-prefix: 'sudo percy exec -- npx'
           spec: cypress/integration/ui-integration/user-context-retainment.spec.js
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
