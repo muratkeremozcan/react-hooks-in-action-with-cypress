@@ -251,13 +251,19 @@ The specs in the launch-darkly folder will not be working until you have aa `.en
 }
 ```
 
-<details><summary>details</summary>
-
 Check out the multi-part series:
 
 - [Effective Test Strategies for Testing Front-end Applications using LaunchDarkly Feature Flags and Cypress. Part1: the setup](https://dev.to/muratkeremozcan/effective-test-strategies-for-testing-front-end-applications-using-launchdarkly-feature-flags-and-cypress-part1-the-setup-jfp)
 - [Effective Test Strategies for Testing Front-end Applications using LaunchDarkly Feature Flags and Cypress. Part2: testing](https://dev.to/muratkeremozcan/effective-test-strategies-for-testing-front-end-applications-using-launchdarkly-feature-flags-and-cypress-part2-testing-2c72)
 
 A version of the app without feature flags can be checked out at the branch `before-feature-flags`. The PR for the blog post can be found [here](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/pull/76).
+
+## Setting up Visual Testing with Percy
+
+The branch prior to the changes can be checked out at `before-visual-testing`. The steps can be followed to reach the final version on main branch.
+
+The changes the guide can be found in [this PR](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/pull/99).
+
+Check out the full guide on [dev.to](https://dev.to/muratkeremozcan/painlessly-setup-cypress-percy-with-github-actions-in-minutes-1aki)
 
 </details>
