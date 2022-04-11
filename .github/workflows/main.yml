@@ -65,32 +65,39 @@ jobs:
           LAUNCH_DARKLY_PROJECT_KEY: ${{ secrets.LAUNCH_DARKLY_PROJECT_KEY }}
           LAUNCH_DARKLY_AUTH_TOKEN: ${{ secrets.LAUNCH_DARKLY_AUTH_TOKEN }}
 
-  # This is just a copy of the above with 2 additional args for visual testing
-  cypress-visual-tests:
-    needs: [install-dependencies]
-    runs-on: ubuntu-latest
-    container: cypress/included:9.4.1 # save time on not having to install cypress
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: bahmutov/npm-install@v1 # save time on dependencies
-        with: { useRollingCache: true }
-
-      - name: Cypress e2e tests 🧪
-        uses: cypress-io/github-action@v3.0.3
+      - name: Percy visual tests 🧪
+        uses: percy/exec-action@v0.3.1
         with:
-          install: false # no need to install because of the above 2
-          start: yarn dev # concurrently starts ui and api servers
-          wait-on: 'http://localhost:3000'
-          browser: chrome
-          # the only extra commands for percy
-          command-prefix: 'yarn percy exec --'
-          spec: cypress/integration/ui-integration/user-context-retainment.spec.js
+          command: "cypress run --spec 'cypress/integration/ui-integration/user-context-retainment.spec.js'"
         env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          LAUNCH_DARKLY_PROJECT_KEY: ${{ secrets.LAUNCH_DARKLY_PROJECT_KEY }}
-          LAUNCH_DARKLY_AUTH_TOKEN: ${{ secrets.LAUNCH_DARKLY_AUTH_TOKEN }}
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+
+  # # This is just a copy of the above with 2 additional args for visual testing
+  # cypress-visual-tests:
+  #   needs: [install-dependencies]
+  #   runs-on: ubuntu-latest
+  #   container: cypress/included:9.4.1 # save time on not having to install cypress
+  #   steps:
+  #     - uses: actions/checkout@v3
+
+  #     - uses: bahmutov/npm-install@v1 # save time on dependencies
+  #       with: { useRollingCache: true }
+
+  #     - name: Cypress visual tests 🧪
+  #       uses: cypress-io/github-action@v3.0.3
+  #       with:
+  #         install: false # no need to install because of the above 2
+  #         start: yarn dev # concurrently starts ui and api servers
+  #         wait-on: 'http://localhost:3000'
+  #         browser: chrome
+  #         # the only extra commands for percy
+  #         command-prefix: 'yarn percy exec --'
+  #         spec: cypress/integration/ui-integration/user-context-retainment.spec.js
+  #       env:
+  #         CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+  #         LAUNCH_DARKLY_PROJECT_KEY: ${{ secrets.LAUNCH_DARKLY_PROJECT_KEY }}
+  #         LAUNCH_DARKLY_AUTH_TOKEN: ${{ secrets.LAUNCH_DARKLY_AUTH_TOKEN }}
+  #         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
   cypress-component-tests:
     # ran out od parallelization
