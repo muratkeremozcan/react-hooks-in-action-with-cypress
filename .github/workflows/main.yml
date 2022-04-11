@@ -84,7 +84,7 @@ jobs:
           start: yarn dev # concurrently starts ui and api servers
           wait-on: 'http://localhost:3000'
           browser: chrome
-          command: sudo npx percy exec -- cypress run --spec 'cypress/integration/ui-integration/user-context-retainment.spec.js' --config video=false,screenshotOnRunFailure=false
+          command: yarn percy exec -- cypress run --spec 'cypress/integration/ui-integration/user-context-retainment.spec.js' --config video=false,screenshotOnRunFailure=false
           # the only extra commands for percy
           # command-prefix: 'percy exec -- npx'
           # spec: cypress/integration/ui-integration/user-context-retainment.spec.js
