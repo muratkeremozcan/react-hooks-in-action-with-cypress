@@ -1,3 +1,4 @@
+import '@percy/cypress'
 const bookable = require('../fixtures/bookables.json')[2]
 const users = require('../fixtures/users.json')
 
@@ -106,3 +107,23 @@ Cypress.Commands.add('stubFeatureFlags', (featureFlags) => {
     )
     .as('LDApp')
 })
+
+// https://github.com/percy/percy-cypress/issues/56
+Cypress.Commands.add(
+  'percySnapshotElement',
+  { prevSubject: true },
+  (subject, name, options) => {
+    cy.percySnapshot(name, {
+      domTransformation: (documentClone) =>
+        scope(documentClone, subject.selector),
+      ...options
+    })
+  }
+)
+
+function scope(documentClone, selector) {
+  const element = documentClone.querySelector(selector)
+  documentClone.querySelector('body').innerHTML = element.outerHTML
+
+  return documentClone
+}

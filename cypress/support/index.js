@@ -19,6 +19,7 @@ import 'cypress-react-app-actions'
 import 'cypress-real-events/support'
 import 'cypress-localstorage-commands'
 import '@cypress/code-coverage/support'
+import '@percy/cypress'
 require('cypress-grep')()
 
 // Alternatively you can use CommonJS syntax:

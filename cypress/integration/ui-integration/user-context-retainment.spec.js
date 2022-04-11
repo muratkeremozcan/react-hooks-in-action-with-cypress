@@ -15,6 +15,14 @@ describe(
         cy.wait('@userStub')
         cy.url().should('contain', '/users')
         cy.get('.item-header').contains(users[3].name)
+
+        // the visual test
+        cy.percySnapshot('User selection retainment between routes')
+
+        // using custom command for css selector focus
+        cy.getByCy('user-details').percySnapshotElement(
+          'user details with custom selector'
+        )
       })
     })
   }

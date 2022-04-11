@@ -65,8 +65,31 @@ jobs:
           LAUNCH_DARKLY_PROJECT_KEY: ${{ secrets.LAUNCH_DARKLY_PROJECT_KEY }}
           LAUNCH_DARKLY_AUTH_TOKEN: ${{ secrets.LAUNCH_DARKLY_AUTH_TOKEN }}
 
+  # This is just a copy of the above with 2 additional args for visual testing
+  cypress-visual-tests:
+    needs: [install-dependencies]
+    runs-on: ubuntu-latest
+    container: cypress/included:9.4.1 # save time on not having to install cypress
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: bahmutov/npm-install@v1 # save time on dependencies
+        with: { useRollingCache: true }
+
+      # We could also just add this step onto the original cypress-e2e-tests job
+      - name: Cypress visual tests 🧪
+        uses: cypress-io/github-action@v3.0.3
+        with:
+          install: false # no need to install because of the above 2
+          start: yarn dev # concurrently starts ui and api servers
+          wait-on: 'http://localhost:3000'
+          browser: chrome
+          command: yarn percy exec -- cypress run --spec 'cypress/integration/ui-integration/user-context-retainment.spec.js' --config video=false,screenshotOnRunFailure=false
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+
   cypress-component-tests:
-    # ran out od parallelization
+    # ran out of parallelization
     # strategy:
     #   matrix:
     #     machines: [1, 2] # increase to 2 later: [1, 2]
