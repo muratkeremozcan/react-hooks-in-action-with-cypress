@@ -17,17 +17,12 @@ describe(
         cy.get('.item-header').contains(users[3].name)
 
         // the visual test
-        // cy.percySnapshot('User selection retainment between routes')
+        cy.percySnapshot('User selection retainment between routes')
 
-        // another visual test with an optional css selector
-        cy.percySnapshot('User details', {
-          percyCSS: '[data-cy="user-details"]',
-          // additional args
-          'min-height': 1024,
-          widths: [375, 1280]
-        })
-        // note: taking 2 snapshots would be redundant
-        // it is only being shown for example purposes
+        // using custom command for css selector focus
+        cy.getByCy('user-details').percySnapshotElement(
+          'user details with custom selector'
+        )
       })
     })
   }
