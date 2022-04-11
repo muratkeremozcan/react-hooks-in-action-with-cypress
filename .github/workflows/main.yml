@@ -76,6 +76,7 @@ jobs:
       - uses: bahmutov/npm-install@v1 # save time on dependencies
         with: { useRollingCache: true }
 
+      # We could also just add this step onto the original cypress-e2e-tests job
       - name: Cypress visual tests 🧪
         uses: cypress-io/github-action@v3.0.3
         with:
@@ -84,14 +85,12 @@ jobs:
           wait-on: 'http://localhost:3000'
           browser: chrome
           # the only extra commands for percy
-          command-prefix: 'percy exec -- npx'
+          command-prefix: 'sudo percy exec -- npx'
+          # sudo percy exec -- npx cypress run --spec 'cypress/integration/ui-integration/user-context-retainment.spec.js' --config video=false,screenshotOnRunFailure=false
           spec: cypress/integration/ui-integration/user-context-retainment.spec.js
-          # we do not need any artifacts: --config video=false,screenshotOnRunFailure=false
+          # we do not need any additional artifacts percy: --config video=false,screenshotOnRunFailure=false
           config: video=false,screenshotOnRunFailure=false
         env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          LAUNCH_DARKLY_PROJECT_KEY: ${{ secrets.LAUNCH_DARKLY_PROJECT_KEY }}
-          LAUNCH_DARKLY_AUTH_TOKEN: ${{ secrets.LAUNCH_DARKLY_AUTH_TOKEN }}
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
   cypress-component-tests:
