@@ -84,7 +84,7 @@ jobs:
           wait-on: 'http://localhost:3000'
           browser: chrome
           # the only extra commands for percy
-          command-prefix: 'yarn percy exec --'
+          command-prefix: 'percy exec -- npx'
           spec: cypress/integration/ui-integration/user-context-retainment.spec.js
           # we do not need any artifacts: --config video=false,screenshotOnRunFailure=false
           config: video=false,screenshotOnRunFailure=false
