@@ -1,4 +1,4 @@
-import { FLAGS } from '../../support/ff-helper'
+import { FLAGS } from '../../../src/utils/flags'
 
 describe('Feature flags sanity', () => {
   it('should sanity check the plugin setup', () => {
