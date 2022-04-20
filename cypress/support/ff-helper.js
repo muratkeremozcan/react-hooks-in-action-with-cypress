@@ -1,7 +1,3 @@
-import { FLAGS as flags } from '../../../../src/utils/flags'
-
-export const FLAGS = flags
-
 export const setFlagVariation = (featureFlagKey, userId, variationIndex) =>
   cy.task('cypress-ld-control:setFeatureFlagForUser', {
     featureFlagKey,

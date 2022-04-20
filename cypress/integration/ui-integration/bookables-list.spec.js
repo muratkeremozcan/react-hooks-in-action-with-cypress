@@ -1,4 +1,4 @@
-import { FLAGS } from '../../utils/flags'
+import { FLAGS } from '../../../src/utils/flags'
 const bookableData = require('../../fixtures/bookables.json')
 
 describe('Bookables', { viewportHeight: 1000, viewportWidth: 1000 }, () => {

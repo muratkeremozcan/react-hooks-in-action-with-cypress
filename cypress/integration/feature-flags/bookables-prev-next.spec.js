@@ -1,11 +1,8 @@
 /// <reference types="cypress" />
 import spok from 'cy-spok'
 import { map } from 'cypress-should-really'
-import {
-  setFlagVariation,
-  removeUserTarget,
-  FLAGS
-} from '../../support/ff-helper'
+import { setFlagVariation, removeUserTarget } from '../../support/ff-helper'
+import { FLAGS } from '../../../src/utils/flags'
 
 describe('Bookables prev-next', () => {
   const featureFlagKey = FLAGS.PREV_NEXT

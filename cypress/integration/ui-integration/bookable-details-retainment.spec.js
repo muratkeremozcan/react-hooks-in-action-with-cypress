@@ -1,5 +1,5 @@
 // import spok from 'cy-spok'
-import { FLAGS } from '../../support/ff-helper'
+import { FLAGS } from '../../../src/utils/flags'
 
 describe('Bookable details retainment', { tags: '@smoke' }, () => {
   before(() => {

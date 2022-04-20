@@ -1,9 +1,6 @@
 /// <reference types="cypress" />
-import {
-  setFlagVariation,
-  removeUserTarget,
-  FLAGS
-} from '../../support/ff-helper'
+import { setFlagVariation, removeUserTarget } from '../../support/ff-helper'
+import { FLAGS } from '../../../src/utils/flags'
 
 describe('Bookings slide-show', () => {
   const featureFlagKey = FLAGS.SLIDE_SHOW

@@ -3,7 +3,7 @@
 import spok from 'cy-spok'
 import { map } from 'cypress-should-really'
 import { setFlagVariation, removeUserTarget } from '../../support/ff-helper'
-import { FLAGS } from '../../support/ff-helper'
+import { FLAGS } from '../../../src/utils/flags'
 
 describe('Users prev-next-user', () => {
   const expectedFFs = Cypress._.range(0, 4)
