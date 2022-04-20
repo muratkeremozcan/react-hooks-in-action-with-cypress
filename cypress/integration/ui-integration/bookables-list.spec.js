@@ -1,11 +1,12 @@
+import { FLAGS } from '../../utils/flags'
 const bookableData = require('../../fixtures/bookables.json')
 
 describe('Bookables', { viewportHeight: 1000, viewportWidth: 1000 }, () => {
   const allStubs = () => {
     cy.stubNetwork()
     cy.stubFeatureFlags({
-      'prev-next': { Next: true, Previous: true },
-      'slide-show': true
+      [FLAGS.PREV_NEXT]: { Next: true, Previous: true },
+      [FLAGS.SLIDE_SHOW]: true
     })
   }
 

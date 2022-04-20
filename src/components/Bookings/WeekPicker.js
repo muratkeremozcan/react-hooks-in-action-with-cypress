@@ -7,6 +7,7 @@ import {
   FaCalendarCheck
 } from 'react-icons/fa'
 import { useFlags /*, useLDClient */ } from 'launchdarkly-react-client-sdk'
+import { FLAGS } from '../../utils/flags'
 
 import { addDays, shortISO, getWeek } from '../../utils/date-wrangler'
 import { useBookingsParams } from './bookingsHooks'
@@ -14,7 +15,7 @@ import { useBookingsParams } from './bookingsHooks'
 export default function WeekPicker() {
   const today = () => dayjs().format('YYYY-MM-DD')
   const [dateText] = useState(today())
-  const { 'date-and-week': FF_dateAndWeek } = useFlags()
+  const { [FLAGS.DATE_AND_WEEK]: FF_dateAndWeek } = useFlags()
 
   // const flags = useFlags()
   // const ldClient = useLDClient()

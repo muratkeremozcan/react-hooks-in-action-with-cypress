@@ -3,11 +3,11 @@
 import {
   setFlagVariation,
   removeUserTarget,
-  FLAG
+  FLAGS
 } from '../../support/ff-helper'
 
 describe('Bookings date-and-week', () => {
-  const featureFlagKey = FLAG.DATE_AND_WEEK
+  const featureFlagKey = FLAGS.DATE_AND_WEEK
   let userId
 
   before(() => {

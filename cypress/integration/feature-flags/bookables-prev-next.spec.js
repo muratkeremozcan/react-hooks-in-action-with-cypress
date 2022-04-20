@@ -4,11 +4,11 @@ import { map } from 'cypress-should-really'
 import {
   setFlagVariation,
   removeUserTarget,
-  FLAG
+  FLAGS
 } from '../../support/ff-helper'
 
 describe('Bookables prev-next', () => {
-  const featureFlagKey = FLAG.PREV_NEXT
+  const featureFlagKey = FLAGS.PREV_NEXT
   const expectedFFs = [
     {
       Next: false,

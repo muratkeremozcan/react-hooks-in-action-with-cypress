@@ -2,11 +2,11 @@
 import {
   setFlagVariation,
   removeUserTarget,
-  FLAG
+  FLAGS
 } from '../../support/ff-helper'
 
 describe('Bookings slide-show', () => {
-  const featureFlagKey = FLAG.SLIDE_SHOW
+  const featureFlagKey = FLAGS.SLIDE_SHOW
 
   const testBtnColor = (i) =>
     cy

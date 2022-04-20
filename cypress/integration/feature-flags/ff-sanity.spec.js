@@ -1,4 +1,4 @@
-import { FLAG } from '../../support/ff-helper'
+import { FLAGS } from '../../support/ff-helper'
 
 describe('Feature flags sanity', () => {
   it('should sanity check the plugin setup', () => {
@@ -10,7 +10,10 @@ describe('Feature flags sanity', () => {
       .its('items')
       .should('have.length', 4)
       .each((value, index, item) =>
-        cy.wrap(item[index]).its('key').should('eq', Object.values(FLAG)[index])
+        cy
+          .wrap(item[index])
+          .its('key')
+          .should('eq', Object.values(FLAGS)[index])
       )
   })
 })
