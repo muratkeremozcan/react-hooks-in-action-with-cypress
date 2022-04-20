@@ -5,6 +5,7 @@ import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
 // import Spinner from '../UI/Spinner'  // (12.2) use Suspense and ErrorBoundary instead
 import getData from '../../utils/api'
 import mod from '../../utils/real-modulus'
+import { FLAGS } from '../../utils/flags'
 
 export default function UsersList({ user, setUser }) {
   // [4.4] useEffect with fetch
@@ -30,7 +31,7 @@ export default function UsersList({ user, setUser }) {
   })
 
   const [userIndex, setUserIndex] = useState(() => user.id - 1)
-  const { 'prev-next-user': FF_nextPrev } = useFlags()
+  const { [FLAGS.PREV_NEXT_USER]: FF_nextPrev } = useFlags()
 
   // [4.4.2] useEffect to fetch data, once with [],
   // if not once, it will keep fetching data forever

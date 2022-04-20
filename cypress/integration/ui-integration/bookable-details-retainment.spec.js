@@ -1,10 +1,11 @@
 // import spok from 'cy-spok'
+import { FLAGS } from '../../../src/utils/flags'
 
 describe('Bookable details retainment', { tags: '@smoke' }, () => {
   before(() => {
     cy.stubNetwork()
     cy.stubFeatureFlags({
-      'prev-next': { Next: true }
+      [FLAGS.PREV_NEXT]: { Next: true }
     })
 
     cy.visit('/')

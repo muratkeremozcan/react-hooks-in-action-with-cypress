@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useRef, useEffect, useCallback } from 'react'
 import { useFlags } from 'launchdarkly-react-client-sdk'
 import mod from '../../utils/real-modulus'
+import { FLAGS } from '../../utils/flags'
 
 // [6.2] child components destructure and use the props
 export default function BookablesList({ bookable, bookables, getUrl }) {
@@ -13,8 +14,10 @@ export default function BookablesList({ bookable, bookables, getUrl }) {
   // [10.2] React Router’s useNavigate returns a function we can use to set a new URL,
   // prompting the router to render whichever UI has been associated with the new path
   const navigate = useNavigate()
-  const { 'slide-show': FF_slideShow, 'prev-next': FF_prevNextBookable } =
-    useFlags()
+  const {
+    [FLAGS.SLIDE_SHOW]: FF_slideShow,
+    [FLAGS.PREV_NEXT]: FF_prevNextBookable
+  } = useFlags()
 
   // useEffect(() => {
   //   getData('http://localhost:3001/bookables')

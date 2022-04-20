@@ -1,13 +1,10 @@
 /// <reference types="cypress" />
 
-import {
-  setFlagVariation,
-  removeUserTarget,
-  FLAG
-} from '../../support/ff-helper'
+import { setFlagVariation, removeUserTarget } from '../../support/ff-helper'
+import { FLAGS } from '../../../src/utils/flags'
 
 describe('Bookings date-and-week', () => {
-  const featureFlagKey = FLAG.DATE_AND_WEEK
+  const featureFlagKey = FLAGS.DATE_AND_WEEK
   let userId
 
   before(() => {
