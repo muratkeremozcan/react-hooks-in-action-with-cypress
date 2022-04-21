@@ -8,7 +8,7 @@
     "@testing-library/user-event": "14.1.1",
     "dayjs": "1.11.1",
     "history": "5.2.0",
-    "launchdarkly-react-client-sdk": "2.25.1",
+    "launchdarkly-react-client-sdk": "2.25.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-icons": "4.3.1",
