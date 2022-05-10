@@ -38,7 +38,7 @@
     "dotenv": "16.0.0",
     "eslint-plugin-cypress": "2.12.1",
     "eslint-plugin-prettier": "4.0.0",
-    "husky": "4.3.8",
+    "husky": "8.0.1",
     "istanbul-lib-coverage": "3.2.0",
     "json-server": "0.17.0",
     "nyc": "15.1.0",
