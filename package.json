@@ -18,7 +18,7 @@
     "web-vitals": "2.1.4"
   },
   "devDependencies": {
-    "@cypress/code-coverage": "3.9.12",
+    "@cypress/code-coverage": "3.10.0",
     "@cypress/instrument-cra": "1.4.0",
     "@cypress/react": "5.12.5",
     "@cypress/webpack-dev-server": "1.8.4",
