@@ -16,6 +16,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: 'yarn'
+          node-version: 16
       # - name: Read .nvmrc
       #   run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
       #   id: nvm
