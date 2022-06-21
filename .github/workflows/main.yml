@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: 'yarn'
-          node-version: 17
+          node-version: 16.5.0
 
       - uses: bahmutov/npm-install@v1.8.15
         with: { useRollingCache: true } # recommended for large projects
@@ -47,6 +47,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      # had to add this for an error that started to occur
+      # https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/runs/6985962258?check_suite_focus=true#step:4:19
+      - name: Read .nvmrc
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id: nvm
+      - name: Use Node.js (.nvmrc)
+        uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
       - uses: bahmutov/npm-install@v1.8.15 # save time on dependencies
         with: { useRollingCache: true }
 
@@ -75,6 +85,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      # had to add this for an error that started to occur
+      # https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/runs/6985962258?check_suite_focus=true#step:4:19
+      - name: Read .nvmrc
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id: nvm
+      - name: Use Node.js (.nvmrc)
+        uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+
       - uses: bahmutov/npm-install@v1.8.15 # save time on dependencies
         with: { useRollingCache: true }
 
@@ -100,6 +121,17 @@ jobs:
     container: cypress/included:9.4.1 # save time on not having to install cypress
     steps:
       - uses: actions/checkout@v3
+
+      # had to add this for an error that started to occur
+      # https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/runs/6985962258?check_suite_focus=true#step:4:19
+      - name: Read .nvmrc
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id: nvm
+      - name: Use Node.js (.nvmrc)
+        uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
 
       - uses: bahmutov/npm-install@v1.8.15 # save time on dependencies
         with: { useRollingCache: true }
