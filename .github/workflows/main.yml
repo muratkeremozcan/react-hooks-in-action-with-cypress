@@ -16,7 +16,15 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: 'yarn'
-      - uses: bahmutov/npm-install@v1
+      # - name: Read .nvmrc
+      #   run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+      #   id: nvm
+      # - name: Use Node.js (.nvmrc)
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     cache: "yarn"
+      #     node-version: "${{ steps.nvm.outputs.NVMRC }}"
+      - uses: bahmutov/npm-install@v1.8.15
         with: { useRollingCache: true } # recommended for large projects
         env:
           CYPRESS_INSTALL_BINARY: 0 # no need to install the Cypress binary, we are already using the docker image in the e2e job
@@ -27,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: bahmutov/npm-install@v1
+      - uses: bahmutov/npm-install@v1.8.15
         with: { useRollingCache: true }
         env:
           CYPRESS_INSTALL_BINARY: 0
@@ -45,7 +53,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: bahmutov/npm-install@v1 # save time on dependencies
+      - uses: bahmutov/npm-install@v1.8.15 # save time on dependencies
         with: { useRollingCache: true }
 
       - name: Cypress e2e tests 🧪
@@ -73,7 +81,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: bahmutov/npm-install@v1 # save time on dependencies
+      - uses: bahmutov/npm-install@v1.8.15 # save time on dependencies
         with: { useRollingCache: true }
 
       # We could also just add this step onto the original cypress-e2e-tests job
@@ -99,7 +107,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: bahmutov/npm-install@v1 # save time on dependencies
+      - uses: bahmutov/npm-install@v1.8.15 # save time on dependencies
         with: { useRollingCache: true }
 
       - name: Cypress component tests 🧪
