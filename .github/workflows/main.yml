@@ -16,15 +16,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: 'yarn'
-          node-version: 16
-      # - name: Read .nvmrc
-      #   run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
-      #   id: nvm
-      # - name: Use Node.js (.nvmrc)
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     cache: "yarn"
-      #     node-version: "${{ steps.nvm.outputs.NVMRC }}"
+          node-version: 17
+
       - uses: bahmutov/npm-install@v1.8.15
         with: { useRollingCache: true } # recommended for large projects
         env:
