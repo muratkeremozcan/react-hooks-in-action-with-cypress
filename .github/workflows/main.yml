@@ -68,7 +68,7 @@ jobs:
           APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
 
   # This is just a copy of the above with 2 additional args for visual testing
-  cypress-visual-tests:
+  cypress-percy-visual-tests:
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     container: cypress/included:9.4.1 # save time on not having to install cypress

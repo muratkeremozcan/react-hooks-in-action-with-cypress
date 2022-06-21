@@ -5,7 +5,7 @@ require('dotenv').config()
 module.exports = {
   // Think of this as parallelization
   // If you have a free account, then concurrency will be limited to 1.
-  testConcurrency: 1,
+  testConcurrency: 12,
 
   // we are using the environment variable we set in the .env file
   apiKey: process.env.APPLITOOLS_API_KEY,
