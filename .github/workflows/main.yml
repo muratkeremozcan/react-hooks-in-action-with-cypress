@@ -86,7 +86,7 @@ jobs:
           start: yarn dev # concurrently starts ui and api servers
           wait-on: 'http://localhost:3000'
           browser: chrome
-          command: yarn percy exec -- cypress run --e2e --spec 'cypress/integration/ui-integration/user-context-retainment.spec.js' --config video=false,screenshotOnRunFailure=false
+          command: yarn percy exec -- cypress run --e2e --spec 'cypress/e2e/ui-integration/user-context-retainment.spec.js' --config video=false,screenshotOnRunFailure=false
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
           APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
