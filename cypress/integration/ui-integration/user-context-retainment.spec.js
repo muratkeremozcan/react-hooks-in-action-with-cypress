@@ -1,3 +1,5 @@
+// Percy version of the visual test
+
 describe(
   'User selection retainment between routes',
   { tags: '@ui-integration' },

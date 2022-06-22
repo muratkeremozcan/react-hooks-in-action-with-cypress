@@ -16,7 +16,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: 'yarn'
-      - uses: bahmutov/npm-install@v1
+          node-version: 16.10.0
+      - uses: bahmutov/npm-install@v1.8.15
         with: { useRollingCache: true } # recommended for large projects
         env:
           CYPRESS_INSTALL_BINARY: 0 # no need to install the Cypress binary, we are already using the docker image in the e2e job
@@ -27,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: bahmutov/npm-install@v1
+      - uses: bahmutov/npm-install@v1.8.15
         with: { useRollingCache: true }
         env:
           CYPRESS_INSTALL_BINARY: 0
@@ -45,7 +46,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: bahmutov/npm-install@v1 # save time on dependencies
+      - uses: bahmutov/npm-install@v1.8.15 # save time on dependencies
         with: { useRollingCache: true }
 
       - name: Cypress e2e tests 🧪
@@ -64,16 +65,17 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           LAUNCH_DARKLY_PROJECT_KEY: ${{ secrets.LAUNCH_DARKLY_PROJECT_KEY }}
           LAUNCH_DARKLY_AUTH_TOKEN: ${{ secrets.LAUNCH_DARKLY_AUTH_TOKEN }}
+          APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
 
   # This is just a copy of the above with 2 additional args for visual testing
-  cypress-visual-tests:
+  cypress-percy-visual-tests:
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     container: cypress/included:9.4.1 # save time on not having to install cypress
     steps:
       - uses: actions/checkout@v3
 
-      - uses: bahmutov/npm-install@v1 # save time on dependencies
+      - uses: bahmutov/npm-install@v1.8.15 # save time on dependencies
         with: { useRollingCache: true }
 
       # We could also just add this step onto the original cypress-e2e-tests job
@@ -87,6 +89,7 @@ jobs:
           command: yarn percy exec -- cypress run --spec 'cypress/integration/ui-integration/user-context-retainment.spec.js' --config video=false,screenshotOnRunFailure=false
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
 
   cypress-component-tests:
     # ran out of parallelization
@@ -99,7 +102,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: bahmutov/npm-install@v1 # save time on dependencies
+      - uses: bahmutov/npm-install@v1.8.15 # save time on dependencies
         with: { useRollingCache: true }
 
       - name: Cypress component tests 🧪

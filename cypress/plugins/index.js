@@ -46,3 +46,6 @@ module.exports = (on, config) => {
     cyGrep
   )
 }
+
+
+require('@applitools/eyes-cypress')(module);

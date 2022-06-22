@@ -15,6 +15,7 @@
     "web-vitals": "2.1.4"
   },
   "devDependencies": {
+    "@applitools/eyes-cypress": "^3.26.3",
     "@cypress/code-coverage": "3.10.0",
     "@cypress/instrument-cra": "1.4.0",
     "@cypress/react": "5.12.5",
