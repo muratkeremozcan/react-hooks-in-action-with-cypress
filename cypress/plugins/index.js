@@ -3,16 +3,12 @@
 // https://www.npmjs.com/package/dotenv
 require('dotenv').config()
 // configs
-const reactScripts = require('@cypress/react/plugins/react-scripts')
 const cyGrep = require('cypress-grep/src/plugin')
 const codeCoverageTask = require('@cypress/code-coverage/task')
 // tasks
 const { initLaunchDarklyApiTasks } = require('cypress-ld-control')
 
 module.exports = (on, config) => {
-  const injectDevServer =
-    config.testingType === 'component' ? reactScripts : () => ({})
-
   const combinedTasks = {
     // add your other Cypress tasks if any
   }
@@ -38,13 +34,7 @@ module.exports = (on, config) => {
 
   on('task', combinedTasks)
 
-  return Object.assign(
-    {},
-    config,
-    codeCoverageTask(on, config),
-    injectDevServer(on, config),
-    cyGrep
-  )
+  return Object.assign({}, config, codeCoverageTask(on, config), cyGrep)
 }
 
 

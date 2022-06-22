@@ -3,7 +3,7 @@ import PageSpinner from '../UI/PageSpinner'
 import { Suspense } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { mount } from '@cypress/react'
+
 import '../../App.css'
 
 describe('BookablesView', { viewportWidth: 700, viewportHeight: 700 }, () => {
@@ -14,7 +14,7 @@ describe('BookablesView', { viewportWidth: 700, viewportHeight: 700 }, () => {
       fixture: 'bookables'
     }).as('bookablesStub')
 
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <Suspense fallback={<PageSpinner />}>
           <BrowserRouter>

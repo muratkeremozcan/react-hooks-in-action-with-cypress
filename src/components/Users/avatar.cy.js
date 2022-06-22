@@ -1,5 +1,5 @@
 import Avatar from './Avatar'
-import { mount } from '@cypress/react'
+
 import { QueryClient, QueryClientProvider } from 'react-query'
 import '../../App.css'
 
@@ -12,7 +12,7 @@ describe('Avatar', () => {
 
   // testing this at component level is limited, have to go up a level
   it('should render', () => {
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <Avatar src={`src`} fallbackSrc={`fallbackSrc`} />
       </QueryClientProvider>

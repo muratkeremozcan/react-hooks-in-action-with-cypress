@@ -1,6 +1,5 @@
 import BookablesDetails from './BookableDetails'
 import { BrowserRouter } from 'react-router-dom'
-import { mount } from '@cypress/react'
 import '../../App.css'
 
 describe('BookableDetails', () => {
@@ -15,7 +14,7 @@ describe('BookableDetails', () => {
   }
 
   it('should not render without props', () => {
-    mount(
+    cy.mount(
       <BrowserRouter>
         <BookablesDetails />)
       </BrowserRouter>
@@ -25,7 +24,7 @@ describe('BookableDetails', () => {
   })
 
   it('should toggle details', () => {
-    mount(
+    cy.mount(
       <BrowserRouter>
         <BookablesDetails bookable={bookableData} />)
       </BrowserRouter>
@@ -40,7 +39,7 @@ describe('BookableDetails', () => {
   })
 
   it('should render with prop data', () => {
-    mount(
+    cy.mount(
       <BrowserRouter>
         <BookablesDetails bookable={bookableData} />)
       </BrowserRouter>

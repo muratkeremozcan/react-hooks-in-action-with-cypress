@@ -1,4 +1,3 @@
-import { mount } from '@cypress/react'
 import { Suspense } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -15,7 +14,7 @@ describe('BookingsPage', { viewportWidth: 900, viewportHeight: 900 }, () => {
       fixture: 'bookables'
     }).as('bookablesStub')
 
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <Suspense fallback={<PageSpinner />}>
           <BrowserRouter>

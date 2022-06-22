@@ -103,7 +103,7 @@ export default function App() {
 // with Suspense and Error boundary, there are problems with component testing App.js
 // philosophically, component testing App.js is not a good idea to begin with
 
-// import { mount } from '@cypress/react'
+//
 // import App from './App'
 // import UserContext from './Users/UserContext'
 // const users = require('../../cypress/fixtures/users.json')
@@ -129,7 +129,7 @@ export default function App() {
 //   })
 
 //   it('should verify routes', () => {
-//     mount(<UserContext.Provider value={users[0]}>{cmp}</UserContext.Provider>)
+//     cy.mount(<UserContext.Provider value={users[0]}>{cmp}</UserContext.Provider>)
 
 //     cy.get('nav').should('be.visible')
 

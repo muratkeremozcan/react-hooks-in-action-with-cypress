@@ -1,4 +1,3 @@
-import { mount } from '@cypress/react'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import BookableEdit from './BookableEdit'
@@ -24,7 +23,7 @@ describe('BookableEdit', { viewportWidth: 1000, viewportHeight: 700 }, () => {
       }
     ).as('delayError')
 
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <BookableEdit
@@ -54,7 +53,7 @@ describe('BookableEdit', { viewportWidth: 1000, viewportHeight: 700 }, () => {
         fixture: 'bookables'
       }).as('bookablesStub')
 
-      mount(
+      cy.mount(
         <QueryClientProvider client={queryClient}>
           <BrowserRouter>
             <BookableEdit

@@ -1,4 +1,3 @@
-import { mount } from '@cypress/react'
 import Booking from './Booking'
 import { dateRegex } from '../../utils/regex'
 import '../../App.css'
@@ -7,7 +6,7 @@ const bookings = require('../../../cypress/fixtures/bookings.json')
 
 describe('Booking', () => {
   it('should render labels and notes', () => {
-    mount(<Booking booking={bookings[8]} bookable={bookableData[0]} />)
+    cy.mount(<Booking booking={bookings[8]} bookable={bookableData[0]} />)
 
     cy.contains(bookings[8].title)
     cy.contains(bookableData[0].title)
@@ -17,7 +16,7 @@ describe('Booking', () => {
   })
 
   it('should not render notes if there are none', () => {
-    mount(<Booking booking={bookings[0]} bookable={bookableData[0]} />)
+    cy.mount(<Booking booking={bookings[0]} bookable={bookableData[0]} />)
 
     cy.getByCy('notes').should('not.exist')
   })

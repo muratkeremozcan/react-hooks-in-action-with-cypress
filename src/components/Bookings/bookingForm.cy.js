@@ -1,4 +1,3 @@
-import { mount } from '@cypress/react'
 import BookingForm from './BookingForm'
 import { usLocaleDateRegex } from '../../utils/regex'
 import '../../App.css'
@@ -7,13 +6,13 @@ const bookings = require('../../../cypress/fixtures/bookings.json')
 
 describe('BookingForm', { viewportHeight: 700 }, () => {
   it('should not render without a booking', () => {
-    mount(<BookingForm bookable={bookableData[0]} />)
+    cy.mount(<BookingForm bookable={bookableData[0]} />)
     cy.getByCy('booking-form').should('not.exist')
   })
 
   context('new booking', () => {
     it('should render Add Booking button', () => {
-      mount(
+      cy.mount(
         <BookingForm
           booking={[]}
           bookable={bookableData[0]}
@@ -30,7 +29,7 @@ describe('BookingForm', { viewportHeight: 700 }, () => {
 
   context('existing booking', () => {
     it('should render the fields Delete button and Update button', () => {
-      mount(
+      cy.mount(
         <BookingForm
           booking={bookings[8]}
           bookable={bookableData[0]}

@@ -1,4 +1,3 @@
-import { mount } from '@cypress/react'
 import BookingDetails from './BookingDetails'
 import UserContext from '../Users/UserContext'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -14,7 +13,7 @@ describe('BookingDetails', { viewportHeight: 800 }, () => {
   beforeEach(() => (queryClient = new QueryClient()))
 
   it('should render booking message UI if there is no booking', () => {
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <BookingDetails bookable={bookableData[0]} />
@@ -28,7 +27,7 @@ describe('BookingDetails', { viewportHeight: 800 }, () => {
   })
 
   it('should render Booking UI if there is a booking', () => {
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <BookingDetails booking={bookings[8]} bookable={bookableData[0]} />
@@ -42,7 +41,7 @@ describe('BookingDetails', { viewportHeight: 800 }, () => {
   })
 
   it('should render controls through the context api if there is a booker', () => {
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <UserContext.Provider value={users[0]}>
           <BrowserRouter>
@@ -59,7 +58,7 @@ describe('BookingDetails', { viewportHeight: 800 }, () => {
 
   context('Edit booking', () => {
     it('renders BookingDetails on Edit and toggles via BookingForm buttons', () => {
-      mount(
+      cy.mount(
         <QueryClientProvider client={queryClient}>
           <UserContext.Provider value={users[0]}>
             <BrowserRouter>
