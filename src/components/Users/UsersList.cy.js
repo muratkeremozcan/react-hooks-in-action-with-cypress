@@ -1,5 +1,5 @@
 import UsersList from './UsersList'
-import { mount } from '@cypress/react'
+
 import PageSpinner from '../UI/PageSpinner'
 import ErrorComp from '../UI/ErrorComp'
 import { Suspense } from 'react'
@@ -27,7 +27,7 @@ describe('UsersList', { viewportWidth: 700, viewportHeight: 700 }, () => {
       }
     ).as('userStubDelayed')
 
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <Suspense fallback={<PageSpinner />}>
           <UsersList user={users[1]} setUser={cy.spy().as('setUser')} />
@@ -45,7 +45,7 @@ describe('UsersList', { viewportWidth: 700, viewportHeight: 700 }, () => {
       fixture: 'users'
     }).as('userStub')
 
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <Suspense fallback={<PageSpinner />}>
           <UsersList user={users[1]} setUser={cy.spy().as('setUser')} />
@@ -70,7 +70,7 @@ describe('UsersList', { viewportWidth: 700, viewportHeight: 700 }, () => {
     Cypress.on('uncaught:exception', () => false)
 
     cy.clock()
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <ErrorBoundary fallback={<ErrorComp />}>
           <Suspense fallback={<PageSpinner />}>
@@ -103,7 +103,7 @@ describe('UsersList', { viewportWidth: 700, viewportHeight: 700 }, () => {
         fixture: 'users'
       }).as('userStub')
 
-      mount(
+      cy.mount(
         <QueryClientProvider client={queryClient}>
           <Suspense fallback={<PageSpinner />}>
             <UsersList user={users[1]} setUser={cy.spy().as('setUser')} />

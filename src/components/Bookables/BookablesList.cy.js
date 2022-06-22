@@ -1,4 +1,3 @@
-import { mount } from '@cypress/react'
 import { BrowserRouter } from 'react-router-dom'
 import BookablesList from './BookablesList'
 import '../../App.css'
@@ -11,7 +10,7 @@ describe('BookablesList', { viewportWidth: 900, viewportHeight: 700 }, () => {
   context('Populated list', () => {
     const initial = 1
     beforeEach(() => {
-      mount(
+      cy.mount(
         <BrowserRouter>
           <BookablesList
             bookable={bookableData[initial]}
@@ -65,7 +64,7 @@ describe('BookablesList', { viewportWidth: 900, viewportHeight: 700 }, () => {
   */
   context.skip('previous bookable', () => {
     it('should switch to the previous bookable and keep cycling with next button', () => {
-      mount(
+      cy.mount(
         <BrowserRouter>
           <BookablesList
             bookable={bookableData[0]}
@@ -95,7 +94,7 @@ describe('BookablesList', { viewportWidth: 900, viewportHeight: 700 }, () => {
     beforeEach(() => {
       cy.clock()
 
-      mount(
+      cy.mount(
         <BrowserRouter>
           <BookablesList
             bookable={bookableData[0]}

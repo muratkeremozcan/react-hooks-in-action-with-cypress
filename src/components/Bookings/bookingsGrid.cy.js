@@ -1,5 +1,5 @@
 import BookingsGrid from './BookingsGrid'
-import { mount } from '@cypress/react'
+
 import { getWeek } from '../../utils/date-wrangler'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import '../../App.css'
@@ -27,7 +27,7 @@ describe('BookingsGrid', { viewportWidth: 800, viewportHeight: 700 }, () => {
       }
     ).as('statusError')
 
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <BookingsGrid
           bookable={bookableData[0]}
@@ -72,7 +72,7 @@ describe('BookingsGrid', { viewportWidth: 800, viewportHeight: 700 }, () => {
       }
     ).as('data')
 
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <BookingsGrid
           bookable={bookableData[0]}

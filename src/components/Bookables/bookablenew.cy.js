@@ -1,4 +1,3 @@
-import { mount } from '@cypress/react'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import BookableNew from './BookableNew'
@@ -10,7 +9,7 @@ describe('BookableNew', { viewportWidth: 1000, viewportHeight: 700 }, () => {
   beforeEach(() => {
     queryClient = new QueryClient()
 
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <BookableNew

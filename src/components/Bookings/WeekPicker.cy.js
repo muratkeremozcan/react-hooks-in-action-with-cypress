@@ -1,4 +1,3 @@
-import { mount } from '@cypress/react'
 import { BrowserRouter } from 'react-router-dom'
 import WeekPicker from './WeekPicker'
 import dayjs from 'dayjs'
@@ -8,7 +7,7 @@ import '../../App.css'
 describe('WeekPicker', { viewportWidth: 700 }, () => {
   const newWeek = getWeek(new Date())
   beforeEach(() =>
-    mount(
+    cy.mount(
       <BrowserRouter>
         <WeekPicker week={newWeek} />
       </BrowserRouter>

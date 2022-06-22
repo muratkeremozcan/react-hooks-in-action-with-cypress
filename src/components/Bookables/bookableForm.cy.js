@@ -1,4 +1,3 @@
-import { mount } from '@cypress/react'
 import { BrowserRouter } from 'react-router-dom'
 import BookableForm from './BookableForm'
 import '../../App.css'
@@ -20,7 +19,7 @@ const diff = (a, b) => a.filter((v) => !b.includes(v))
 
 describe('BookableForm', { viewportWidth: 1000, viewportHeight: 700 }, () => {
   it('should render New Bookable when there is none existing', () => {
-    mount(
+    cy.mount(
       <BrowserRouter>
         <BookableForm
           formState={{}}
@@ -42,7 +41,7 @@ describe('BookableForm', { viewportWidth: 1000, viewportHeight: 700 }, () => {
   })
 
   it('should render Edit Bookable when there is one existing', () => {
-    mount(
+    cy.mount(
       <BrowserRouter>
         <BookableForm
           formState={{}}
@@ -58,7 +57,7 @@ describe('BookableForm', { viewportWidth: 1000, viewportHeight: 700 }, () => {
   })
 
   it('should render Title, Group, Notes, Days, Sessions', () => {
-    mount(
+    cy.mount(
       <BrowserRouter>
         <BookableForm
           formState={{ state: bookableData[bookableIndex] }}
@@ -97,7 +96,7 @@ describe('BookableForm', { viewportWidth: 1000, viewportHeight: 700 }, () => {
   })
 
   it('should nav to back to the bookable on cancel', () => {
-    mount(
+    cy.mount(
       <BrowserRouter>
         <BookableForm
           formState={{ state: bookableData[bookableIndex] }}

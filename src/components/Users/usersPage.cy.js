@@ -1,4 +1,3 @@
-import { mount } from '@cypress/react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Suspense } from 'react'
 import UsersPage from './UsersPage'
@@ -18,7 +17,7 @@ describe('UserDetails', { viewportWidth: 700, viewportHeight: 700 }, () => {
     cy.stubNetwork()
 
     Cypress.on('uncaught:exception', () => false)
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <UserContext.Provider value={users[initialIndex]}>
           <Suspense fallback={<PageSpinner />}>

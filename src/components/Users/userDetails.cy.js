@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import PageSpinner from '../UI/PageSpinner'
 import ErrorComp from '../UI/ErrorComp'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { mount } from '@cypress/react'
+
 import { ErrorBoundary } from 'react-error-boundary'
 import UserDetails from './UserDetails'
 import '../../App.css'
@@ -18,7 +18,7 @@ describe('UserDetails', { viewportWidth: 700, viewportHeight: 700 }, () => {
 
     cy.intercept('GET', 'http://localhost:3001/users/*').as('notFound')
 
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <ErrorBoundary fallback={<ErrorComp />}>
           <Suspense fallback={<PageSpinner />}>
@@ -44,7 +44,7 @@ describe('UserDetails', { viewportWidth: 700, viewportHeight: 700 }, () => {
       body: users[index]
     }).as('userStub')
 
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <Suspense fallback={<PageSpinner />}>
           <UserDetails user={users[index]} />

@@ -1,5 +1,5 @@
 import React from 'react'
-import { mount } from '@cypress/react'
+
 import UserPicker from './UserPicker'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import '../../App.css'
@@ -16,7 +16,7 @@ describe('UserPicker component', { tags: '@user' }, () => {
     cy.intercept('GET', 'http://localhost:3001/users', {
       fixture: 'users'
     }).as('userStub')
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <UserPicker user={userData[3]} setUser={cy.spy().as('setUser')} />
       </QueryClientProvider>
@@ -41,7 +41,7 @@ describe('UserPicker component', { tags: '@user' }, () => {
       }
     ).as('userStubDelayed')
 
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <UserPicker setUser={cy.spy().as('setUser')} />
       </QueryClientProvider>
@@ -63,7 +63,7 @@ describe('UserPicker component', { tags: '@user' }, () => {
     ).as('userStubError')
 
     cy.clock()
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <UserPicker user={userData[3]} setUser={cy.spy().as('setUser')} />
       </QueryClientProvider>

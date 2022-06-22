@@ -42,7 +42,7 @@ jobs:
     #     machines: [1, 2]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
-    container: cypress/included:9.4.1 # save time on not having to install cypress
+    container: cypress/included:10.2.0 # save time on not having to install cypress
     steps:
       - uses: actions/checkout@v3
 
@@ -71,7 +71,7 @@ jobs:
   cypress-percy-visual-tests:
     needs: [install-dependencies]
     runs-on: ubuntu-latest
-    container: cypress/included:9.4.1 # save time on not having to install cypress
+    container: cypress/included:10.2.0 # save time on not having to install cypress
     steps:
       - uses: actions/checkout@v3
 
@@ -86,7 +86,7 @@ jobs:
           start: yarn dev # concurrently starts ui and api servers
           wait-on: 'http://localhost:3000'
           browser: chrome
-          command: yarn percy exec -- cypress run --spec 'cypress/integration/ui-integration/user-context-retainment.spec.js' --config video=false,screenshotOnRunFailure=false
+          command: yarn percy exec -- cypress run --e2e --spec 'cypress/integration/ui-integration/user-context-retainment.spec.js' --config video=false,screenshotOnRunFailure=false
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
           APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
@@ -98,7 +98,7 @@ jobs:
     #     machines: [1, 2] # increase to 2 later: [1, 2]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
-    container: cypress/included:9.4.1 # save time on not having to install cypress
+    container: cypress/included:10.2.0 # save time on not having to install cypress
     steps:
       - uses: actions/checkout@v3
 
@@ -114,6 +114,7 @@ jobs:
           # with component tests since we have a custom command, we pass these parameters in the command instead
           # command: yarn cypress run-ct --record --key=${{ secrets.CYPRESS_RECORD_KEY }} --parallel --browser chrome --group component-tests --tag component-tests --parallel 2
           # if you run out of parallelization, turn it off
-          command: yarn cypress run-ct --browser chrome
+          component: true
+          browser: chrome
         # env:
         # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

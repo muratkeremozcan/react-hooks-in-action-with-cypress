@@ -1,5 +1,5 @@
 import Bookings from './Bookings'
-import { mount } from '@cypress/react'
+
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import dayjs from 'dayjs'
@@ -19,7 +19,7 @@ describe('Bookings', { viewportWidth: 700, viewportHeight: 700 }, () => {
       fixture: 'bookings'
     }).as('data')
 
-    mount(
+    cy.mount(
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Bookings bookable={bookableData[0]} />

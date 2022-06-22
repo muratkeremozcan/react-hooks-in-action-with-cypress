@@ -181,7 +181,7 @@ component-test:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: bahmutov/npm-install@v1 # save time on dependencies
+    - uses: bahmutov/npm-install@v1.8.5 # save time on dependencies
         with: { useRollingCache: true }
 
     # the docs advise to run component tests after the e2e tests, this part could also be right after e2e tests
