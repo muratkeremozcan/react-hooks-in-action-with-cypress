@@ -17,7 +17,7 @@
   "devDependencies": {
     "@cypress/code-coverage": "3.10.0",
     "@cypress/instrument-cra": "1.4.0",
-    "@cypress/react": "5.12.5",
+    "@cypress/react": "6.0.0",
     "@cypress/webpack-dev-server": "1.8.4",
     "@faker-js/faker": "6.3.1",
     "@percy/cli": "1.2.1",
