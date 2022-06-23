@@ -21,3 +21,4 @@ import './Users/userPicker.cy'
 import './Users/usersPage.cy'
 
 // find . -type f | grep cy.js
+// https://glebbahmutov.com/blog/run-all-specs-cypress-v10/
