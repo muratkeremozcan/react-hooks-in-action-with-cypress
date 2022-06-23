@@ -18,7 +18,8 @@ module.exports = defineConfig({
       return require('./cypress/plugins/index.js')(on, config)
     },
     baseUrl: 'http://localhost:3000',
-    specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}'
+    specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
+    excludeSpecPattern: process.env.CI ? ['cypress/e2e/all.spec.js'] : []
   },
   component: {
     devServer: {
@@ -26,6 +27,7 @@ module.exports = defineConfig({
       bundler: 'webpack'
     },
     setupNodeEvents(on, config) {},
-    specPattern: 'src/**/**/*.cy.{js,ts,jsx,tsx}'
+    specPattern: 'src/**/**/*.cy.{js,ts,jsx,tsx}',
+    excludeSpecPattern: process.env.CI ? ['src/components/all.cy.js'] : []
   }
 })
