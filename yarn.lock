@@ -70,7 +70,7 @@
     "@applitools/types" "1.5.3"
     "@applitools/utils" "1.3.8"
 
-"@applitools/eyes-cypress@^3.26.3":
+"@applitools/eyes-cypress@3.26.3":
   version "3.26.3"
   resolved "https://registry.yarnpkg.com/@applitools/eyes-cypress/-/eyes-cypress-3.26.3.tgz#751337f47d6703e7528fc8e77bb37ffa2315d16e"
   integrity sha512-bOfpMI8lOMHAdzZd8i5kLQVPf3prMJcFdgJx3zNG/CcqTI47PGQfumqrY0cRSiYRBTM08Xewgv0oMZ2vGQCSfw==
