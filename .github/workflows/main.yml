@@ -17,7 +17,7 @@ jobs:
         with:
           cache: 'yarn'
           node-version: 16.10.0
-      - uses: bahmutov/npm-install@v1.8.16
+      - uses: bahmutov/npm-install@v1.8.17
         with: { useRollingCache: true } # recommended for large projects
         env:
           CYPRESS_INSTALL_BINARY: 0 # no need to install the Cypress binary, we are already using the docker image in the e2e job
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: bahmutov/npm-install@v1.8.16
+      - uses: bahmutov/npm-install@v1.8.17
         with: { useRollingCache: true }
         env:
           CYPRESS_INSTALL_BINARY: 0
@@ -46,7 +46,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: bahmutov/npm-install@v1.8.16 # save time on dependencies
+      - uses: bahmutov/npm-install@v1.8.17 # save time on dependencies
         with: { useRollingCache: true }
 
       - name: Cypress e2e tests 🧪
@@ -75,7 +75,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: bahmutov/npm-install@v1.8.16 # save time on dependencies
+      - uses: bahmutov/npm-install@v1.8.17 # save time on dependencies
         with: { useRollingCache: true }
 
       # We could also just add this step onto the original cypress-e2e-tests job
@@ -102,7 +102,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: bahmutov/npm-install@v1.8.16 # save time on dependencies
+      - uses: bahmutov/npm-install@v1.8.17 # save time on dependencies
         with: { useRollingCache: true }
 
       - name: Cypress component tests 🧪
