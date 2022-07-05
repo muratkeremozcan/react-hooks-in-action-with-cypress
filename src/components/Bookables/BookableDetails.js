@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { days, sessions } from '../../static.json'
 import { FaEdit } from 'react-icons/fa'
+const { days, sessions } = require('../../static.json')
 
 /* [2.0] Why useState?
 we want to alert React that a value used within a component has changed

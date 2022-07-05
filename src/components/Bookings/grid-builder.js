@@ -1,5 +1,5 @@
-import { sessions as sessionNames } from '../../static.json'
 import { addDays, shortISO } from '../../utils/date-wrangler'
+const { sessions: sessionNames } = require('../../static.json')
 
 export function getGrid(bookable, startDate) {
   const dates = bookable.days.sort().map((d) => shortISO(addDays(startDate, d)))
