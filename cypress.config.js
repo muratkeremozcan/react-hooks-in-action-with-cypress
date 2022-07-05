@@ -30,7 +30,36 @@ module.exports = defineConfig({
   component: {
     devServer: {
       framework: 'create-react-app',
-      bundler: 'webpack'
+      bundler: 'webpack',
+      // use a custom webpackConfig to stub imported modules
+      // https://glebbahmutov.com/blog/stub-react-import/#stub-the-import
+      // install @babel/plugin-transform-modules-commonjs" and insert it into the transpiling pipeline
+      // you (might) also need @babel/preset-env @babel/preset-react
+      // with loose: true we can make all imports accessible from spec files
+      webpackConfig: {
+        mode: 'development',
+        devtool: false,
+        module: {
+          rules: [
+            {
+              test: /\.?js$/,
+              exclude: /node_modules/,
+              use: {
+                loader: 'babel-loader',
+                options: {
+                  presets: ['@babel/preset-env', '@babel/preset-react'],
+                  plugins: [
+                    [
+                      '@babel/plugin-transform-modules-commonjs',
+                      { loose: true }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
     },
     setupNodeEvents(on, config) {
       if (config.isTextTerminal) {
