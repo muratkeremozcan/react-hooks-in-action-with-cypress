@@ -1,3 +1,4 @@
+import * as LD from 'launchdarkly-react-client-sdk'
 import { BrowserRouter } from 'react-router-dom'
 import BookablesList from './BookablesList'
 import '../../App.css'
@@ -53,17 +54,18 @@ describe('BookablesList', { viewportWidth: 900, viewportHeight: 700 }, () => {
   // https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/stubbing-spying__functions
   /*
 
-  import * as LD from 'launchdarkly-react-client-sdk'
-
-  cy.stub(LD, 'useFlags).returns({ 'pre-next-bookable': {
-      "Next": true,
-      "Previous": true
-    }
-  })
-
+  
   */
-  context.skip('previous bookable', () => {
-    it('should switch to the previous bookable and keep cycling with next button', () => {
+
+  context('previous bookable', () => {
+    it.only('should switch to the previous bookable and keep cycling with next button', () => {
+      cy.stub(LD, 'useFlags').returns({
+        'prev-next-bookable': {
+          Next: true,
+          Previous: true
+        }
+      })
+
       cy.mount(
         <BrowserRouter>
           <BookablesList
