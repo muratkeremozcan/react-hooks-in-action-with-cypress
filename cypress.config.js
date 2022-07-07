@@ -1,4 +1,5 @@
 const { defineConfig } = require('cypress')
+const codeCoverageTask = require('@cypress/code-coverage/task')
 
 module.exports = defineConfig({
   projectId: 'nr3y7v',
@@ -33,12 +34,16 @@ module.exports = defineConfig({
       bundler: 'webpack'
     },
     setupNodeEvents(on, config) {
-      if (config.isTextTerminal) {
-        // skip the all.cy.js spec in "cypress run" mode
-        return {
-          excludeSpecPattern: ['src/components/all.cy.js']
-        }
-      }
+      const skipAllSpecJs = config.isTextTerminal
+        ? { excludeSpecPattern: ['src/components/all.cy.js'] }
+        : null
+
+      return Object.assign(
+        {},
+        config,
+        skipAllSpecJs,
+        codeCoverageTask(on, config)
+      )
     },
     specPattern: 'src/**/**/*.cy.{js,ts,jsx,tsx}',
     excludeSpecPattern: process.env.CI ? ['src/components/all.cy.js'] : []
