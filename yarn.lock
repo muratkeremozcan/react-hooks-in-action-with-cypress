@@ -4754,13 +4754,13 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha512-NJGVKPS81XejHcLhaLJS7plab0fK3slPh11mESeeDq2W4ZI5kUKK/LRRdVDvjJseojbPB7ZwjnyOybg3Igea/A==
 
-cypress-grep@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/cypress-grep/-/cypress-grep-3.0.1.tgz#ed99878da7a034a8f8bba5a26c592feed807d225"
-  integrity sha512-katLPVSe9WHBYTvbhBAZAcQNkM0/DT6bze648iDNWNRjc4ce524/mHhFnBndGwQuxD8D1HwKX3CwFxm+xGYjOw==
+cypress-grep@3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/cypress-grep/-/cypress-grep-3.0.2.tgz#9bbc4a654706cb881f57d1110ca036a4475ff2d5"
+  integrity sha512-xDzCVwRqV+tnDZr6eJD50+Y8xR7aRUHNmwCiUuu0A65S2T8WzWC4RBsGzarGaMWDpIjUt4Z59GGYi+NF6jm72A==
   dependencies:
     debug "4.3.1"
-    find-test-names "^1.15.0"
+    find-test-names "^1.17.2"
     globby "^11.0.4"
 
 cypress-ld-control@1.1.3:
@@ -6245,16 +6245,16 @@ find-cache-dir@^3.2.0, find-cache-dir@^3.3.1:
     make-dir "^3.0.2"
     pkg-dir "^4.1.0"
 
-find-test-names@^1.15.0:
-  version "1.17.1"
-  resolved "https://registry.yarnpkg.com/find-test-names/-/find-test-names-1.17.1.tgz#e68319496b8c7127917f4cc654906aca3fc1c554"
-  integrity sha512-vfEqh/WHoe23kCsmTPwv2V6KDsjbt5zkOhOfNi69ZDw65l/vdST1MU81x7mHnbeMgBoQOPouFpnyazzgXTRBng==
+find-test-names@^1.17.2:
+  version "1.17.2"
+  resolved "https://registry.yarnpkg.com/find-test-names/-/find-test-names-1.17.2.tgz#7d53f4838681f09027d274aac3a5a0a950187b4d"
+  integrity sha512-M33rSgOzGK6014CYghvuX5rTeI7tTXBSo5nn6/XRNP9Wc2v2c+ViQtFDu4U2nz3TPw0EZBtC8fpCIwFYAfC4fA==
   dependencies:
     "@babel/parser" "^7.16.5"
     acorn-walk "^8.2.0"
     debug "^4.3.3"
     globby "^11.0.4"
-    simple-bin-help "^1.7.6"
+    simple-bin-help "^1.7.7"
 
 find-up@4.1.0, find-up@^4.0.0, find-up@^4.1.0:
   version "4.1.0"
@@ -12080,7 +12080,7 @@ signal-exit@^3.0.0, signal-exit@^3.0.2, signal-exit@^3.0.3:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.7.tgz#a9a1767f8af84155114eaabd73f99273c8f59ad9"
   integrity sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==
 
-simple-bin-help@^1.7.6:
+simple-bin-help@^1.7.7:
   version "1.7.7"
   resolved "https://registry.yarnpkg.com/simple-bin-help/-/simple-bin-help-1.7.7.tgz#3202946a9414152fba6fa61a9c154015750c684e"
   integrity sha512-e36uqSXbTL0yNUc7RgjMFAEMDgV5jbPd18LrCeswZJ7aUtEq0qPf4rroQyW3Tfl1E7rcsW1amZoV3OCGOne1Tg==
