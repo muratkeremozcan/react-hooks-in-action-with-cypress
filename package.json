@@ -15,7 +15,7 @@
     "web-vitals": "2.1.4"
   },
   "devDependencies": {
-    "@applitools/eyes-cypress": "3.26.3",
+    "@applitools/eyes-cypress": "3.26.4",
     "@cypress/code-coverage": "3.10.0",
     "@cypress/instrument-cra": "1.4.0",
     "@faker-js/faker": "7.3.0",
