@@ -104,7 +104,7 @@ Quick setup for CRA.
 - Add a convenience script to reset e2e coverage
 
   ```json
-  "cov:reset": "rm -rf .nyc_output && rm -rf cy-coverage && rm -rf coverage"
+  "cov:reset": "rm -rf .nyc_output && rm -rf coverage-cy && rm -rf coverage"
   ```
 
 - Setup `cypress/plugins/index.js`
