@@ -29,4 +29,3 @@ public/manifest.json
 
 cypress/videos
 cypress/screenshots
-cy-coverage
