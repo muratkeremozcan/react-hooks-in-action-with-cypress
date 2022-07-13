@@ -70,10 +70,10 @@
     "@applitools/types" "1.5.6"
     "@applitools/utils" "1.3.10"
 
-"@applitools/eyes-cypress@3.26.4":
-  version "3.26.4"
-  resolved "https://registry.yarnpkg.com/@applitools/eyes-cypress/-/eyes-cypress-3.26.4.tgz#e1a511cc6ff9f851e29d918cebf9008922e6650d"
-  integrity sha512-YTlLlNBEwyLKzkKH9kAWz17GkDpI5kkuFIP+Gm4BGjRYawpLpF9GvxlCng0Q+Lli1jMIEIP6tZnjrapHbKqm4A==
+"@applitools/eyes-cypress@3.26.5":
+  version "3.26.5"
+  resolved "https://registry.yarnpkg.com/@applitools/eyes-cypress/-/eyes-cypress-3.26.5.tgz#bbcd7ee166575dc1028e62c8844d7c654421d97b"
+  integrity sha512-YMs/ckuaL2NhxUljngFXMyUenL/gnDOiTMsj5Sx5i0ASx9ZFat6qYD4XZSyurkU/LA+/GKHwRHoQWtU4zb/VtQ==
   dependencies:
     "@applitools/eyes-api" "1.7.4"
     "@applitools/eyes-universal" "2.9.6"
