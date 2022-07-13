@@ -80,7 +80,7 @@ Quick setup for CRA.
 
 [Reference PR](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/pull/64/files)
 
-- Add packages: `@cypress/code-coverage` `@cypress/instrument-cra` `istanbul-lib-coverage` `nyc`
+- Add packages: `@bahmutov/cypress-code-coverage` `@cypress/instrument-cra` `istanbul-lib-coverage` `nyc`
 
 - Modify `package.json`/`scripts`/`start`
 
@@ -104,14 +104,14 @@ Quick setup for CRA.
 - Add a convenience script to reset e2e coverage
 
   ```json
-  "coverage:reset": "rm -rf .nyc_output && rm -rf coverage"
+  "cov:reset": "rm -rf .nyc_output && rm -rf cy-coverage && rm -rf coverage"
   ```
 
 - Setup `cypress/plugins/index.js`
 
   ```js
   const cyGrep = require('cypress-grep/src/plugin')
-  const codeCoverageTask = require('@cypress/code-coverage/task') // new plugin for code coverage
+  const codeCoverageTask = require('@bahmutov/cypress-code-coverage/plugin') // new plugin for code coverage
 
   module.exports = (on, config) => {
     // combine the plugin config and return

@@ -4,7 +4,7 @@
 require('dotenv').config()
 // configs
 const cyGrep = require('cypress-grep/src/plugin')
-const codeCoverageTask = require('@cypress/code-coverage/task')
+const codeCoverageTask = require('@bahmutov/cypress-code-coverage/plugin')
 // tasks
 const { initLaunchDarklyApiTasks } = require('cypress-ld-control')
 

@@ -7,6 +7,7 @@
 
 # testing
 /coverage
+/cy-coverage
 .nyc_output/out.json
 .nyc_output/
 
@@ -28,3 +29,4 @@ public/manifest.json
 
 cypress/videos
 cypress/screenshots
+cy-coverage
