@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useQuery } from 'react-query'
 import getData from '../../utils/api'
 import Spinner from '../UI/Spinner'

@@ -1,4 +1,4 @@
-import { useState, Suspense } from 'react'
+import React, { useState, Suspense } from 'react'
 import UsersList from './UsersList'
 import { useUser } from './UserContext'
 import PageSpinner from '../UI/PageSpinner'

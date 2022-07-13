@@ -1,3 +1,4 @@
+import React from 'react'
 import Bookings from './Bookings'
 
 import { BrowserRouter } from 'react-router-dom'

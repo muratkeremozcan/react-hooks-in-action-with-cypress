@@ -1,3 +1,4 @@
+import React from 'react'
 import { getWeek } from '../../utils/date-wrangler'
 
 // [3.4] In the reducer, use if or switch statements to check for the type of action dispatched

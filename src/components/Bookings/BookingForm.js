@@ -1,3 +1,4 @@
+import React from 'react'
 import { FaTrash, FaCloudUploadAlt } from 'react-icons/fa'
 import useFormState from '../Bookables/useFormState'
 

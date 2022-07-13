@@ -1,3 +1,4 @@
+import React from 'react'
 import { Suspense } from 'react'
 import PageSpinner from '../UI/PageSpinner'
 import ErrorComp from '../UI/ErrorComp'

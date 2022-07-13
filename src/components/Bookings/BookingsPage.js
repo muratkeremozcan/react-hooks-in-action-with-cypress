@@ -1,3 +1,4 @@
+import React from 'react'
 import { shortISO } from '../../utils/date-wrangler'
 import { useBookingsParams } from './bookingsHooks'
 

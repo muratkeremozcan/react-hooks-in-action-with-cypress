@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { FaCloudUploadAlt, FaTrash, FaWindowClose } from 'react-icons/fa'
 

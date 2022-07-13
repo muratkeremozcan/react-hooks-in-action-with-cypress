@@ -1,3 +1,4 @@
+import React from 'react'
 import ErrorComp from './ErrorComp'
 
 describe('ErrorComp', () => {

@@ -1,3 +1,4 @@
+import React from 'react'
 import BookingsGrid from './BookingsGrid'
 
 import { getWeek } from '../../utils/date-wrangler'
