@@ -66,6 +66,7 @@ jobs:
           LAUNCH_DARKLY_PROJECT_KEY: ${{ secrets.LAUNCH_DARKLY_PROJECT_KEY }}
           LAUNCH_DARKLY_AUTH_TOKEN: ${{ secrets.LAUNCH_DARKLY_AUTH_TOKEN }}
           APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # This is just a copy of the above with 2 additional args for visual testing
   cypress-percy-visual-tests:
@@ -90,6 +91,7 @@ jobs:
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
           APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   cypress-component-tests:
     # ran out of parallelization
@@ -116,5 +118,6 @@ jobs:
           # if you run out of parallelization, turn it off
           component: true
           browser: chrome
-        # env:
-        # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+        env:
+          # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
