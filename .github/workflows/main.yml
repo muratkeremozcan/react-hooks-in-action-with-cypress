@@ -23,6 +23,7 @@ jobs:
           CYPRESS_INSTALL_BINARY: 0 # no need to install the Cypress binary, we are already using the docker image in the e2e job
 
   unit-test:
+    needs: [install-dependencies]
     name: Run Unit Test
     runs-on: ubuntu-latest
     steps:
@@ -38,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v3.1.0
         with:
           name: unit-test-coverage
-          path: ~/coverage
+          path: coverage
           retention-days: 1
 
   lint:
@@ -91,7 +92,7 @@ jobs:
         uses: actions/upload-artifact@v3.1.0
         with:
           name: e2e-test-coverage
-          path: ~/coverage-cy
+          path: coverage-cy
           retention-days: 1
 
   # This is just a copy of the above with 2 additional args for visual testing
@@ -152,5 +153,5 @@ jobs:
         uses: actions/upload-artifact@v3.1.0
         with:
           name: component-test-coverage
-          path: ~/coverage-cy
+          path: coverage-cy
           retention-days: 1
