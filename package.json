@@ -105,6 +105,15 @@
     "extension": [
       ".js"
     ],
-    "include": "src/**/*.js"
+    "include": "src/**/*.js",
+    "exclude": [
+      "src/**/*.cy.js",
+      "src/**/*.test.js",
+      "src/**/regex.js",
+      "src/**/reducer.js",
+      "src/**/useFetch.js",
+      "src/**/weekReducer.js",
+      "src/**/ErrorBoundary.js"
+    ]
   }
 }

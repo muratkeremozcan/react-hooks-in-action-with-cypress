@@ -15,18 +15,13 @@ module.exports = defineConfig({
   e2e: {
     // We've imported your old cypress plugins here.
     setupNodeEvents(on, config) {
-      const skipAllSpecJs = config.isTextTerminal
-        ? { excludeSpecPattern: ['cypress/e2e/all.spec.js'] }
-        : null
-
       return require('./cypress/plugins/index.js')(
         on,
-        Object.assign({}, config, skipAllSpecJs)
+        Object.assign({}, config)
       )
     },
     baseUrl: 'http://localhost:3000',
-    specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
-    excludeSpecPattern: process.env.CI ? ['cypress/e2e/all.spec.js'] : []
+    specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}'
   },
   component: {
     devServer: {
@@ -53,29 +48,19 @@ module.exports = defineConfig({
                     'istanbul',
                     [
                       '@babel/plugin-transform-modules-commonjs',
-                      { loose: true },
-                    ],
-                  ],
-                },
-              },
-            },
-          ],
-        },
-      },
+                      { loose: true }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
     },
     setupNodeEvents(on, config) {
-      const skipAllSpecJs = config.isTextTerminal
-        ? { excludeSpecPattern: ['src/components/all.cy.js'] }
-        : null
-
-      return Object.assign(
-        {},
-        config,
-        skipAllSpecJs,
-        codeCoverageTask(on, config)
-      )
+      return Object.assign({}, config, codeCoverageTask(on, config))
     },
-    specPattern: 'src/**/**/*.cy.{js,ts,jsx,tsx}',
-    excludeSpecPattern: process.env.CI ? ['src/components/all.cy.js'] : []
+    specPattern: 'src/**/**/*.cy.{js,ts,jsx,tsx}'
   }
 })
