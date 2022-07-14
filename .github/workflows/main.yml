@@ -155,3 +155,15 @@ jobs:
           name: component-test-coverage
           path: coverage-cy/
           retention-days: 1
+
+  download-artifacts:
+    needs: [unit-test, cypress-e2e-tests, cypress-component-tests]
+    name: Download Artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+
+      - name: Display structure of downloaded files
+        run: ls
