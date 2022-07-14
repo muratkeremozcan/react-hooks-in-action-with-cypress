@@ -22,6 +22,25 @@ jobs:
         env:
           CYPRESS_INSTALL_BINARY: 0 # no need to install the Cypress binary, we are already using the docker image in the e2e job
 
+  unit-test:
+    name: Run Unit Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: bahmutov/npm-install@v1.8.17
+        with: { useRollingCache: true }
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+      - name: unit-test
+        run: yarn test
+
+      - name: upload artifacts
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: unit-test-coverage
+          path: ~/coverage
+          retention-days: 1
+
   lint:
     needs: install-dependencies
     name: Run Lint
@@ -67,6 +86,13 @@ jobs:
           LAUNCH_DARKLY_AUTH_TOKEN: ${{ secrets.LAUNCH_DARKLY_AUTH_TOKEN }}
           APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: upload artifacts
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: e2e-test-coverage
+          path: ~/coverage-cy
+          retention-days: 1
 
   # This is just a copy of the above with 2 additional args for visual testing
   cypress-percy-visual-tests:
@@ -121,3 +147,10 @@ jobs:
         env:
           # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: upload artifacts
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: component-test-coverage
+          path: ~/coverage-cy
+          retention-days: 1

@@ -39,3 +39,5 @@ jobs:
           wait-on: 'http://localhost:3000'
           browser: chrome
           env: 'grepTags=${{ github.event.inputs.tag }},burn=${{ github.event.inputs.n }},grepFilterSpecs=true,grepOmitFiltered=true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
