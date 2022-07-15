@@ -196,15 +196,15 @@ jobs:
           echo
           echo current reports/ contents are:
           ls reports
-          echo
-          echo merge all the files under reports folder into an nyc report
-          npx nyc merge reports
-          echo
-          pwd
+          echo mv reports to root folder
+          mv reports ../
           cd ..
-          mkdir .nyc_output/
+          echo
+          echo merge all the files under reports folder into a nyc report
           echo move the generated coverage.json to .nyc_output/out.json
-          mv ./coverage-artifacts/coverage.json .nyc_output/out.json && 
+          yarn combine:reports
+          echo
+          echo finalize combined report
           yarn finalize:combined-report
 
       # - name: Combine the reports (Coverage_step6)
