@@ -194,9 +194,12 @@ jobs:
           cd coverage-artifacts
           mkdir reports || true
           echo
+          echo output coverage artifacts contents
+          ls -R
+          echo
           echo Copy the coverage data to reports folder
-          cp coverage-component/coverage-final.json reports/from-ct.json
-          cp coverage-e2e/coverage-final.json reports/from-e2e.json
+          cp coverage-component/coverage-final-ct.json reports/from-ct.json
+          cp coverage-e2e/coverage-final-e2e.json reports/from-e2e.json
           cp jest-coverage/coverage-final.json reports/from-jest.json
           echo
           echo current reports/ contents are:
