@@ -206,7 +206,7 @@ jobs:
           ls
           echo move the generated coverage.json to .nyc_output/out.json
           mkdir .nyc_output || true
-          mv ./coverage.json .nyc_output/out.json 
+          mv coverage.json .nyc_output/out.json 
           echo
           echo finalize combined report
           yarn finalize:combined-report
