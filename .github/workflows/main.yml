@@ -41,7 +41,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: unit-test-coverage
+          name: test-coverage-unit
           path: coverage/
           retention-days: 1
 
@@ -102,7 +102,7 @@ jobs:
       - name: Upload artifacts (Coverage_step3)
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: e2e-test-coverage
+          name: test-coverage-e2e
           path: coverage-part/
           retention-days: 1
 
@@ -167,7 +167,7 @@ jobs:
       - name: Upload artifacts (Coverage_step3)
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: component-test-coverage
+          name: test-coverage-component
           path: coverage-part/
           retention-days: 1
 
@@ -187,14 +187,13 @@ jobs:
         run: |
           echo Display structure of downloaded files
           ls coverage-artifacts/
-          echo coverage-artifacts/coverage-part/ contents are (e2e & ct):
-          ls coverage-artifacts/coverage-part/
-          echo coverage/ contents are (unit):
-          ls coverage-artifacts/coverage
+          cd coverage-artifacts
+          echo coverage-artifacts contents are
+          ls -R
           echo make a reports folder and copy the coverage content there
-          cd coverage-artifacts && mkdir reports
-          cp -r coverage-part/. reports
-          cp coverage/coverage-final.json reports/from-jest.json
+          mkdir reports
+          cp -r test-coverage-*/. reports
+          cp test-coverage-unit/coverage-final.json reports/from-jest.json
           echo reports/ contents are:
           ls reports
 
