@@ -209,7 +209,7 @@ jobs:
           mv coverage.json .nyc_output/out.json 
           echo
           echo finalize combined report
-          yarn npx nyc report --reporter html --reporter text --reporter json-summary --report-dir combined-coverage --exclude-after-remap false
+          npx nyc report --reporter html --reporter text --reporter json-summary --report-dir combined-coverage --exclude-after-remap false
 
       - name: Upload reports
         uses: actions/upload-artifact@v3.1.0
