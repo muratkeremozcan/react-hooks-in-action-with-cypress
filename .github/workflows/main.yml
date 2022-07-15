@@ -97,7 +97,7 @@ jobs:
         # This is useful for e2e + ct, or parallelized jobs.
         # We call the file parallel-job* since, theoretically, ct and e2e also run in parallel.
         # For the suffix, use unique job id to avoid overwriting the file if multiple jobs run in parallel for e2e or ct.
-        run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/parallel-job-$GITHUB_JOB.json
+        run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/$GITHUB_JOB-$GITHUB_RUN_ID.json
 
       - name: Upload artifacts (Coverage_step3)
         uses: actions/upload-artifact@v3.1.0
@@ -162,7 +162,7 @@ jobs:
 
       - name: Copy the coverage to coverage-part (Coverage_step2)
         # Same as the e2e job, but for component tests.
-        run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/parallel-job-$GITHUB_JOB.json
+        run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/$GITHUB_JOB-$GITHUB_RUN_ID.json
 
       - name: Upload artifacts (Coverage_step3)
         uses: actions/upload-artifact@v3.1.0
@@ -183,7 +183,7 @@ jobs:
         with:
           path: coverage-artifacts/
 
-      - name: Display downloaded file tree and create a reports folder (Coverage_step4)
+      - name: Combine the coverage (Coverage_step4)
         run: |
           cd coverage-artifacts
           mkdir reports
@@ -195,9 +195,9 @@ jobs:
           echo reports/ contents are:
           ls reports
           echo Combine the reports
-          yarn combine:reports
-          test -f .nyc_output/out.json && echo ".nyc_output/out.json exists."
+          cd reports && npx nyc merge reports
           yarn finalize:combined-report
 
       # - name: Combine the reports (Coverage_step6)
       #   run: |
+      # test -f .nyc_output/out.json && echo ".nyc_output/out.json exists."
