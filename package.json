@@ -94,8 +94,6 @@
     }
   },
   "nyc": {
-    "all": true,
-    "excludeAfterRemap": true,
     "report-dir": "coverage-cy",
     "reporter": [
       "text",
