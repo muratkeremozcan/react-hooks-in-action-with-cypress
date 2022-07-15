@@ -194,15 +194,14 @@ jobs:
           cp -r ./test-coverage-*/. reports
           cp jest-coverage/coverage-final.json reports/from-jest.json
           echo
-          echo reports/ contents are:
+          echo current reports/ contents are:
           ls reports
-          ls -R
           echo
-          echo merge all the files under reports folder
+          echo merge all the files under reports folder into an nyc report
           npx nyc merge reports
           echo
           echo move the generated coverage.json to root .nyc_output/out.json
-          mv coverage.json ../.nyc_output/out.json && cd ..
+          mv coverage.json ./.nyc_output/out.json && cd ..
           yarn finalize:combined-report
 
       # - name: Combine the reports (Coverage_step6)
