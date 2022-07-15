@@ -200,8 +200,11 @@ jobs:
           echo merge all the files under reports folder into an nyc report
           npx nyc merge reports
           echo
-          echo move the generated coverage.json to root .nyc_output/out.json
-          mv coverage.json ./.nyc_output/out.json && cd ..
+          pwd
+          cd ..
+          mkdir .nyc_output/
+          echo move the generated coverage.json to .nyc_output/out.json
+          mv ./coverage-artifacts/coverage.json .nyc_output/out.json && 
           yarn finalize:combined-report
 
       # - name: Combine the reports (Coverage_step6)
