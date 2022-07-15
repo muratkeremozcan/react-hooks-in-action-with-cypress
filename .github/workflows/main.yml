@@ -189,13 +189,19 @@ jobs:
           mkdir reports
           echo coverage-artifacts contents are
           ls -R
-          echo Copy the coverage content to reports folder
+
+      - name: Copy the coverage data to reports folder
+        run: |
           cp -r ./test-coverage-*/. reports
           cp jest-coverage/coverage-final.json reports/from-jest.json
           echo reports/ contents are:
           ls reports
-          echo Combine the reports
-          cd reports && npx nyc merge reports
+          ls -R
+
+      - name: Combine the reports
+          npx nyc merge reports
+          echo move the generated coverage.json to root .nyc_output/out.json
+          mv coverage.json ../.nyc_output/out.json && cd ..
           yarn finalize:combined-report
 
       # - name: Combine the reports (Coverage_step6)
