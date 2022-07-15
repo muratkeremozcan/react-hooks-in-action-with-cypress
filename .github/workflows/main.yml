@@ -97,7 +97,7 @@ jobs:
         # This is useful for e2e + ct, or parallelized jobs.
         # We call the file parallel-job* since, theoretically, ct and e2e also run in parallel.
         # For the suffix, use unique job id to avoid overwriting the file if multiple jobs run in parallel for e2e or ct.
-        run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/parallel-job-${{GITHUB_JOB}}.json
+        run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/parallel-job-$GITHUB_JOB.json
 
       - name: upload artifacts
         uses: actions/upload-artifact@v3.1.0
@@ -162,7 +162,7 @@ jobs:
 
       - name: Copy the coverage to coverage-part
         # Same as the e2e job, but for component tests.
-        run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/parallel-job-${{GITHUB_JOB}}.json
+        run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/parallel-job-$GITHUB_JOB.json
 
       - name: upload artifacts
         uses: actions/upload-artifact@v3.1.0
@@ -180,7 +180,7 @@ jobs:
 
       - uses: actions/download-artifact@v3
 
-      - name: Display structure of downloaded files and create a reports folder
+      - name: Display downloaded file tree and create a reports folder
         run: |
           echo coverage-part/ contents are:
           ls coverage-part
@@ -191,3 +191,9 @@ jobs:
           cp coverage/coverage-final.json reports/from-jest.json
           echo reports/ contents are:
           ls reports
+
+      - name: Combine the reports
+        run: |
+          yarn combine:reports
+          test -f .nyc_output/out.json && echo ".nyc_output/out.json exists."
+          yarn finalize:combined-report
