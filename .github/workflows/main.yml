@@ -206,17 +206,19 @@ jobs:
           echo merge all the files under reports folder into a nyc report
           echo move the generated coverage.json to .nyc_output/out.json
           yarn combine:reports
-          ls -a
           echo
-          echo show .nyc_output/out.json content
-          .nyc_output/out.json
+          echo show folder contents
+          ls -a
           echo
           echo finalize combined report
           yarn finalize:combined-report
 
-      - name: Upload reports folder
+      - name: Upload coverage files
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: reports
-          path: reports/
+          name: reports, .nyc_output, coverage.json
+          path: |
+            reports/
+            .nyc_output/
+            coverage.json
           retention-days: 1
