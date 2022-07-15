@@ -199,6 +199,7 @@ jobs:
           ls -R
 
       - name: Combine the reports
+        run: |
           npx nyc merge reports
           echo move the generated coverage.json to root .nyc_output/out.json
           mv coverage.json ../.nyc_output/out.json && cd ..
