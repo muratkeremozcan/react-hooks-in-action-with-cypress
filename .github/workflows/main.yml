@@ -213,7 +213,7 @@ jobs:
           mkdir .nyc_output || true
           echo
           echo merge all the files under reports folder into a nyc report
-          npx nyc merge reports
+          npx nyc merge reports --all=true --excludedAfterRemap=true
           echo
           echo show folder contents
           ls -a
