@@ -41,7 +41,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3.1.0
         with:
-          # name: unit-test-coverage
+          name: unit-test-coverage
           path: coverage/
           retention-days: 1
 
@@ -102,7 +102,7 @@ jobs:
       - name: Upload artifacts (Coverage_step3)
         uses: actions/upload-artifact@v3.1.0
         with:
-          # name: e2e-test-coverage
+          name: e2e-test-coverage
           path: coverage-part/
           retention-days: 1
 
@@ -167,13 +167,13 @@ jobs:
       - name: Upload artifacts (Coverage_step3)
         uses: actions/upload-artifact@v3.1.0
         with:
-          # name: component-test-coverage
+          name: component-test-coverage
           path: coverage-part/
           retention-days: 1
 
   download-artifacts:
     needs: [unit-test, cypress-e2e-tests, cypress-component-tests]
-    name: Coverage Artifacts
+    name: coverage Artifacts
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -187,12 +187,12 @@ jobs:
         run: |
           echo Display structure of downloaded files
           ls coverage-artifacts/
-          echo coverage-part/ contents are (e2e & ct):
-          ls coverage-part
+          echo coverage-artifacts/coverage-part/ contents are (e2e & ct):
+          ls coverage-artifacts/coverage-part/
           echo coverage/ contents are (unit):
-          ls coverage
+          ls coverage-artifacts/coverage
           echo make a reports folder and copy the coverage content there
-          mkdir reports
+          cd coverage-artifacts && mkdir reports
           cp -r coverage-part/. reports
           cp coverage/coverage-final.json reports/from-jest.json
           echo reports/ contents are:
