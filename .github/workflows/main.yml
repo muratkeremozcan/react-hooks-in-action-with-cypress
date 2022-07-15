@@ -22,8 +22,8 @@ jobs:
         env:
           CYPRESS_INSTALL_BINARY: 0 # no need to install the Cypress binary, we are already using the docker image in the e2e job
       - name: Reset coverage
-        # reset state at the beginning for new unit + e2e coverage evaluation
-        run: yarn coverage:reset
+        # (Coverage_1) reset state at the beginning for new unit + e2e coverage evaluation
+        run: yarn cov:reset
 
   unit-test:
     needs: [install-dependencies]
