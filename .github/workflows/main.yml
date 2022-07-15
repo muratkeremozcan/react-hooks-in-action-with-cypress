@@ -173,7 +173,7 @@ jobs:
 
   download-artifacts:
     needs: [unit-test, cypress-e2e-tests, cypress-component-tests]
-    name: coverage Artifacts
+    name: coverage artifacts
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -185,19 +185,19 @@ jobs:
 
       - name: Display downloaded file tree and create a reports folder (Coverage_step4)
         run: |
-          echo Display structure of downloaded files
-          ls coverage-artifacts/
           cd coverage-artifacts
+          mkdir reports
           echo coverage-artifacts contents are
           ls -R
-          echo make a reports folder and copy the coverage content there
-          mkdir reports
+
+      - name: Copy the coverage content to reports folder (Coverage_step5)
+        run: |
           cp -r test-coverage-*/. reports
           cp test-coverage-unit/coverage-final.json reports/from-jest.json
           echo reports/ contents are:
           ls reports
 
-      - name: Combine the reports (Coverage_step5)
+      - name: Combine the reports (Coverage_step6)
         run: |
           yarn combine:reports
           test -f .nyc_output/out.json && echo ".nyc_output/out.json exists."
