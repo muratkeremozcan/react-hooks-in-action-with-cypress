@@ -21,9 +21,9 @@ jobs:
         with: { useRollingCache: true } # recommended for large projects
         env:
           CYPRESS_INSTALL_BINARY: 0 # no need to install the Cypress binary, we are already using the docker image in the e2e job
-      - name: Reset coverage (Coverage_step1)
-        # reset state at the beginning for new unit + e2e coverage evaluation
-        run: yarn cov:reset
+      # - name: Reset coverage (Coverage_step1)
+      # reset state at the beginning for new unit + e2e coverage evaluation
+      # run: yarn cov:reset
 
   unit-test:
     needs: [install-dependencies]
@@ -102,8 +102,8 @@ jobs:
       - name: Upload artifacts (Coverage_step3)
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: test-coverage-e2e
-          path: coverage-part/
+          name: coverage-e2e
+          path: coverage-e2e/
           retention-days: 1
 
   # This is just a copy of the above with 2 additional args for visual testing
@@ -167,8 +167,8 @@ jobs:
       - name: Upload artifacts (Coverage_step3)
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: test-coverage-component
-          path: coverage-part/
+          name: coverage-component
+          path: coverage-component/
           retention-days: 1
 
   download-artifacts:
@@ -187,11 +187,9 @@ jobs:
         run: |
           cd coverage-artifacts
           mkdir reports || true
-          echo coverage-artifacts contents are
-          ls -R
           echo
           echo Copy the coverage data to reports folder
-          cp -r ./test-coverage-*/. reports
+          cp -r coverage-*/. reports/
           cp jest-coverage/coverage-final.json reports/from-jest.json
           echo
           echo current reports/ contents are:
@@ -200,20 +198,18 @@ jobs:
           mv reports ../
           cd ..
           echo
-          echo merge all the files under reports folder into a nyc report
-          npx nyc merge reports
-          echo
-          ls
-          echo move the generated coverage.json to .nyc_output/out.json
           mkdir .nyc_output || true
-          mv coverage.json .nyc_output/out.json 
+          echo merge all the files under reports folder into a nyc report
+          echo move the generated coverage.json to .nyc_output/out.json
+          yarn combine:reports
+          ls
           echo
           echo finalize combined report
-          npx nyc report --reporter html --reporter text --reporter json-summary --report-dir combined-coverage
+          yarn finalize:combined-report
 
-      - name: Upload combined-coverage report
+      - name: Upload reports folder
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: combined-coverage
-          path: combined-coverage/
+          name: reports
+          path: reports/
           retention-days: 1
