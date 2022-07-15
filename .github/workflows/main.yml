@@ -41,7 +41,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: unit-test-coverage
+          # name: unit-test-coverage
           path: coverage/
           retention-days: 1
 
@@ -97,12 +97,12 @@ jobs:
         # This is useful for e2e + ct, or parallelized jobs.
         # We call the file parallel-job* since, theoretically, ct and e2e also run in parallel.
         # For the suffix, use unique job id to avoid overwriting the file if multiple jobs run in parallel for e2e or ct.
-        run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/parallel-job-$GITHUB_JOB.json
+        run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/parallel-job-$GITHUB_RUN_ID.json
 
       - name: Upload artifacts (Coverage_step3)
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: e2e-test-coverage
+          # name: e2e-test-coverage
           path: coverage-part/
           retention-days: 1
 
@@ -162,12 +162,12 @@ jobs:
 
       - name: Copy the coverage to coverage-part (Coverage_step2)
         # Same as the e2e job, but for component tests.
-        run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/parallel-job-$GITHUB_JOB.json
+        run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/parallel-job-$GITHUB_RUN_ID.json
 
       - name: Upload artifacts (Coverage_step3)
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: component-test-coverage
+          # name: component-test-coverage
           path: coverage-part/
           retention-days: 1
 
@@ -180,11 +180,13 @@ jobs:
 
       - name: Download all artifacts (Coverage_step3)
         uses: actions/download-artifact@v3
+        with:
+          path: coverage-artifacts/
 
       - name: Display downloaded file tree and create a reports folder (Coverage_step4)
         run: |
           echo Display structure of downloaded files
-          ls -R
+          ls coverage-artifacts/
           echo coverage-part/ contents are (e2e & ct):
           ls coverage-part
           echo coverage/ contents are (unit):
