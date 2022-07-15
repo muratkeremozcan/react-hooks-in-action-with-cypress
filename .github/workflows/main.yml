@@ -21,6 +21,9 @@ jobs:
         with: { useRollingCache: true } # recommended for large projects
         env:
           CYPRESS_INSTALL_BINARY: 0 # no need to install the Cypress binary, we are already using the docker image in the e2e job
+      - name: Reset coverage
+        # reset state at the beginning for new unit + e2e coverage evaluation
+        run: yarn coverage:reset
 
   unit-test:
     needs: [install-dependencies]
@@ -88,11 +91,19 @@ jobs:
           APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Copy the coverage to coverage-part
+        # Copy the e2e coverage for the job to coverage-part folder.
+        # Similar to copy:reports script, but instead of "reports" we have an intermediate folder "coverage-part"
+        # This is useful for e2e + ct, or parallelized jobs.
+        # We call the file parallel-job* since, theoretically, ct and e2e also run in parallel.
+        # For the suffix, use unique job id to avoid overwriting the file if multiple jobs run in parallel for e2e or ct.
+        run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/parallel-job-${{GITHUB_JOB}}.json
+
       - name: upload artifacts
         uses: actions/upload-artifact@v3.1.0
         with:
           name: e2e-test-coverage
-          path: coverage-cy/
+          path: coverage-part/
           retention-days: 1
 
   # This is just a copy of the above with 2 additional args for visual testing
@@ -149,21 +160,34 @@ jobs:
           # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Copy the coverage to coverage-part
+        # Same as the e2e job, but for component tests.
+        run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/parallel-job-${{GITHUB_JOB}}.json
+
       - name: upload artifacts
         uses: actions/upload-artifact@v3.1.0
         with:
           name: component-test-coverage
-          path: coverage-cy/
+          path: coverage-part/
           retention-days: 1
 
   download-artifacts:
     needs: [unit-test, cypress-e2e-tests, cypress-component-tests]
-    name: Download Artifacts
+    name: Coverage Artifacts
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
       - uses: actions/download-artifact@v3
 
-      - name: Display structure of downloaded files
-        run: ls
+      - name: Display structure of downloaded files and create a reports folder
+        run: |
+          echo coverage-part/ contents are:
+          ls coverage-part
+          echo coverage/ contents are:
+          ls coverage
+          mkdir reports
+          cp -r coverage-part/. reports
+          cp coverage/coverage-final.json reports/from-jest.json
+          echo reports/ contents are:
+          ls reports
