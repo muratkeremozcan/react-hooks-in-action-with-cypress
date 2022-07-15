@@ -202,10 +202,18 @@ jobs:
           mv reports ../
           cd ..
           echo
+          echo show folder contents
+          ls -a
           mkdir .nyc_output || true
+          echo
           echo merge all the files under reports folder into a nyc report
-          echo move the generated coverage.json to .nyc_output/out.json
-          yarn combine:reports
+          npx nyc merge ./reports
+          echo
+          echo show folder contents
+          ls -a
+          echo
+          echo copy the generated coverage.json to .nyc_output/out.json
+          cp coverage.json .nyc_output/out.json
           echo
           echo show folder contents
           ls -a
@@ -221,4 +229,5 @@ jobs:
             reports/
             .nyc_output/
             coverage.json
+            combined-coverage/
           retention-days: 1
