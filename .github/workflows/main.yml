@@ -211,6 +211,9 @@ jobs:
           echo finalize combined report
           yarn finalize:combined-report
 
-      # - name: Combine the reports (Coverage_step6)
-      #   run: |
-      # test -f .nyc_output/out.json && echo ".nyc_output/out.json exists."
+      - name: Upload reports
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: reports
+          path: reports/
+          retention-days: 1
