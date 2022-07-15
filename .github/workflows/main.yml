@@ -197,9 +197,7 @@ jobs:
           echo reports/ contents are:
           ls reports
           ls -R
-
-      - name: Combine the reports
-        run: |
+          echo merge all the files under reports folder
           npx nyc merge reports
           echo move the generated coverage.json to root .nyc_output/out.json
           mv coverage.json ../.nyc_output/out.json && cd ..
