@@ -41,7 +41,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: jest-coverage
+          name: coverage
           path: coverage/
           retention-days: 1
 
@@ -58,7 +58,7 @@ jobs:
       - name: lint
         run: yarn lint
 
-  cypress-e2e-tests:
+  cypress-e2e-test:
     # ran out od parallelization
     # strategy:
     #   matrix:
@@ -91,21 +91,21 @@ jobs:
           APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Copy the coverage to coverage-part (Coverage_step2)
-        # Copy the e2e coverage for the job to coverage-part folder.
-        # Similar to copy:reports script, but instead of "reports" we have an intermediate folder "coverage-part"
-        # This is useful for e2e + ct, or parallelized jobs.
-        # We call the file parallel-job* since, theoretically, ct and e2e also run in parallel.
-        # For the suffix, use unique job id to avoid overwriting the file if multiple jobs run in parallel for e2e or ct.
-        # run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/$GITHUB_JOB-$GITHUB_RUN_ID.json
-        # test short name
-        run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/coverage-final-e2e.json
+      # - name: Copy the coverage to coverage-part (Coverage_step2)
+      # Copy the e2e coverage for the job to coverage-part folder.
+      # Similar to copy:reports script, but instead of "reports" we have an intermediate folder "coverage-part"
+      # This is useful for e2e + ct, or parallelized jobs.
+      # We call the file parallel-job* since, theoretically, ct and e2e also run in parallel.
+      # For the suffix, use unique job id to avoid overwriting the file if multiple jobs run in parallel for e2e or ct.
+      # run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/$GITHUB_JOB-$GITHUB_RUN_ID.json
+      # test short name
+      # run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/coverage-final-e2e.json
 
       - name: Upload artifacts (Coverage_step3)
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: coverage-e2e
-          path: coverage-part/
+          name: coverage-cy-e2e
+          path: coverage-cy/
           retention-days: 1
 
   # This is just a copy of the above with 2 additional args for visual testing
@@ -119,7 +119,7 @@ jobs:
       - uses: bahmutov/npm-install@v1.8.17 # save time on dependencies
         with: { useRollingCache: true }
 
-      # We could also just add this step onto the original cypress-e2e-tests job
+      # We could also just add this step onto the original cypress-e2e-test job
       - name: Cypress visual tests 🧪
         uses: cypress-io/github-action@v4.1.1
         with:
@@ -133,7 +133,7 @@ jobs:
           APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  cypress-component-tests:
+  cypress-ct-test:
     # ran out of parallelization
     # strategy:
     #   matrix:
@@ -162,21 +162,21 @@ jobs:
           # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Copy the coverage to coverage-part (Coverage_step2)
-        # Same as the e2e job, but for component tests.
-        # run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/$GITHUB_JOB-$GITHUB_RUN_ID.json
-        # test short name
-        run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/coverage-final-ct.json
+      # - name: Copy the coverage to coverage-part (Coverage_step2)
+      # Same as the e2e job, but for component tests.
+      # run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/$GITHUB_JOB-$GITHUB_RUN_ID.json
+      # test short name
+      # run: (mkdir coverage-part || true) && cp coverage-cy/coverage-final.json coverage-part/coverage-final-ct.json
 
       - name: Upload artifacts (Coverage_step3)
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: coverage-component
-          path: coverage-part/
+          name: coverage-cy-ct
+          path: coverage-cy/
           retention-days: 1
 
   download-artifacts:
-    needs: [unit-test, cypress-e2e-tests, cypress-component-tests]
+    needs: [unit-test, cypress-e2e-test, cypress-ct-test]
     name: coverage artifacts
     runs-on: ubuntu-latest
     steps:
@@ -192,15 +192,15 @@ jobs:
       - name: Combine the coverage (Coverage_step4)
         run: |
           cd coverage-artifacts
+          echo
+          echo what is in coverage artifacts?
+          ls -a
+          echo
+          echo Copy the coverage data to reports folder - like copy:reports
           mkdir reports || true
-          echo
-          echo output coverage artifacts contents
-          ls -R
-          echo
-          echo Copy the coverage data to reports folder
-          cp coverage-component/coverage-final-ct.json reports/from-ct.json
-          cp coverage-e2e/coverage-final-e2e.json reports/from-e2e.json
-          cp jest-coverage/coverage-final.json reports/from-jest.json
+          cp coverage-cy-ct/coverage-final-ct.json reports/from-cypress-ct.json
+          cp coverage-cy-e2e/coverage-final-e2e.json reports/from-cypress-e2e.json
+          cp coverage/coverage-final.json reports/from-jest.json
           echo
           echo current reports/ contents are:
           ls reports
@@ -208,11 +208,11 @@ jobs:
           mv reports ../
           cd ..
           echo
-          echo show folder contents
+          echo show root folder contents
           ls -a
-          mkdir .nyc_output || true
           echo
-          echo merge all the files under reports folder into a nyc report
+          echo merge all the files under reports folder into a nyc report - like combine:reports
+          mkdir .nyc_output || true
           npx nyc merge reports 
           echo
           echo show folder contents
@@ -221,7 +221,7 @@ jobs:
           echo copy the generated coverage.json to .nyc_output/out.json
           cp coverage.json .nyc_output/out.json
           echo
-          echo show folder contents
+          test -f .nyc_output/out.json && echo ".nyc_output/out.json exists."
           ls -a
           echo
           echo finalize combined report
@@ -235,5 +235,4 @@ jobs:
             reports/
             .nyc_output/
             coverage.json
-            combined-coverage/
           retention-days: 1

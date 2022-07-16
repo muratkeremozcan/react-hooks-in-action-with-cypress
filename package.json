@@ -62,7 +62,7 @@
     "cy:run-e2e": "concurrently yarn:start:api 'server-test 3000 cy:run'",
     "cov:combined": "yarn copy:reports && yarn combine:reports && yarn finalize:combined-report",
     "copy:reports": "(mkdir reports || true) && cp coverage-cy/coverage-final.json reports/from-cypress.json && cp coverage/coverage-final.json reports/from-jest.json",
-    "combine:reports": "npx nyc merge reports && mv coverage.json .nyc_output/out.json",
+    "combine:reports": "(mkdir .nyc_output || true) && npx nyc merge reports && mv coverage.json .nyc_output/out.json",
     "finalize:combined-report": "npx nyc report --reporter html --reporter text --reporter json-summary --report-dir combined-coverage",
     "cov:reset": "rm -rf .nyc_output && rm -rf reports && rm -rf coverage && rm -rf coverage-cy && rm -rf combined-coverage",
     "cov:check": "npx check-total --from combined-coverage/coverage-summary.json --min 70"
@@ -96,8 +96,6 @@
   "nyc": {
     "all": true,
     "excludeAfterRemap": true,
-    "sourceMap": true,
-    "instrument": true,
     "report-dir": "coverage-cy",
     "reporter": [
       "text",
