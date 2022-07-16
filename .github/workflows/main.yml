@@ -198,8 +198,8 @@ jobs:
           echo
           echo Copy the coverage data to reports folder - like copy:reports
           mkdir reports || true
-          cp coverage-cy-ct/coverage-final-ct.json reports/from-cypress-ct.json
-          cp coverage-cy-e2e/coverage-final-e2e.json reports/from-cypress-e2e.json
+          cp coverage-cy-ct/coverage-final.json reports/from-ct.json
+          cp coverage-cy-e2e/coverage-final.json reports/from-e2e.json
           cp coverage/coverage-final.json reports/from-jest.json
           echo
           echo current reports/ contents are:
