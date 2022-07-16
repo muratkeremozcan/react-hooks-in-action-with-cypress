@@ -187,8 +187,6 @@ jobs:
         with:
           path: coverage-artifacts/
 
-      # cp -r coverage-*/. reports/
-
       - name: Combine the coverage (Coverage_step4)
         run: |
           cd coverage-artifacts
@@ -200,20 +198,20 @@ jobs:
           mkdir reports || true
           cp coverage-cy-ct/coverage-final.json reports/from-ct.json
           cp coverage-cy-e2e/coverage-final.json reports/from-e2e.json
-          cp coverage/coverage-final.json reports/from-jest.json
+
           echo
           echo current reports/ contents are:
           ls reports
           echo
           echo merge all the files under reports folder into a nyc report - like combine:reports
-          npx nyc merge reports 
+          npx nyc merge reports && npx nyc merge reports
           echo
           echo show folder contents
           ls -a
           echo show coverage.json
           cat coverage.json
           echo mv coverage.json to root folder
-          mv coverage.json ../
+          cp coverage.json ../
           cd ..
           echo
           echo show root folder contents
@@ -232,9 +230,14 @@ jobs:
       - name: Upload coverage files
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: reports, .nyc_output, coverage.json
+          name: coverage-artifacts, .nyc_output, coverage.json
           path: |
-            reports/
+            coverage-artifacts
             .nyc_output/
             coverage.json
           retention-days: 1
+
+  # skip jest copy for now
+  # cp coverage/coverage-final.json reports/from-jest.json
+
+  # cp -r coverage-*/. reports/
