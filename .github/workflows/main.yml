@@ -204,21 +204,23 @@ jobs:
           echo
           echo current reports/ contents are:
           ls reports
-          echo mv reports to root folder
-          mv reports ../
-          cd ..
-          echo
-          echo show root folder contents
-          ls -a
           echo
           echo merge all the files under reports folder into a nyc report - like combine:reports
-          mkdir .nyc_output || true
           npx nyc merge reports 
           echo
           echo show folder contents
           ls -a
+          echo show coverage.json
+          cat coverage.json
+          echo mv coverage.json to root folder
+          mv coverage.json ../
+          cd ..
           echo
-          echo copy the generated coverage.json to .nyc_output/out.json
+          echo show root folder contents
+          ls -a
+          mkdir .nyc_output || true
+          echo
+          echo copy coverage.json to .nyc_output/out.json
           cp coverage.json .nyc_output/out.json
           echo
           test -f .nyc_output/out.json && echo ".nyc_output/out.json exists."
