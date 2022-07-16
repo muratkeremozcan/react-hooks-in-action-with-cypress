@@ -205,7 +205,7 @@ jobs:
           ls reports
           echo
           echo merge all the files under reports folder into a nyc report - like combine:reports
-          npx nyc merge reports && npx nyc merge reports
+          npx nyc merge reports
           echo
           echo show folder contents
           ls -a

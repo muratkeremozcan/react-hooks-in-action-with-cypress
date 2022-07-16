@@ -92,28 +92,5 @@
     "hooks": {
       "pre-commit": "yarn lint && yarn cy:run-ct"
     }
-  },
-  "nyc": {
-    "all": true,
-    "excludeAfterRemap": true,
-    "report-dir": "coverage-cy",
-    "reporter": [
-      "text",
-      "json",
-      "html"
-    ],
-    "extension": [
-      ".js"
-    ],
-    "include": "src/**/*.js",
-    "exclude": [
-      "src/**/*.cy.js",
-      "src/**/*.test.js",
-      "src/**/regex.js",
-      "src/**/reducer.js",
-      "src/**/useFetch.js",
-      "src/**/weekReducer.js",
-      "src/**/ErrorBoundary.js"
-    ]
   }
 }
