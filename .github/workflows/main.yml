@@ -199,33 +199,38 @@ jobs:
           echo
           echo what is in coverage artifacts?
           ls -a
+
           echo
           echo Copy the coverage data to reports folder - like copy:reports
           mkdir reports || true
           cp coverage-cy-ct/coverage-final.json reports/from-ct.json
           cp coverage-cy-e2e/coverage-final.json reports/from-e2e.json
-
           echo
           echo current reports/ contents are:
           ls reports
+
+          echo 
+          echo mv reports folder to root
+          mv reports ../
+          cd ..
+          echo
+          echo show root folder contents
+          ls -a
+
           echo
           echo merge all the files under reports folder into a nyc report - like combine:reports
           yarn nyc merge reports
           echo
           echo show folder contents
           ls -a
-          echo show coverage.json
+          echo show coverage.json, something should populate inside it
           cat coverage.json
-          echo mv coverage.json to root folder
-          cp coverage.json ../
-          cd ..
+
           echo
-          echo show root folder contents
-          ls -a
           mkdir .nyc_output || true
-          echo
           echo copy coverage.json to .nyc_output/out.json
           cp coverage.json .nyc_output/out.json
+
           echo
           test -f .nyc_output/out.json && echo ".nyc_output/out.json exists."
           ls -a
