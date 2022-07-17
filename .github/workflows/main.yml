@@ -244,6 +244,7 @@ jobs:
           name: coverage-artifacts, .nyc_output, coverage.json
           path: |
             coverage-artifacts/
+            reports/
             .nyc_output/
             coverage.json
           retention-days: 1
