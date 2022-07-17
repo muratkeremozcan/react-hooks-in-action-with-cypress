@@ -1,0 +1,15 @@
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        # this allows a 1% drop from the previous base commit coverage
+        threshold: 1%
+  ignore:
+    - 'src/**/*.cy.js'
+    - 'src/**/*.test.js'
+    - 'src/**/regex.js'
+    - 'src/**/reducer.js'
+    - 'src/**/useFetch.js'
+    - 'src/**/weekReducer.js'
+    - 'src/**/ErrorBoundary.js'
