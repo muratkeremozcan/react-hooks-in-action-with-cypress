@@ -25,25 +25,29 @@ jobs:
       # reset state at the beginning for new unit + e2e coverage evaluation
       # run: yarn cov:reset
 
-  # unit-test:
-  #   needs: [install-dependencies]
-  #   name: Run Unit Test
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: bahmutov/npm-install@v1.8.17
-  #       with: { useRollingCache: true }
-  #       env:
-  #         CYPRESS_INSTALL_BINARY: 0
-  #     - name: unit-test
-  #       run: yarn test
+  unit-test:
+    needs: [install-dependencies]
+    name: Run Unit Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: bahmutov/npm-install@v1.8.17
+        with: { useRollingCache: true }
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+      - name: unit-test
+        run: yarn test
 
-  #     - name: Upload artifacts
-  #       uses: actions/upload-artifact@v3.1.0
-  #       with:
-  #         name: coverage
-  #         path: coverage/
-  #         retention-days: 1
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: coverage
+          path: coverage/
+          retention-days: 1
+      - name: ✅ Upload Jest coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          directory: coverage/
 
   lint:
     needs: install-dependencies
@@ -107,6 +111,11 @@ jobs:
           name: coverage-cy-e2e
           path: coverage-cy/
           retention-days: 1
+
+      - name: ✅ Upload e2e coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          directory: coverage-cy/
 
   # This is just a copy of the above with 2 additional args for visual testing
   cypress-percy-visual-tests:
@@ -174,6 +183,11 @@ jobs:
           name: coverage-cy-ct
           path: coverage-cy/
           retention-days: 1
+
+      - name: ✅ Upload CT coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          directory: coverage-cy/
 
   download-artifacts:
     # needs: [unit-test, cypress-e2e-test, cypress-ct-test]
