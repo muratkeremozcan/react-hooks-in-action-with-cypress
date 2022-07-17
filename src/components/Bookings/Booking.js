@@ -1,3 +1,5 @@
+import React from 'react'
+
 export default function Booking({ booking, bookable }) {
   const { title, date, session, notes } = booking
 

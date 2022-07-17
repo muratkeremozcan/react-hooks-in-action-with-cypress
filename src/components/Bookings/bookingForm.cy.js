@@ -1,3 +1,4 @@
+import React from 'react'
 import BookingForm from './BookingForm'
 import { usLocaleDateRegex } from '../../utils/regex'
 import '../../App.css'

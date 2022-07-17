@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+import React, { Suspense } from 'react'
 import { useQuery } from 'react-query'
 
 /** A component that renders an image with a fallback image if the image fails to load */

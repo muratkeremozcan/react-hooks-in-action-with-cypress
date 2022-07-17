@@ -1,3 +1,4 @@
+import React from 'react'
 import { sessions as sessionNames } from '../../static.json'
 import { addDays, shortISO } from '../../utils/date-wrangler'
 

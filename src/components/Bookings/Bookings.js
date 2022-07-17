@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { getWeek, shortISO } from '../../utils/date-wrangler'
 import { useBookingsParams, useBookings } from './bookingsHooks'

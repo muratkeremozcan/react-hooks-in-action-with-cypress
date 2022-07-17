@@ -2,7 +2,7 @@
 // without explicitly threading it through every component (2nd tier state management)
 // Create a context for the current theme (with "light" as the default).
 
-import { createContext, useContext } from 'react'
+import React, { createContext, useContext } from 'react'
 
 const UserContext = createContext()
 

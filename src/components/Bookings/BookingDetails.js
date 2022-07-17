@@ -9,7 +9,7 @@ import {
   useDeleteBooking,
   useUpdateBooking
 } from './bookingsHooks'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaEdit } from 'react-icons/fa'
 import { getWeek, shortISO } from '../../utils/date-wrangler'
 

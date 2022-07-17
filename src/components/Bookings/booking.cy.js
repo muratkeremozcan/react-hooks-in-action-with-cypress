@@ -1,3 +1,4 @@
+import React from 'react'
 import Booking from './Booking'
 import { dateRegex } from '../../utils/regex'
 import '../../App.css'

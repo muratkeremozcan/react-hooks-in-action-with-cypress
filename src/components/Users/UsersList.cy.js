@@ -2,7 +2,7 @@ import UsersList from './UsersList'
 
 import PageSpinner from '../UI/PageSpinner'
 import ErrorComp from '../UI/ErrorComp'
-import { Suspense } from 'react'
+import React, { Suspense } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ErrorBoundary } from 'react-error-boundary'
 import '../../App.css'

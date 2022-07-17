@@ -15,13 +15,12 @@
 
 import '@applitools/eyes-cypress/commands'
 
-
 // Import commands.js using ES2015 syntax:
 import './commands'
 import 'cypress-react-app-actions'
 import 'cypress-real-events/support'
 import 'cypress-localstorage-commands'
-import '@cypress/code-coverage/support'
+import '@bahmutov/cypress-code-coverage/support'
 import '@percy/cypress'
 require('cypress-grep')()
 

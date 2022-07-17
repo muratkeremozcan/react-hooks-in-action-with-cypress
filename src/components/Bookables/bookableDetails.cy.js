@@ -1,5 +1,6 @@
 import BookablesDetails from './BookableDetails'
 import { BrowserRouter } from 'react-router-dom'
+import React from 'react'
 import '../../App.css'
 
 describe('BookableDetails', () => {

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { days, sessions } from '../../static.json'
 import { FaEdit } from 'react-icons/fa'

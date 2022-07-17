@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { Suspense } from 'react'
+import React, { Suspense } from 'react'
 import UsersPage from './UsersPage'
 import PageSpinner from '../UI/PageSpinner'
 import UserContext from './UserContext'

@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 // [11.3] Error boundary is a way for the app to show common error when lazy loaded components fail to load
 // https://reactjs.org/docs/error-boundaries.html
 

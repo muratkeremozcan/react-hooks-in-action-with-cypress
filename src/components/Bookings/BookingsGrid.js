@@ -1,3 +1,4 @@
+import React from 'react'
 import { useBookings, useGrid } from './bookingsHooks'
 import Spinner from '../UI/Spinner'
 

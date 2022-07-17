@@ -1,3 +1,4 @@
+import React from 'react'
 import BookingDetails from './BookingDetails'
 import UserContext from '../Users/UserContext'
 import { QueryClient, QueryClientProvider } from 'react-query'

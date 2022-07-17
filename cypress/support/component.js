@@ -15,6 +15,11 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+import '@bahmutov/cypress-code-coverage/support'
+import 'cypress-react-app-actions'
+import 'cypress-real-events/support'
+import 'cypress-localstorage-commands'
+import '@percy/cypress'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

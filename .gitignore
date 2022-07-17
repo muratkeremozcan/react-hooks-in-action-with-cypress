@@ -6,9 +6,12 @@
 .pnp.js
 
 # testing
-/coverage
+/coverage*
+/combined-coverage
 .nyc_output/out.json
 .nyc_output/
+cypress/screenshots
+reports
 
 # production
 /build
@@ -27,4 +30,3 @@ yarn-error.log*
 public/manifest.json
 
 cypress/videos
-cypress/screenshots

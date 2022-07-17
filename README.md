@@ -80,7 +80,7 @@ Quick setup for CRA.
 
 [Reference PR](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/pull/64/files)
 
-- Add packages: `@cypress/code-coverage` `@cypress/instrument-cra` `istanbul-lib-coverage` `nyc`
+- Add packages: `@bahmutov/cypress-code-coverage` `@cypress/instrument-cra` `istanbul-lib-coverage` `nyc`
 
 - Modify `package.json`/`scripts`/`start`
 
@@ -104,97 +104,28 @@ Quick setup for CRA.
 - Add a convenience script to reset e2e coverage
 
   ```json
-  "coverage:reset": "rm -rf .nyc_output && rm -rf coverage"
+  "cov:reset": "rm -rf .nyc_output && rm -rf coverage-cy && rm -rf coverage"
   ```
 
 - Setup `cypress/plugins/index.js`
 
   ```js
-  const reactScripts = require('@cypress/react/plugins/react-scripts') // for component testing...
   const cyGrep = require('cypress-grep/src/plugin')
-  const codeCoverageTask = require('@cypress/code-coverage/task') // new plugin for code coverage
+  const codeCoverageTask = require('@bahmutov/cypress-code-coverage/plugin') // new plugin for code coverage
 
   module.exports = (on, config) => {
-    // for component testing, can become obsolete  in Cypress 10
-    const injectDevServer =
-      config.testingType === 'component' ? reactScripts : () => ({})
-
     // combine the plugin config and return
-    return Object.assign(
-      {},
-      injectDevServer(on, config),
-      codeCoverageTask(on, config),
-      cyGrep
-    )
+    return Object.assign({}, codeCoverageTask(on, config), cyGrep)
   }
   ```
 
-- Setup `cypress/support/index.js`
+- Setup `cypress/support/e2e.js` and `cypress/support/component.js`
 
   ```js
   import '@cypress/code-coverage/support'
   ```
 
   </details>
-
-## Component Testing
-
-<details><summary>details</summary>
-
-Followed the instructions at [Getting Started with Cypress Component Testing (React)](https://www.cypress.io/blog/2021/04/06/cypress-component-testing-react/).
-
-Minimal instructions:
-
-1. `yarn add -D @cypress/react @cypress/webpack-dev-server`, add `cy:open-ct` and `cy:run-ct` scripts to `package.json`.
-
-2. Modify the cypress.json for test file naming. Cypress recommends ComponentName.cy.js for Cypress component tests so folks can stick with ComponentName.spec.js for their jest tests `cy.js`:
-
-   ```json
-   {
-   "baseUrl": "http://localhost:3000",
-   "component": {
-       "testFiles": "**/*.ct-spec.{js,ts,jsx,tsx}",
-       "componentFolder": "src"
-   }
-   ```
-
-3. Enhance the plugins/index file with the component test configuration. The dev server depends on your react setup.
-
-```json
-const injectDevServer = require("@cypress/react/plugins/react-scripts")
-
-module.exports = (on, config) => {
-  injectDevServer(on, config)
-  return config
-}
-```
-
-Launch component test runner with `yarn cy:open-ct`.
-
-4. The component test CI setup can be isolated, or can be steps after the e2e steps
-
-```yml
-component-test:
-    needs: [install-dependencies]
-    runs-on: ubuntu-latest
-    container: cypress/included:9.3.1 # save time on not having to install cypress
-    steps:
-    - uses: actions/checkout@v2
-
-    - uses: bahmutov/npm-install@v1.8.5 # save time on dependencies
-        with: { useRollingCache: true }
-
-    # the docs advise to run component tests after the e2e tests, this part could also be right after e2e tests
-    - name: Cypress component tests 🧪
-        uses: cypress-io/github-action@v2.11.7
-        with:
-        # we have already installed everything
-        install: false
-        # to run component tests we need to use "cypress run-ct"
-        command: yarn cypress run-ct
-```
-
-</details>
 
 ## cypress-grep cheat sheet
 
