@@ -4,7 +4,7 @@ coverage:
       default:
         target: auto
         # this allows a 1% drop from the previous base commit coverage
-        threshold: 1%
+        threshold: 2%
   ignore:
     - 'src/**/*.cy.js'
     - 'src/**/*.test.js'
