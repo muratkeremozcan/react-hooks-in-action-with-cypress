@@ -48,6 +48,8 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           directory: coverage/
+          flags: unit-test-coverage
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   lint:
     needs: install-dependencies
@@ -116,6 +118,8 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           directory: coverage-cy/
+          flags: cypress-e2e-coverage
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   # This is just a copy of the above with 2 additional args for visual testing
   cypress-percy-visual-tests:
@@ -188,6 +192,8 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           directory: coverage-cy/
+          flags: cypress-ct-coverage
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   download-artifacts:
     # needs: [unit-test, cypress-e2e-test, cypress-ct-test]
