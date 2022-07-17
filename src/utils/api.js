@@ -10,17 +10,18 @@ export default function getData(url) {
   })
 }
 
-export function getBookings(bookableId, startDate, endDate) {
-  const start = shortISO(startDate)
-  const end = shortISO(endDate)
+// not used at the end
+// export function getBookings(bookableId, startDate, endDate) {
+//   const start = shortISO(startDate)
+//   const end = shortISO(endDate)
 
-  const urlRoot = 'http://localhost:3001/bookings'
+//   const urlRoot = 'http://localhost:3001/bookings'
 
-  const query =
-    `bookableId=${bookableId}` + `&date_gte=${start}&date_lte=${end}`
+//   const query =
+//     `bookableId=${bookableId}` + `&date_gte=${start}&date_lte=${end}`
 
-  return getData(`${urlRoot}?${query}`)
-}
+//   return getData(`${urlRoot}?${query}`)
+// }
 
 const fetcher = (url, method, item) =>
   fetch(url, {
