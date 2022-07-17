@@ -9,7 +9,7 @@
   "labels": ["type: dependencies", "renovate"],
   "packageRules": [
     {
-      "packageNames": ["react-scripts", "jest"],
+      "packageNames": ["react-scripts", "jest", "babel-loader"],
       "enabled": false
     }
   ]
