@@ -222,14 +222,6 @@
       "title": "Project Update",
       "bookerId": 1,
       "id": 8
-    },
-    {
-      "session": "Afternoon",
-      "date": "2020-06-22",
-      "bookableId": 2,
-      "title": "Quiz",
-      "bookerId": 1,
-      "id": 9
     }
   ]
 }
