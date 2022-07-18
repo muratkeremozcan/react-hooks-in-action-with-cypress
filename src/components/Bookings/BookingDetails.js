@@ -73,7 +73,7 @@ export default function BookingDetails({ booking, bookable }) {
       </h2>
 
       {isCreating || isUpdating || isDeleting ? (
-        <div className="booking-details-fields">
+        <div data-cy="saving" className="booking-details-fields">
           <p>Saving...</p>
         </div>
       ) : isEditing ? (
