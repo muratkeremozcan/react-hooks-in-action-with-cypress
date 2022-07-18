@@ -79,12 +79,17 @@ describe('BookingDetails', { viewportHeight: 800 }, () => {
       )
       cy.get('@useCreateBooking').should('have.been.called')
 
+      // spy on confirmation
+      cy.on('window:confirm', cy.spy().as('windowConfirm'))
       cy.log('**Delete toggle**')
       cy.getByCy('booking-controls').click()
       cy.getByCy('booking-form').should('be.visible')
       cy.getByCy('btn-delete').click()
+      cy.get('@windowConfirm').should(
+        'have.been.calledWith',
+        'Are you sure you want to delete the booking?'
+      )
       cy.getByCy('booking-form').should('not.exist')
-      cy.contains('Saving')
       cy.get('@useDeleteBooking').should('have.been.called')
 
       cy.log('**Update toggle**')
