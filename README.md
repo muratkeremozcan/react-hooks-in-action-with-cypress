@@ -1,7 +1,7 @@
-# React Hooks in Action Book, with Cypress e2e & component tests ![react version](https://img.shields.io/badge/react-18.2.0-brightgreen) ![react-scripts version](https://img.shields.io/badge/react--scripts-4.0.3-brightgreen)
+# React Hooks in Action Book, with Cypress e2e & component tests
 
 [![react-hooks-in-action](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/nr3y7v/main&style=flat-square&logo=cypress)](https://dashboard.cypress.io/projects/nr3y7v/runs) [![codecov](https://codecov.io/gh/muratkeremozcan/react-hooks-in-action-with-cypress/branch/main/graph/badge.svg?token=PG4Z1HKVUE)](https://codecov.io/gh/muratkeremozcan/react-hooks-in-action-with-cypress) [![Build, Lint, e2e & ct test](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/actions/workflows/main.yml/badge.svg?branch=main&event=push)](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/actions/workflows/main.yml)
-![cypress version](https://img.shields.io/badge/cypress-10.3.0-brightgreen) ![@cypress/react version](https://img.shields.io/badge/@cypress/react-5.12.5-brightgreen) ![@cypress/webpack-dev-server version](https://img.shields.io/badge/@cypress/webpack--dev--server-1.8.4-brightgreen) [![renovate-app badge][renovate-badge]][renovate-app]
+![cypress version](https://img.shields.io/badge/cypress-10.3.0-brightgreen) ![@cypress/react version](https://img.shields.io/badge/@cypress/react-5.12.5-brightgreen) ![@cypress/webpack-dev-server version](https://img.shields.io/badge/@cypress/webpack--dev--server-1.8.4-brightgreen) ![react version](https://img.shields.io/badge/react-18.2.0-brightgreen) ![react-scripts version](https://img.shields.io/badge/react--scripts-4.0.3-brightgreen) [![renovate-app badge][renovate-badge]][renovate-app]
 
 [renovate-badge]: https://img.shields.io/badge/renovate-app-blue.svg
 [renovate-app]: https://renovateapp.com/
@@ -74,58 +74,7 @@ TL,DR; test everything you can at the lowest level component; when that is limit
 
 ## Combined Coverage
 
-<details><summary>details</summary>
-
-Quick setup for CRA.
-
-[Reference PR](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/pull/64/files)
-
-- Add packages: `@bahmutov/cypress-code-coverage` `@cypress/instrument-cra` `istanbul-lib-coverage` `nyc`
-
-- Modify `package.json`/`scripts`/`start`
-
-  ```json
-  "start": "react-scripts -r @cypress/instrument-cra start",
-  ```
-
-- Add a config for nyc to `package.json`
-
-  ```json
-  "nyc": {
-    "extension": [
-      ".js"
-    ],
-    "include": [
-      "src/**/*.js",
-    ]
-  }
-  ```
-
-- Add a convenience script to reset e2e coverage
-
-  ```json
-  "cov:reset": "rm -rf .nyc_output && rm -rf coverage-cy && rm -rf coverage"
-  ```
-
-- Setup `cypress/plugins/index.js`
-
-  ```js
-  const cyGrep = require('cypress-grep/src/plugin')
-  const codeCoverageTask = require('@bahmutov/cypress-code-coverage/plugin') // new plugin for code coverage
-
-  module.exports = (on, config) => {
-    // combine the plugin config and return
-    return Object.assign({}, codeCoverageTask(on, config), cyGrep)
-  }
-  ```
-
-- Setup `cypress/support/e2e.js` and `cypress/support/component.js`
-
-  ```js
-  import '@cypress/code-coverage/support'
-  ```
-
-  </details>
+Refer to the blog post [Triple combined code coverage for React Apps with Jest, Cypress component and e2e tests, using Github Actions](https://dev.to/muratkeremozcan/triple-combined-code-coverage-for-react-apps-with-jest-cypress-component-and-e2e-tests-using-github-actions-1icc)
 
 ## cypress-grep cheat sheet
 
@@ -198,5 +147,3 @@ The changes the guide can be found in [this PR](https://github.com/muratkeremozc
 Check out the full guide on [dev.to](https://dev.to/muratkeremozcan/painlessly-setup-cypress-percy-with-github-actions-in-minutes-1aki)yarn
 
 </details>
-
-https://codecov.io/gh/muratkeremozcan/react-hooks-in-action-with-cypress/branch/main/graphs/tree.svg?token=PG4Z1HKVUE
