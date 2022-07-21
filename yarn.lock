@@ -6155,10 +6155,10 @@ cypress-should-really@1.6.0:
   resolved "https://registry.yarnpkg.com/cypress-should-really/-/cypress-should-really-1.6.0.tgz#3e158214495d0bd950a3c3563d9860d4e8748600"
   integrity sha512-Qa/+1GZf7z3BKeWkfId4lBUKVazwvKaXT2PD9u4iCix9LL/h3xTYzMbp9xF8E+zbCXhllE7bun1ahOiTJowUWA==
 
-cypress@10.3.0:
-  version "10.3.0"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-10.3.0.tgz#fae8d32f0822fcfb938e79c7c31ef344794336ae"
-  integrity sha512-txkQWKzvBVnWdCuKs5Xc08gjpO89W2Dom2wpZgT9zWZT5jXxqPIxqP/NC1YArtkpmp3fN5HW8aDjYBizHLUFvg==
+cypress@10.3.1:
+  version "10.3.1"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-10.3.1.tgz#7fab4ef43481c05a9a17ebe9a0ec860e15b95a19"
+  integrity sha512-As9HrExjAgpgjCnbiQCuPdw5sWKx5HUJcK2EOKziu642akwufr/GUeqL5UnCPYXTyyibvEdWT/pSC2qnGW/e5w==
   dependencies:
     "@cypress/request" "^2.88.10"
     "@cypress/xvfb" "^1.2.4"
