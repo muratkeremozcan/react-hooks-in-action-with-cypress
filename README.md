@@ -76,6 +76,17 @@ TL,DR; test everything you can at the lowest level component; when that is limit
 
 Refer to the blog post [Triple combined code coverage for React Apps with Jest, Cypress component and e2e tests, using Github Actions](https://dev.to/muratkeremozcan/triple-combined-code-coverage-for-react-apps-with-jest-cypress-component-and-e2e-tests-using-github-actions-1icc)
 
+```bash
+yarn cov:reset # clears the coverage
+# execute unit, CT and e2e tests to generate coverage
+yarn test
+yarn cy:run-ct
+yarn cy:run-e2e
+# combine the coverage,
+yarn cov:combined
+# observe the report in combined-coverage folder
+```
+
 ## cypress-grep cheat sheet
 
 <details><summary>details</summary>
