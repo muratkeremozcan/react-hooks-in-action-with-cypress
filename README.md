@@ -82,7 +82,7 @@ yarn cov:reset # clears the coverage
 yarn test
 yarn cy:run-ct
 yarn cy:run-e2e
-# combine the coverage,
+# combine the coverage
 yarn cov:combined
 # observe the report in combined-coverage folder
 ```
@@ -155,6 +155,8 @@ The branch prior to the changes can be checked out at `before-visual-testing`. T
 
 The changes the guide can be found in [this PR](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/pull/99).
 
-Check out the full guide on [dev.to](https://dev.to/muratkeremozcan/painlessly-setup-cypress-percy-with-github-actions-in-minutes-1aki)yarn
+Check out the full guide on [dev.to](https://dev.to/muratkeremozcan/painlessly-setup-cypress-percy-with-github-actions-in-minutes-1aki). 
 
-</details>
+### Percy vs Applitools
+
+Take a look at the blog post [Setup Cypress & Applitools with GitHub Actions: a comparison of Applitools vs Percy in a mid size app](https://dev.to/muratkeremozcan/setup-cypress-applitools-with-github-actions-a-comparison-of-applitools-vs-percy-in-a-mid-size-app-43ij).
