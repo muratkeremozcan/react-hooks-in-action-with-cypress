@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "dayjs": "1.11.3",
+    "dayjs": "1.11.4",
     "history": "5.2.0",
     "launchdarkly-react-client-sdk": "2.26.0",
     "react": "18.2.0",
