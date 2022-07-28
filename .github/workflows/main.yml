@@ -79,7 +79,7 @@ jobs:
         with: { useRollingCache: true }
 
       - name: Cypress e2e tests 🧪
-        uses: cypress-io/github-action@v4.1.1
+        uses: cypress-io/github-action@v4.2.0
         with:
           install: false # no need to install because of the above 2
           start: yarn dev # concurrently starts ui and api servers
@@ -134,7 +134,7 @@ jobs:
 
       # We could also just add this step onto the original cypress-e2e-test job
       - name: Cypress visual tests 🧪
-        uses: cypress-io/github-action@v4.1.1
+        uses: cypress-io/github-action@v4.2.0
         with:
           install: false # no need to install because of the above 2
           start: yarn dev # concurrently starts ui and api servers
@@ -161,7 +161,7 @@ jobs:
         with: { useRollingCache: true }
 
       - name: Cypress component tests 🧪
-        uses: cypress-io/github-action@v4.1.1
+        uses: cypress-io/github-action@v4.2.0
         with:
           # we have already installed everything
           install: false
