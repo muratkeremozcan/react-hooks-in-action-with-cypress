@@ -71,7 +71,7 @@ jobs:
     #     machines: [1, 2]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
-    container: cypress/included:10.3.0 # save time on not having to install cypress
+    container: cypress/included:10.4.0 # save time on not having to install cypress
     steps:
       - uses: actions/checkout@v3
 
@@ -125,7 +125,7 @@ jobs:
   cypress-percy-visual-tests:
     needs: [install-dependencies]
     runs-on: ubuntu-latest
-    container: cypress/included:10.3.0 # save time on not having to install cypress
+    container: cypress/included:10.4.0 # save time on not having to install cypress
     steps:
       - uses: actions/checkout@v3
 
@@ -153,7 +153,7 @@ jobs:
     #     machines: [1, 2] # increase to 2 later: [1, 2]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
-    container: cypress/included:10.3.0 # save time on not having to install cypress
+    container: cypress/included:10.4.0 # save time on not having to install cypress
     steps:
       - uses: actions/checkout@v3
 
