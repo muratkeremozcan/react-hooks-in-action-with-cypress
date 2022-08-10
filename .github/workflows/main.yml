@@ -17,7 +17,7 @@ jobs:
         with:
           cache: 'yarn'
           node-version: 16.10.0
-      - uses: bahmutov/npm-install@v1.8.18
+      - uses: bahmutov/npm-install@v1.8.19
         with: { useRollingCache: true } # recommended for large projects
         env:
           CYPRESS_INSTALL_BINARY: 0 # no need to install the Cypress binary, we are already using the docker image in the e2e job
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: bahmutov/npm-install@v1.8.18
+      - uses: bahmutov/npm-install@v1.8.19
         with: { useRollingCache: true }
         env:
           CYPRESS_INSTALL_BINARY: 0
@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: bahmutov/npm-install@v1.8.18
+      - uses: bahmutov/npm-install@v1.8.19
         with: { useRollingCache: true }
         env:
           CYPRESS_INSTALL_BINARY: 0
@@ -75,7 +75,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: bahmutov/npm-install@v1.8.18 # save time on dependencies
+      - uses: bahmutov/npm-install@v1.8.19 # save time on dependencies
         with: { useRollingCache: true }
 
       - name: Cypress e2e tests 🧪
@@ -129,7 +129,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: bahmutov/npm-install@v1.8.18 # save time on dependencies
+      - uses: bahmutov/npm-install@v1.8.19 # save time on dependencies
         with: { useRollingCache: true }
 
       # We could also just add this step onto the original cypress-e2e-test job
@@ -157,7 +157,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: bahmutov/npm-install@v1.8.18 # save time on dependencies
+      - uses: bahmutov/npm-install@v1.8.19 # save time on dependencies
         with: { useRollingCache: true }
 
       - name: Cypress component tests 🧪
@@ -203,7 +203,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: bahmutov/npm-install@v1.8.18 # needed for nyc and check coverage
+      - uses: bahmutov/npm-install@v1.8.19 # needed for nyc and check coverage
         with: { useRollingCache: true }
         env:
           CYPRESS_INSTALL_BINARY: 0
