@@ -65,10 +65,9 @@ jobs:
         run: yarn lint
 
   cypress-e2e-test:
-    # ran out od parallelization
-    # strategy:
-    #   matrix:
-    #     machines: [1, 2]
+    strategy:
+      matrix:
+        machines: [1]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     container: cypress/included:10.4.0 # save time on not having to install cypress
@@ -85,11 +84,10 @@ jobs:
           start: yarn dev # concurrently starts ui and api servers
           wait-on: 'http://localhost:3000'
           browser: chrome
-          # ran out of monthly Cypress Dashboard limit
-          # record: true
-          # parallel: true
-          # group: e2e-tests
-          # tag: e2e-tests
+          record: true
+          parallel: true
+          group: e2e-tests
+          tag: e2e-tests
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           LAUNCH_DARKLY_PROJECT_KEY: ${{ secrets.LAUNCH_DARKLY_PROJECT_KEY }}
@@ -147,10 +145,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   cypress-ct-test:
-    # ran out of parallelization
-    # strategy:
-    #   matrix:
-    #     machines: [1, 2] # increase to 2 later: [1, 2]
+    strategy:
+      matrix:
+        machines: [1]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     container: cypress/included:10.4.0 # save time on not having to install cypress
@@ -165,14 +162,15 @@ jobs:
         with:
           # we have already installed everything
           install: false
-          # to run component tests we need to use "cypress run-ct"
-          # with component tests since we have a custom command, we pass these parameters in the command instead
-          # command: yarn cypress run-ct --record --key=${{ secrets.CYPRESS_RECORD_KEY }} --parallel --browser chrome --group component-tests --tag component-tests --parallel 2
-          # if you run out of parallelization, turn it off
           component: true
           browser: chrome
+          record: true
+          parallel: true
+          group: ct-tests
+          tag: ct-tests
+
         env:
-          # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # - name: Copy the coverage to coverage-part (Coverage_step2)

@@ -1,6 +1,6 @@
 # React Hooks in Action Book, with Cypress e2e & component tests
 
-[![react-hooks-in-action](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/nr3y7v/main&style=flat-square&logo=cypress)](https://dashboard.cypress.io/projects/nr3y7v/runs) [![codecov](https://codecov.io/gh/muratkeremozcan/react-hooks-in-action-with-cypress/branch/main/graph/badge.svg?token=PG4Z1HKVUE)](https://codecov.io/gh/muratkeremozcan/react-hooks-in-action-with-cypress) [![Build, Lint, e2e & ct test](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/actions/workflows/main.yml/badge.svg?branch=main&event=push)](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/actions/workflows/main.yml)
+[![react-hooks-in-action](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/nr3y7v/main&style=plastic&logo=cypress)](https://dashboard.cypress.io/projects/nr3y7v/runs) [![codecov](https://codecov.io/gh/muratkeremozcan/react-hooks-in-action-with-cypress/branch/main/graph/badge.svg?token=PG4Z1HKVUE)](https://codecov.io/gh/muratkeremozcan/react-hooks-in-action-with-cypress) [![Build, Lint, e2e & ct test](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/actions/workflows/main.yml/badge.svg?branch=main&event=push)](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/actions/workflows/main.yml)
 ![cypress version](https://img.shields.io/badge/cypress-10.4.0-brightgreen) ![@cypress/react version](https://img.shields.io/badge/@cypress/react-5.12.5-brightgreen) ![@cypress/webpack-dev-server version](https://img.shields.io/badge/@cypress/webpack--dev--server-1.8.4-brightgreen) ![react version](https://img.shields.io/badge/react-18.2.0-brightgreen) ![react-scripts version](https://img.shields.io/badge/react--scripts-4.0.3-brightgreen) [![renovate-app badge][renovate-badge]][renovate-app]
 
 [renovate-badge]: https://img.shields.io/badge/renovate-app-blue.svg
@@ -155,7 +155,7 @@ The branch prior to the changes can be checked out at `before-visual-testing`. T
 
 The changes the guide can be found in [this PR](https://github.com/muratkeremozcan/react-hooks-in-action-with-cypress/pull/99).
 
-Check out the full guide on [dev.to](https://dev.to/muratkeremozcan/painlessly-setup-cypress-percy-with-github-actions-in-minutes-1aki). 
+Check out the full guide on [dev.to](https://dev.to/muratkeremozcan/painlessly-setup-cypress-percy-with-github-actions-in-minutes-1aki).
 
 ### Percy vs Applitools
 
