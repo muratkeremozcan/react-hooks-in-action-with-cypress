@@ -67,7 +67,7 @@ jobs:
   cypress-e2e-test:
     strategy:
       matrix:
-        machines: [1]
+        machines: [1, 2]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     container: cypress/included:10.4.0 # save time on not having to install cypress
@@ -147,7 +147,7 @@ jobs:
   cypress-ct-test:
     strategy:
       matrix:
-        machines: [1]
+        machines: [1, 2]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     container: cypress/included:10.4.0 # save time on not having to install cypress
