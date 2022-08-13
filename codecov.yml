@@ -1,3 +1,6 @@
+codecov:
+  notify:
+    after_n_builds: 3
 coverage:
   status:
     project:
@@ -7,8 +10,6 @@ coverage:
         threshold: 2%
   # makes it so that unit, cy ct and cy e2e reports finish running before the report is shown in a PAR
   # https://docs.codecov.com/docs/notifications#preventing-notifications-until-after-n-builds
-  notify:
-    after_n_builds: 3
   ignore:
     - 'src/**/*.cy.js'
     - 'src/**/*.test.js'
