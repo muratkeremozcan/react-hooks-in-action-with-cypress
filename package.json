@@ -24,7 +24,7 @@
     "@percy/cli": "1.10.1",
     "@percy/cypress": "3.1.2",
     "babel-loader": "8.1.0",
-    "concurrently": "7.3.0",
+    "concurrently": "7.4.0",
     "cross-env": "7.0.3",
     "cy-spok": "1.5.2",
     "cypress": "10.4.0",
