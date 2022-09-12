@@ -22,6 +22,7 @@ import 'cypress-real-events/support'
 import 'cypress-localstorage-commands'
 import '@bahmutov/cypress-code-coverage/support'
 import '@percy/cypress'
+require('dd-trace/ci/cypress/support')
 require('cypress-grep')()
 
 // Alternatively you can use CommonJS syntax:
