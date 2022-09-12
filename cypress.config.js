@@ -10,7 +10,10 @@ module.exports = defineConfig({
   experimentalPolyfill: true,
   env: {
     grepFilterSpecs: true,
-    grepOmitFiltered: true
+    grepOmitFiltered: true,
+    DD_ENV: 'local',
+    DD_SERVICE: 'test',
+    DD_TRACE_AGENT_URL: 'http://localhost:8126'
   },
   e2e: {
     // We've imported your old cypress plugins here.
