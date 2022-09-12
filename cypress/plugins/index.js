@@ -7,6 +7,7 @@ const cyGrep = require('cypress-grep/src/plugin')
 const codeCoverageTask = require('@bahmutov/cypress-code-coverage/plugin')
 // tasks
 const { initLaunchDarklyApiTasks } = require('cypress-ld-control')
+const ddTrace = require('dd-trace/ci/cypress/plugin')
 
 module.exports = (on, config) => {
   const combinedTasks = {
@@ -34,7 +35,13 @@ module.exports = (on, config) => {
 
   on('task', combinedTasks)
 
-  return Object.assign({}, config, codeCoverageTask(on, config), cyGrep)
+  return Object.assign(
+    {},
+    config,
+    codeCoverageTask(on, config),
+    cyGrep,
+    ddTrace(on, config)
+  )
 }
 
 require('@applitools/eyes-cypress')(module)
