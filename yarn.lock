@@ -6388,10 +6388,10 @@ cypress-grep@3.0.3:
     find-test-names "^1.17.2"
     globby "^11.0.4"
 
-cypress-ld-control@1.8.2:
-  version "1.8.2"
-  resolved "https://registry.yarnpkg.com/cypress-ld-control/-/cypress-ld-control-1.8.2.tgz#a391bc5edfbe86f245e6b62683735df1f2a63c17"
-  integrity sha512-CFpqSkORzFSCd6bfHuN2dZ4Cf9DkbwSy03zkjsTopF1VHrJ1gt4ZH5SAEmfeUhtsnk79XOoTg8LEjuDcb8stzw==
+cypress-ld-control@1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/cypress-ld-control/-/cypress-ld-control-1.12.0.tgz#793f4809253ff8f00d4093e76091a0bbbe563151"
+  integrity sha512-r1TYCEEVjfnNomzS70qu4ZZHnNhq6o7ysk1eavoa7eWWHzy43AQ0WskQE9OC9igYSbPcG0dpnL4ioFyUpdW9vg==
   dependencies:
     debug "^4.3.3"
     got "^11.8.3"
