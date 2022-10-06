@@ -7,7 +7,6 @@ module.exports = defineConfig({
     runMode: 2,
     openMode: 0
   },
-  experimentalPolyfill: true,
   env: {
     grepFilterSpecs: true,
     grepOmitFiltered: true
