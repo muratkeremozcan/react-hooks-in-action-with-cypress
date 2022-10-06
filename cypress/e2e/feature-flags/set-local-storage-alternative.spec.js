@@ -23,11 +23,6 @@ describe('Uses setLocalStorage instead of get for date-and-week flag', () => {
 
     cy.task('cypress-ld-control:getFeatureFlag', featureFlagKey)
       .its('variations')
-      .then((variations) => {
-        Cypress._.map(variations, (variation, i) =>
-          cy.log(`${i}: ${variation.value}`)
-        )
-      })
       .should('have.length', 2)
       .and((variations) => {
         expect(variations[0].value).to.eq(true)
