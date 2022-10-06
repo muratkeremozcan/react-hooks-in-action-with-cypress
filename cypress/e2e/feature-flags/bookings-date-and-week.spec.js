@@ -20,13 +20,9 @@ describe('Bookings date-and-week', () => {
 
     cy.task('cypress-ld-control:getFeatureFlag', featureFlagKey)
       .its('variations')
-      .then((variations) => {
-        Cypress._.map(variations, (variation, i) =>
-          cy.log(`${i}: ${variation.value}`)
-        )
-      })
       .should('have.length', 2)
-      .and((variations) => {
+      .then((variations) => {
+        console.log(variations)
         expect(variations[0].value).to.eq(true)
         expect(variations[1].value).to.eq(false)
       })
