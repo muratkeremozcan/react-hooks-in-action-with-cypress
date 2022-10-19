@@ -32,7 +32,7 @@
     "cypress-ld-control": "1.12.0",
     "cypress-localstorage-commands": "2.2.1",
     "cypress-react-app-actions": "1.0.2",
-    "cypress-real-events": "1.7.1",
+    "cypress-real-events": "1.7.2",
     "cypress-should-really": "1.6.0",
     "dotenv": "16.0.3",
     "eslint-plugin-cypress": "2.12.1",
