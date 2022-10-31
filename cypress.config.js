@@ -15,7 +15,7 @@ module.exports = defineConfig({
     DD_SERVICE: 'test',
     DD_TRACE_AGENT_URL: 'http://localhost:8126',
     DD_CIVISIBILITY_AGENTLESS_ENABLED: true
-    // DD_API_KEY: 'API_KEY_HERE'
+    // DD_API_KEY: 'KEY_HERE'
   },
   e2e: {
     // We've imported your old cypress plugins here.
@@ -25,6 +25,7 @@ module.exports = defineConfig({
         Object.assign({}, config)
       )
     },
+    supportFile: 'cypress/support/e2e.js',
     baseUrl: 'http://localhost:3000',
     specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}'
   },
