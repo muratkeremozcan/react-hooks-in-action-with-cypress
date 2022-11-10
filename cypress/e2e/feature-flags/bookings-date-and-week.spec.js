@@ -36,5 +36,7 @@ describe('Bookings date-and-week', () => {
     cy.getByCy('week-interval').should('not.exist')
   })
 
-  after(() => removeUserTarget(featureFlagKey, userId))
+  after(() => {
+    removeUserTarget(featureFlagKey, userId)
+  })
 })
