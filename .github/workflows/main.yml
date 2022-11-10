@@ -13,14 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Install dependencies
+        uses: cypress-io/github-action@v4.2.0
         with:
-          cache: 'yarn'
-          node-version: 16.10.0
-      - uses: bahmutov/npm-install@v1.8.25
-        with: { useRollingCache: true } # recommended for large projects
-        env:
-          CYPRESS_INSTALL_BINARY: 0 # no need to install the Cypress binary, we are already using the docker image in the e2e job
+          runTests: false
       # - name: Reset coverage (Coverage_step1)
       # reset state at the beginning for new unit + e2e coverage evaluation
       # run: yarn cov:reset
@@ -31,10 +27,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: bahmutov/npm-install@v1.8.25
-        with: { useRollingCache: true }
-        env:
-          CYPRESS_INSTALL_BINARY: 0
+      - name: Install dependencies
+        uses: cypress-io/github-action@v4.2.0
+        with:
+          runTests: false
       - name: unit-test
         run: yarn test
 
@@ -57,10 +53,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: bahmutov/npm-install@v1.8.25
-        with: { useRollingCache: true }
-        env:
-          CYPRESS_INSTALL_BINARY: 0
+      - name: Install dependencies
+        uses: cypress-io/github-action@v4.2.0
+        with:
+          runTests: false
       - name: lint
         run: yarn lint
 
@@ -70,17 +66,11 @@ jobs:
         machines: [1, 2]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
-    container: cypress/included:10.10.0 # save time on not having to install cypress
     steps:
       - uses: actions/checkout@v3
-
-      - uses: bahmutov/npm-install@v1.8.25 # save time on dependencies
-        with: { useRollingCache: true }
-
       - name: Cypress e2e tests 🧪
         uses: cypress-io/github-action@v4.2.0
         with:
-          install: false # no need to install because of the above 2
           start: yarn dev # concurrently starts ui and api servers
           wait-on: 'http://localhost:3000'
           browser: chrome
@@ -123,18 +113,11 @@ jobs:
   cypress-percy-visual-tests:
     needs: [install-dependencies]
     runs-on: ubuntu-latest
-    container: cypress/included:10.10.0 # save time on not having to install cypress
     steps:
       - uses: actions/checkout@v3
-
-      - uses: bahmutov/npm-install@v1.8.25 # save time on dependencies
-        with: { useRollingCache: true }
-
-      # We could also just add this step onto the original cypress-e2e-test job
       - name: Cypress visual tests 🧪
         uses: cypress-io/github-action@v4.2.0
         with:
-          install: false # no need to install because of the above 2
           start: yarn dev # concurrently starts ui and api servers
           wait-on: 'http://localhost:3000'
           browser: chrome
@@ -150,18 +133,12 @@ jobs:
         machines: [1, 2]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
-    container: cypress/included:10.10.0 # save time on not having to install cypress
     steps:
       - uses: actions/checkout@v3
-
-      - uses: bahmutov/npm-install@v1.8.25 # save time on dependencies
-        with: { useRollingCache: true }
 
       - name: Cypress component tests 🧪
         uses: cypress-io/github-action@v4.2.0
         with:
-          # we have already installed everything
-          install: false
           component: true
           browser: chrome
           record: true
@@ -201,10 +178,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: bahmutov/npm-install@v1.8.25 # needed for nyc and check coverage
-        with: { useRollingCache: true }
-        env:
-          CYPRESS_INSTALL_BINARY: 0
+      - name: Install dependencies
+        uses: cypress-io/github-action@v4.2.0
+        with:
+          runTests: false
 
       - name: Download all artifacts (Coverage_step3)
         uses: actions/download-artifact@v3
