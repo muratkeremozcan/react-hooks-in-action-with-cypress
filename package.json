@@ -53,7 +53,7 @@
     "start:api": "json-server --watch db.json --port 3001 --delay 1000",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext=.js,.ts,.tsx",
+    "lint": "eslint . --cache-location node_modules/.cache/eslint --ext=.js,.ts,.tsx --fix",
     "cy:open": "cypress open --e2e --browser chrome",
     "cy:run": "cypress run --e2e --browser chrome",
     "cy:open-ct": "cypress open --component --browser chrome",
