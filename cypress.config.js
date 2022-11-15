@@ -1,5 +1,6 @@
 const { defineConfig } = require('cypress')
 const codeCoverageTask = require('@bahmutov/cypress-code-coverage/plugin')
+const ldConfig = require('./cypress/plugins/index')
 
 module.exports = defineConfig({
   projectId: 'nr3y7v',
@@ -15,10 +16,8 @@ module.exports = defineConfig({
   e2e: {
     // We've imported your old cypress plugins here.
     setupNodeEvents(on, config) {
-      return require('./cypress/plugins/index.js')(
-        on,
-        Object.assign({}, config)
-      )
+      return ldConfig(on, Object.assign({}, config))
+      // return Object.assign({}, config, ldConfig(on, config))
     },
     baseUrl: 'http://localhost:3000',
     specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}'
