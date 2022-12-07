@@ -7,7 +7,7 @@ describe('Bookings date-and-week', () => {
   const featureFlagKey = FLAGS.DATE_AND_WEEK
   let userId
 
-  before(() => {
+  beforeEach(() => {
     cy.intercept('GET', '**/bookables').as('bookables')
     cy.visit('/bookings')
     cy.wait('@bookables')

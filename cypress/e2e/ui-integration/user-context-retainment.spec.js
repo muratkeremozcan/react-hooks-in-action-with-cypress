@@ -4,7 +4,7 @@ describe(
   'User selection retainment between routes',
   { tags: '@ui-integration' },
   () => {
-    before(() => {
+    beforeEach(() => {
       cy.stubNetwork()
       cy.visit('/')
     })

@@ -2,7 +2,7 @@
 import { FLAGS } from '../../../src/utils/flags'
 
 describe('Bookable details retainment', { tags: '@smoke' }, () => {
-  before(() => {
+  beforeEach(() => {
     cy.stubNetwork()
     cy.stubFeatureFlags({
       [FLAGS.PREV_NEXT]: { Next: true }

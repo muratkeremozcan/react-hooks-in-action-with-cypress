@@ -5,7 +5,7 @@ describe(
   'New bookable',
   { tags: '@smoke', viewportHeight: 1000, viewportWidth: 1000 },
   () => {
-    before(() => {
+    beforeEach(() => {
       cy.visit('/bookables')
       cy.contains('Bookables').click()
       cy.url().should('contain', '/bookables')
