@@ -1,5 +1,5 @@
 describe('routes', { tags: ['@routes', '@appJs'] }, () => {
-  before(() => {
+  beforeEach(() => {
     cy.stubNetwork()
     cy.visit('/')
   })
