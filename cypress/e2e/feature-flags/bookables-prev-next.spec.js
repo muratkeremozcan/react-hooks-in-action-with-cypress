@@ -26,7 +26,7 @@ describe('Bookables prev-next', () => {
   ]
   let userId
 
-  before(() => {
+  beforeEach(() => {
     cy.intercept('GET', '**/bookables').as('bookables')
     cy.visit('/bookables')
     cy.wait('@bookables').wait('@bookables')

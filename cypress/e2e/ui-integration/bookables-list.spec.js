@@ -10,7 +10,7 @@ describe('Bookables', { viewportHeight: 1000, viewportWidth: 1000 }, () => {
     })
   }
 
-  before(() => {
+  beforeEach(() => {
     allStubs()
 
     cy.visit('/bookables')

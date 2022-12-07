@@ -1,5 +1,5 @@
 describe('direct nav to BookableEdit', { tags: '@smoke' }, () => {
-  before(() => {
+  beforeEach(() => {
     cy.stubNetwork()
     cy.visit('/bookables/2/edit')
     cy.contains('h2', 'Edit Bookable')

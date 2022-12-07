@@ -10,7 +10,7 @@ describe('Users prev-next-user', () => {
   // the variable will be available throughout the spec
   let userId
 
-  before(() => {
+  beforeEach(() => {
     cy.intercept('GET', '**/users').as('users')
     cy.visit('/users')
     cy.wait('@users').wait('@users')

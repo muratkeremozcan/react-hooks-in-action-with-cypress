@@ -3,7 +3,7 @@ describe(
   'User selection retainment between routes',
   { tags: '@ui-integration' },
   () => {
-    before(() => {
+    beforeEach(() => {
       // Each test should open its own Eyes for its own snapshots
       cy.eyesOpen({
         appName: 'hooks-in-action',

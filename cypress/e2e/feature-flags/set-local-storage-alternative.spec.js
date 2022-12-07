@@ -11,7 +11,7 @@ describe('Uses setLocalStorage instead of get for date-and-week flag', () => {
   const featureFlagKey = FLAGS.DATE_AND_WEEK
   const userId = randomId()
 
-  before(() => {
+  beforeEach(() => {
     cy.intercept('GET', '**/bookables').as('bookables')
     cy.setLocalStorage('ld:$anonUserId', userId)
     cy.visit('/bookings')
