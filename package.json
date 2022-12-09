@@ -28,7 +28,7 @@
     "cross-env": "7.0.3",
     "cy-spok": "1.5.2",
     "cypress": "12.0.2",
-    "cypress-grep": "3.0.3",
+    "cypress-grep": "3.0.4",
     "cypress-ld-control": "1.12.0",
     "cypress-localstorage-commands": "2.2.1",
     "cypress-react-app-actions": "1.0.2",
