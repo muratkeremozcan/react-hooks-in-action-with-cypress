@@ -6456,10 +6456,10 @@ cypress-real-events@1.7.2:
   resolved "https://registry.yarnpkg.com/cypress-real-events/-/cypress-real-events-1.7.2.tgz#d04e6d3f15117ef485eb49f9c9b361f3a3413002"
   integrity sha512-tOANHbFRlqVL5Lu8OozvxTsrYgHwCnWmXAULGc1kdBF+k1gxrrvT/42uez3AhGoT+HcytyxieXAVt0jNP4yrvA==
 
-cypress-should-really@1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/cypress-should-really/-/cypress-should-really-1.6.0.tgz#3e158214495d0bd950a3c3563d9860d4e8748600"
-  integrity sha512-Qa/+1GZf7z3BKeWkfId4lBUKVazwvKaXT2PD9u4iCix9LL/h3xTYzMbp9xF8E+zbCXhllE7bun1ahOiTJowUWA==
+cypress-should-really@1.6.3:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/cypress-should-really/-/cypress-should-really-1.6.3.tgz#52f6d5c2435bb1815443afd7eea1f9ccad62568b"
+  integrity sha512-/+D996HGKA0ESGucFCKzd4wU9BDNLBxWb8U+3khWgkY6UOvmzhxI0MIqIrs/wV/peJmEbP35PnaN522Jbg7P+Q==
 
 cypress@12.0.2:
   version "12.0.2"
