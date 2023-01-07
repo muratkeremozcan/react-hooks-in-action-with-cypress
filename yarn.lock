@@ -10501,10 +10501,10 @@ launchdarkly-js-sdk-common@3.8.2:
     fast-deep-equal "^2.0.1"
     uuid "^3.3.2"
 
-launchdarkly-react-client-sdk@2.29.2:
-  version "2.29.2"
-  resolved "https://registry.yarnpkg.com/launchdarkly-react-client-sdk/-/launchdarkly-react-client-sdk-2.29.2.tgz#800d59a83a24be0b3cd15b70580e9745f9209cdc"
-  integrity sha512-JvgMkxtdGrSjBmZg6wXx8imd5s5pxCG+ETBwkO0GQwAzc/a2oOvxaatv43D5anmrFFdPt6OOjcwrSMfxIhMd3w==
+launchdarkly-react-client-sdk@2.29.4:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/launchdarkly-react-client-sdk/-/launchdarkly-react-client-sdk-2.29.4.tgz#7c1bb9c3db5d1df55688d801eed2e7c56f173526"
+  integrity sha512-f0vcrn/PtZl6DC0r2qQwwXg0JY/bkrFahijOfeB9RJY/gEgSAmO/eNmTGEyjKEGdc9SwzVmRzwS6i8OXs8np/w==
   dependencies:
     hoist-non-react-statics "^3.3.2"
     launchdarkly-js-client-sdk "2.24.2"
