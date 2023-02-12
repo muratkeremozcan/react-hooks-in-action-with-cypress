@@ -1,5 +1,6 @@
 // Applitools version of the visual test
-describe('User selection retainment between routes', () => {
+// the account is disabled as of Feb 2023
+describe.skip('User selection retainment between routes', () => {
   beforeEach(() => {
     // Each test should open its own Eyes for its own snapshots
     cy.eyesOpen({
