@@ -2883,6 +2883,17 @@
     nyc "15.1.0"
     sort-array "^4.1.5"
 
+"@bahmutov/spok@1.2.5":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@bahmutov/spok/-/spok-1.2.5.tgz#57af99032d44ab239e12693d5b1346280b4d8b14"
+  integrity sha512-tRtKM5rmL59Ciu3yBgDYEV798B6RdK85wUsNOsVJ2lrw5UGdxk17nlvwrLVoX6xHpfoOudiFZ9O8Ae+uhOSQ0w==
+  dependencies:
+    ansicolors "~0.3.2"
+    is-arguments "^1.1.1"
+    is-generator-function "^1.0.10"
+    is-typed-array "^1.1.10"
+    which-typed-array "^1.1.9"
+
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
@@ -6697,12 +6708,12 @@ cssstyle@^2.3.0:
   dependencies:
     cssom "~0.3.6"
 
-cy-spok@1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/cy-spok/-/cy-spok-1.5.2.tgz#d6977f8de621353c2e58452f24f3388aa4b7e587"
-  integrity sha512-+3D/EDSW/e4icwkh4u+hX5RPj/CnYfNtyrFrGq2oPTLwaW+hMmR3LLgNiQ70Kz4JyQLK3JCNb+9aGBGlL/TJCQ==
+cy-spok@1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/cy-spok/-/cy-spok-1.6.1.tgz#549facf2904a3102e71870bbf02d6745ab0e8e46"
+  integrity sha512-1Hx3BWYifBujdr6iKUQlI4NN7jF/OQ4PvAa8AB9ZMKsk5vAXKXCG38an39JPzMn468zW3k9H5nmOeaauJfUN7w==
   dependencies:
-    spok "^1.4.3"
+    "@bahmutov/spok" "1.2.5"
     strip-ansi "6.0.1"
 
 cyclist@^1.0.1:
@@ -8667,6 +8678,15 @@ get-intrinsic@^1.0.2, get-intrinsic@^1.1.0, get-intrinsic@^1.1.1:
     has "^1.0.3"
     has-symbols "^1.0.3"
 
+get-intrinsic@^1.1.3:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/get-intrinsic/-/get-intrinsic-1.2.0.tgz#7ad1dc0535f3a2904bba075772763e5051f6d05f"
+  integrity sha512-L049y6nFOuom5wGyRc3/gdTLO94dySVKRACj1RmJZBQXlbTMhtNIgkWkUHq+jYmZvKf14EW1EoJnnjbmoHij0Q==
+  dependencies:
+    function-bind "^1.1.1"
+    has "^1.0.3"
+    has-symbols "^1.0.3"
+
 get-own-enumerable-property-symbols@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/get-own-enumerable-property-symbols/-/get-own-enumerable-property-symbols-3.0.2.tgz#b5fde77f22cbe35f390b4e089922c50bce6ef664"
@@ -8842,6 +8862,13 @@ globby@^6.1.0:
     object-assign "^4.0.1"
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
+
+gopd@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/gopd/-/gopd-1.0.1.tgz#29ff76de69dac7489b7c0918a5788e56477c332c"
+  integrity sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==
+  dependencies:
+    get-intrinsic "^1.1.3"
 
 got@^11.0.2, got@^11.8.1, got@^11.8.3:
   version "11.8.5"
@@ -9514,7 +9541,7 @@ is-accessor-descriptor@^1.0.0:
   dependencies:
     kind-of "^6.0.0"
 
-is-arguments@^1.0.4:
+is-arguments@^1.0.4, is-arguments@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/is-arguments/-/is-arguments-1.1.1.tgz#15b3f88fda01f2a97fec84ca761a560f123efa9b"
   integrity sha512-8Q7EARjzEnKpt/PCD7e1cgUS0a6X8u5tdSiMqXhojOdoV9TsMsiO+9VLC5vAmO8N7/GmXn7yjR8qnA6bVAEzfA==
@@ -9685,7 +9712,7 @@ is-generator-fn@^2.0.0:
   resolved "https://registry.yarnpkg.com/is-generator-fn/-/is-generator-fn-2.1.0.tgz#7d140adc389aaf3011a8f2a2a4cfa6faadffb118"
   integrity sha512-cTIB4yPYL/Grw0EaSzASzg6bBy9gqCofvWN8okThAYIxKJZC+udlRAmGbM0XLeniEJSs8uEgHPGuHSe1XsOLSQ==
 
-is-generator-function@^1.0.7:
+is-generator-function@^1.0.10, is-generator-function@^1.0.7:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/is-generator-function/-/is-generator-function-1.0.10.tgz#f1558baf1ac17e0deea7c0415c438351ff2b3c72"
   integrity sha512-jsEjy9l3yiXEQ+PsXdmBwEPcOxaXWLspKdplFUVI9vq1iZgIekeC0L167qeu86czQaxed3q/Uzuw0swL0irL8A==
@@ -9857,6 +9884,17 @@ is-symbol@^1.0.2, is-symbol@^1.0.3:
   integrity sha512-C/CPBqKWnvdcxqIARxyOh4v1UUEOCHpgDa0WYgpKDFMszcrPcffg5uhwSgPCLD2WWxmq6isisz87tzT01tuGhg==
   dependencies:
     has-symbols "^1.0.2"
+
+is-typed-array@^1.1.10:
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/is-typed-array/-/is-typed-array-1.1.10.tgz#36a5b5cb4189b575d1a3e4b08536bfb485801e3f"
+  integrity sha512-PJqgEHiWZvMpaFZ3uTc8kHPM4+4ADTlDniuQL7cU/UDA0Ql7F70yGfHph3cLNe+c9toaigv+DFzTJKhc2CtO6A==
+  dependencies:
+    available-typed-arrays "^1.0.5"
+    call-bind "^1.0.2"
+    for-each "^0.3.3"
+    gopd "^1.0.1"
+    has-tostringtag "^1.0.0"
 
 is-typed-array@^1.1.3, is-typed-array@^1.1.9:
   version "1.1.9"
@@ -14815,13 +14853,6 @@ split@0.3:
   dependencies:
     through "2"
 
-spok@^1.4.3:
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/spok/-/spok-1.4.3.tgz#8516234e6bd8caf0e10567bd675e15fd03b5ceb8"
-  integrity sha512-5wFGctwrk638aDs+44u99kohxFNByUq2wo0uShQ9yqxSmsxqx7zKbMo1Busy4s7stZQXU+PhJ/BlVf2XWFEGIw==
-  dependencies:
-    ansicolors "~0.3.2"
-
 sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
@@ -16376,6 +16407,18 @@ which-typed-array@^1.1.2:
     for-each "^0.3.3"
     has-tostringtag "^1.0.0"
     is-typed-array "^1.1.9"
+
+which-typed-array@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/which-typed-array/-/which-typed-array-1.1.9.tgz#307cf898025848cf995e795e8423c7f337efbde6"
+  integrity sha512-w9c4xkx6mPidwp7180ckYWfMmvxpjlZuIudNtDf4N/tTAUB8VJbX25qZoAsrtGuYNnGw3pa0AXgbGKRB8/EceA==
+  dependencies:
+    available-typed-arrays "^1.0.5"
+    call-bind "^1.0.2"
+    for-each "^0.3.3"
+    gopd "^1.0.1"
+    has-tostringtag "^1.0.0"
+    is-typed-array "^1.1.10"
 
 which@2.0.2, which@^2.0.1, which@^2.0.2:
   version "2.0.2"
