@@ -14,8 +14,9 @@ module.exports = defineConfig({
     DD_ENV: 'local',
     DD_SERVICE: 'test',
     DD_TRACE_AGENT_URL: 'http://localhost:8126',
-    DD_CIVISIBILITY_AGENTLESS_ENABLED: true
-    // DD_API_KEY: 'KEY_HERE'
+    DD_CIVISIBILITY_AGENTLESS_ENABLED: true,
+    DD_SITE: 'datadoghq.com',
+    DD_API_KEY: ''
   },
   e2e: {
     // We've imported your old cypress plugins here.
