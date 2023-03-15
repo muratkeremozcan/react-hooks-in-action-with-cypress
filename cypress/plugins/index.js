@@ -39,8 +39,8 @@ module.exports = (on, config) => {
     {},
     config,
     codeCoverageTask(on, config),
-    cyGrep,
-    ddTrace(on, config)
+    cyGrep
+    //ddTrace(on, config)
   )
 }
 

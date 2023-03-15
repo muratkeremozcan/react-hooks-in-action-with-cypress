@@ -16,11 +16,12 @@ module.exports = defineConfig({
     DD_TRACE_AGENT_URL: 'http://localhost:8126',
     DD_CIVISIBILITY_AGENTLESS_ENABLED: true,
     DD_SITE: 'datadoghq.com',
-    DD_API_KEY: ''
+    DD_API_KEY: '5ade64d68781769952baa12a2ac996ed'
   },
   e2e: {
     // We've imported your old cypress plugins here.
     setupNodeEvents(on, config) {
+      require('dd-trace/ci/cypress/plugin')(on, config)
       return require('./cypress/plugins/index.js')(
         on,
         Object.assign({}, config)
