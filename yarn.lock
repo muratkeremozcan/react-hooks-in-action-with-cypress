@@ -10823,30 +10823,30 @@ latest-version@^5.1.0:
   dependencies:
     package-json "^6.3.0"
 
-launchdarkly-js-client-sdk@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/launchdarkly-js-client-sdk/-/launchdarkly-js-client-sdk-3.1.1.tgz#63b8d55fce00b774ecdec29e9262196ad52e6796"
-  integrity sha512-bxp5e3BE9OsHfFpiYpdm/v9Bb5Pd6aJABsrvqyz5VaepCAdTd3uOPPWVIN1jWxzNrKxSqtgJTstbGpQcKsLFQA==
+launchdarkly-js-client-sdk@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/launchdarkly-js-client-sdk/-/launchdarkly-js-client-sdk-3.1.3.tgz#e046439f0e4f0bfd6d38b9eaa4420a6e40ffc0c7"
+  integrity sha512-/JR/ri8z3bEj9RFTTKDjd+con4F1MsWUea1MmBDtFj4gDA0l9NDm1KzhMKiIeoBdmB2rSaeFYe4CaYOEp8IryA==
   dependencies:
     escape-string-regexp "^4.0.0"
-    launchdarkly-js-sdk-common "5.0.2"
+    launchdarkly-js-sdk-common "5.0.3"
 
-launchdarkly-js-sdk-common@5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/launchdarkly-js-sdk-common/-/launchdarkly-js-sdk-common-5.0.2.tgz#c1b6943a2a4038c31ee3cfdba18f347382a33529"
-  integrity sha512-fD4YndDUVWSyAFE2NdzeBSgpjPxyRN8+mz3p+VXKnDAPt3bdzGIEHrvusbY/K8fKZjpo4vRd7soNiA1EejkEPQ==
+launchdarkly-js-sdk-common@5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/launchdarkly-js-sdk-common/-/launchdarkly-js-sdk-common-5.0.3.tgz#345f899f5779be8b03d6599978c855eb838d8b7f"
+  integrity sha512-wKG8UsVbPVq8+7eavgAm5CVmulQWN6Ddod2ZoA3euZ1zPvJPwIQ2GrOYaCJr3cFrrMIX+nQyBJHBHYxUAPcM+Q==
   dependencies:
     base64-js "^1.3.0"
     fast-deep-equal "^2.0.1"
     uuid "^8.0.0"
 
-launchdarkly-react-client-sdk@3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/launchdarkly-react-client-sdk/-/launchdarkly-react-client-sdk-3.0.2.tgz#aeb5ff141f53ea5b53a99c82b80438c532133baa"
-  integrity sha512-ZkMSKkpbxPin75PWXCYz8y3hcBVh4erq8bsNLr5bk5XoLpQ7hQmDzSh8+t7WGSFzytHKihJv6GGPlI9k5SpNkQ==
+launchdarkly-react-client-sdk@3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/launchdarkly-react-client-sdk/-/launchdarkly-react-client-sdk-3.0.6.tgz#5c694a4a013757d2afb5213efd28d9c16af1595e"
+  integrity sha512-r7gSshScugjnJB4lJ6mAOMKpV4Pj/wUks3tsRHdfeXgER9jPdxmZOAkm0besMjK0S7lfQdjxJ2KIXrh+Mn1sQA==
   dependencies:
     hoist-non-react-statics "^3.3.2"
-    launchdarkly-js-client-sdk "^3.1.1"
+    launchdarkly-js-client-sdk "^3.1.3"
     lodash.camelcase "^4.3.0"
 
 lazy-ass@1.6.0, lazy-ass@^1.6.0:
