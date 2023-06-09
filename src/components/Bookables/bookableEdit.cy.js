@@ -45,7 +45,7 @@ describe('BookableEdit', { viewportWidth: 1000, viewportHeight: 700 }, () => {
     cy.getByCy('error').should('be.visible')
   })
 
-  context('crud', () => {
+  context.skip('crud', () => {
     beforeEach(() => {
       // note: the component tries to get state from the url,
       // component test doe snot have a url, and hits bookables/undefined

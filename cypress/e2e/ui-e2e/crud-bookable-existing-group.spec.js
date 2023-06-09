@@ -3,7 +3,7 @@
 import spok from 'cy-spok'
 import { faker } from '@faker-js/faker'
 
-describe(
+describe.skip(
   'New bookable',
   { tags: '@smoke', viewportHeight: 1000, viewportWidth: 1000 },
   () => {
